@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">AlertMass</string>
+
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_pass_recover">PassRecoverActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_notificaciones">NotificacionesActivity</string>
+</resources>

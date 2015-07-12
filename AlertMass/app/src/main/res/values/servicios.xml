@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="SERVICIOTODOSUSUARIOS">http://54.94.248.196:3000/user</string>
+    <string name="SERVICIOCREARUSUARIO">http://54.94.248.196:3000/user</string>
+</resources>
