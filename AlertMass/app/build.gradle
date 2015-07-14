@@ -24,4 +24,11 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.google.android.gms:play-services:7.5.0'
     compile 'com.android.support:support-v4:22.2.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.0.0'
+    compile 'com.parse.bolts:bolts-android:1.+'
+    compile files('libs/Parse-1.9.3/Parse-1.9.3.jar')
+
+}
+repositories {
+    mavenCentral()
 }

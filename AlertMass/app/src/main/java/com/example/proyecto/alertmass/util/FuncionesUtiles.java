@@ -29,7 +29,7 @@ public abstract class FuncionesUtiles {
         Toast.makeText(ctnx, Mensaje, Toast.LENGTH_SHORT).show();
     }
     public static void EnviarCorreoPassword(Context cntx){
-        String Asunto = "Recuperar Contraseña";
+        String Asunto = "Recuperar Contrasena";
         String Destinatario = "jorquera.fran@gmail.com";
         String Mensaje = "Esto es una prueba de recuperar contrasena";
         Intent SendMail = new Intent(Intent.ACTION_SEND);

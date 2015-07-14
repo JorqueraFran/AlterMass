@@ -35,6 +35,12 @@ import com.example.proyecto.alertmass.Conexion.Descargar;
 import com.example.proyecto.alertmass.Conexion.IDescarga;
 import com.example.proyecto.alertmass.Data.DataLogin;
 import com.example.proyecto.alertmass.util.FuncionesUtiles;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 
 import org.json.JSONObject;
 
@@ -65,12 +71,36 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     private Button btnIngresarFace;
     private Button btnRegistrar;
     private DataLogin datalogin;
-
+    private CallbackManager callbackManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        // App code
+                        FuncionesUtiles.ToastMensaje(LoginActivity.this, "Bienvenido a AlertMass!");
+                        Intent intent = new Intent(LoginActivity.this, NotificacionesActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.left_in, R.anim.left_out);
+                    }
 
+                    @Override
+                    public void onCancel() {
+                        // App code
+                        FuncionesUtiles.ToastMensaje(LoginActivity.this, "Inicio Cancelado");
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                        FuncionesUtiles.ToastMensaje(LoginActivity.this, "Error al Ingresar");
+                    }
+                });
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.txt_EmailRecover);
         populateAutoComplete();
@@ -125,6 +155,17 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //AppEventsLogger.deactivateApp(this);
+    }
 
     private void populateAutoComplete() {
         getLoaderManager().initLoader(0, null, this);
