@@ -1,0 +1,137 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.proyecto.alertmass.PerfilesActivity"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lytContenidoPerfil"
+        android:layout_above="@+id/btnCerrarSesion">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Nombre"
+            android:id="@+id/textView"
+            android:layout_marginLeft="10dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtNombrePerfil"
+            android:layout_gravity="center_horizontal"
+            android:hint="Nombre Perfil"
+            android:textColor="#005397"
+            android:enabled="false"
+            android:layout_marginBottom="10dp"
+            android:editable="false" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Correo"
+            android:id="@+id/textView2"
+            android:layout_marginLeft="10dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtCorreoPerfil"
+            android:layout_gravity="center_horizontal"
+            android:hint="Correo Perfil"
+            android:textColor="#005397"
+            android:enabled="false"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Password"
+            android:id="@+id/textView3"
+            android:layout_marginLeft="10dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtPassPerfil"
+            android:layout_gravity="center_horizontal"
+            android:hint="Password Perfil"
+            android:inputType="textPassword"
+            android:textColor="#005397"
+            android:enabled="true"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblPassConfirm"
+            android:text="Repetir Password"
+            android:visibility="gone" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/txtPassConfirm"
+            android:hint="Confirmar Password"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guardar Cambio de Password"
+                android:background="@drawable/buttonmain"
+                android:textColor="#005397"
+                android:id="@+id/btnGuardarPass"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:visibility="gone" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cambiar Password"
+                android:id="@+id/btnCambiaPassPerfil"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/buttonmain"
+                android:textColor="#005397"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:visibility="visible" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/lblInfoPerfil"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#005397"
+            android:layout_marginTop="30dp" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cerrar Sesion"
+        android:id="@+id/btnCerrarSesion"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:textColor="#005397"
+        android:background="@drawable/buttonmain" />
+</RelativeLayout>

@@ -37,6 +37,7 @@
             android:id="@+id/lbl_InfoPassRecover"
             android:gravity="center"
             android:layout_above="@+id/txt_EmailRecover"
+
             android:textColor="#ff000000" />
 
         <AutoCompleteTextView android:id="@+id/txt_EmailRecover" android:layout_width="match_parent"
@@ -44,6 +45,7 @@
             android:inputType="textEmailAddress" android:maxLines="1"
             android:singleLine="true"
             android:layout_alignParentBottom="true"
+            android:imeOptions="actionGo"
             android:layout_marginBottom="50dp"
             android:layout_marginTop="50dp" />
 

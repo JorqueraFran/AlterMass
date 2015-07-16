@@ -9,13 +9,14 @@ import org.json.JSONObject;
  * Created by Francisca on 12-07-2015.
  */
 public class DataLogin {
-    private String Correo;
-    private String Pass;
-    private String Nombre;
-    private boolean IsSession;
+    private String Correo="";
+    private String Pass="";
+    private String Nombre="";
     private static JSONObject jObject;
     private static DataLogin datalogin;
-
+    private static String correo;
+    private static String nombre;
+    private static String pass;
     //GET
     public String GetCorreoUser(){
         return this.Correo;
@@ -25,9 +26,6 @@ public class DataLogin {
     }
     public String GetNombreUser(){
         return this.Nombre;
-    }
-    public boolean GetSessionUser(){
-        return this.IsSession;
     }
     //SET
     public void SetCorreoUser(String correo){
@@ -39,8 +37,11 @@ public class DataLogin {
     public void SetNombreUser(String nombre){
         this.Nombre = nombre;
     }
-    public void SetSessionUser(boolean session){
-        this.IsSession = session;
+
+    public DataLogin(){
+        Correo=correo;
+        Pass=pass;
+        Nombre=nombre;
     }
     public DataLogin(JSONObject json)
     {
@@ -49,10 +50,8 @@ public class DataLogin {
             this.SetCorreoUser(json.getString("email"));
             this.SetNombreUser(json.getString("name"));
             this.SetPassUser(json.getString("pass"));
-            this.SetSessionUser(true);
         }catch (JSONException e)
         {
-            this.SetSessionUser(false);
         }
 
     }
@@ -68,6 +67,13 @@ public class DataLogin {
             return false;
         }
         return true;
+    }
+    public static void ProcesarSession(String _correo, String _nombre, String _pass)
+    {
+            correo = _correo;
+            nombre = _nombre;
+            pass = _pass;
+            datalogin = new DataLogin();
     }
     public static DataLogin EntregarDataLogin()
     {

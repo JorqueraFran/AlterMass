@@ -1,18 +1,26 @@
 package com.example.proyecto.alertmass;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.proyecto.alertmass.Conexion.Descargador;
+import com.example.proyecto.alertmass.Conexion.Descargar;
+import com.example.proyecto.alertmass.Conexion.IDescarga;
 import com.example.proyecto.alertmass.util.FuncionesUtiles;
 
 
-public class PassRecoverActivity extends Activity {
+public class PassRecoverActivity extends Activity implements IDescarga {
 
     private AutoCompleteTextView EmailRecover;
     @Override
@@ -20,6 +28,51 @@ public class PassRecoverActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passrecover);
         EmailRecover = (AutoCompleteTextView) findViewById(R.id.txt_EmailRecover);
+        EmailRecover.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId== EditorInfo.IME_ACTION_GO){
+                    RecuperarPass();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+    }
+    private void RecuperarPass(){
+        new AsyncTask<Void, Void, Boolean>() {
+            ProgressDialog pDialog = new ProgressDialog(PassRecoverActivity.this);
+            String Correo =  EmailRecover.getText().toString();
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                FuncionesUtiles.OcultarTeclado(PassRecoverActivity.this);
+                Descargador descargador = new Descargador();
+                Descargar descarga = new Descargar();
+                descarga.urlDescarga = getResources().getString(R.string.SERVICIORECUPERARPWD);
+                descarga.isPost = false;
+                descarga.callback = PassRecoverActivity.this;
+                descargador.execute(descarga);
+                return true;
+            }
+
+            @Override
+            protected void onPreExecute() {
+                FuncionesUtiles.ProgressDialog(pDialog, "Enviando Password...");
+            }
+
+            @Override
+            protected void onPostExecute(final Boolean success) {
+                FuncionesUtiles.CancelarDialog(pDialog);
+
+            }
+
+            @Override
+            protected void onCancelled() {
+                FuncionesUtiles.CancelarDialog(pDialog);
+
+            }
+        }.execute();
 
     }
 
@@ -34,5 +87,22 @@ public class PassRecoverActivity extends Activity {
             FuncionesUtiles.ToastMensaje(this,"ENTER");
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void TerminoDescarga(Descargar descarga, byte[] data) {
+        FuncionesUtiles.ToastMensaje(this, "E-Mail enviado correctamente!");
+        finish();
+        overridePendingTransition(R.anim.right_in, R.anim.right_out);
+    }
+
+    @Override
+    public void ErrorDescarga(Descargar descarga, int codigoError, String descripcion) {
+        FuncionesUtiles.ToastMensaje(this, "Error para enviar password!");
+    }
+
+    @Override
+    public void ProgresoDescarga(Float porcentaje) {
+
     }
 }

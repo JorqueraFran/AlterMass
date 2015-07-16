@@ -116,14 +116,14 @@ public class RegisterActivity extends Activity implements IDescarga {
 
     @Override
     public void TerminoDescarga(Descargar descarga, byte[] data) {
-        Toast.makeText(getApplicationContext(), "Usuario Registrado Correctamente", Toast.LENGTH_SHORT).show();
+        FuncionesUtiles.ToastMensaje(this, "Usuario Registrado Correctamente");
         finish();
         overridePendingTransition(R.anim.right_in, R.anim.right_out);
     }
 
     @Override
     public void ErrorDescarga(Descargar descarga, int codigoError, String descripcion) {
-        Toast.makeText(this,"Error al Registrar " + descarga.msgServidor,Toast.LENGTH_LONG).show();
+        FuncionesUtiles.ToastMensaje(this, "Error al Registrar");
 
     }
 

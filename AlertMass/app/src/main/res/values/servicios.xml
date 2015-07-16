@@ -2,4 +2,6 @@
 <resources>
     <string name="SERVICIOTODOSUSUARIOS">http://54.94.248.196:3000/user</string>
     <string name="SERVICIOCREARUSUARIO">http://54.94.248.196:3000/user</string>
+    <string name="SERVICIOCAMBIOPWD">54.94.248.196:3000/pwd/</string>
+    <string name="SERVICIORECUPERARPWD">54.94.248.196:3000/pwd/email</string>
 </resources>

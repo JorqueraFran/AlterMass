@@ -10,6 +10,7 @@ import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 
@@ -33,6 +34,7 @@ import android.widget.Toast;
 import com.example.proyecto.alertmass.Conexion.Descargador;
 import com.example.proyecto.alertmass.Conexion.Descargar;
 import com.example.proyecto.alertmass.Conexion.IDescarga;
+import com.example.proyecto.alertmass.Conexion.Session;
 import com.example.proyecto.alertmass.Data.DataLogin;
 import com.example.proyecto.alertmass.util.FuncionesUtiles;
 import com.facebook.CallbackManager;
@@ -41,6 +43,11 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.parse.ParseAnalytics;
+import com.parse.ParseException;
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
+import com.parse.SaveCallback;
 
 import org.json.JSONObject;
 
@@ -72,11 +79,39 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     private Button btnRegistrar;
     private DataLogin datalogin;
     private CallbackManager callbackManager;
+    private Session datasession;
+    private String usersession;
+    private String passsession;
+    private String correosession;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
+
+        ParseAnalytics.trackAppOpened(getIntent());
+        ParseInstallation.getCurrentInstallation().saveInBackground();
+        ParsePush.subscribeInBackground("", new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    Log.d("com.parse.push", "successfully subscribed to the broadcast channel.");
+                } else {
+                    Log.e("com.parse.push", "failed to subscribe for push", e);
+                }
+            }
+        });
+        datalogin= DataLogin.EntregarDataLogin();
+        if (IsSession()){
+            DataLogin.ProcesarSession(correosession,usersession,passsession);
+            datalogin= DataLogin.EntregarDataLogin();
+            //datalogin.SetNombreUser(usersession);
+            //datalogin.SetCorreoUser(correosession);
+           //datalogin.SetPassUser(passsession);
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
@@ -84,7 +119,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
                     public void onSuccess(LoginResult loginResult) {
                         // App code
                         FuncionesUtiles.ToastMensaje(LoginActivity.this, "Bienvenido a AlertMass!");
-                        Intent intent = new Intent(LoginActivity.this, NotificacionesActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.left_in, R.anim.left_out);
                     }
@@ -309,8 +344,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
             datalogin=DataLogin.EntregarDataLogin();
             String Pass = mPasswordView.getText().toString();
             if(Pass.equals(datalogin.GetPassUser())){
+                mPasswordView.setText("");
+                mEmailView.setText("");
+                SetSession(datalogin.GetNombreUser(), datalogin.GetPassUser(), datalogin.GetCorreoUser());
                 Toast.makeText(getApplicationContext(), "Bienvenido a AlertMass!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, NotificacionesActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.left_in, R.anim.left_out);
             }else {
@@ -359,6 +397,68 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         mEmailView.setAdapter(adapter);
     }
 
+    private boolean IsSession()
+    {
+        datasession = new Session(this, "AlertMass", null, 1);
+        SQLiteDatabase db = datasession.getWritableDatabase();
 
+        if (db != null)
+        {
+            //db.execSQL("delete from Usuario");
+            Cursor c = db.rawQuery("SELECT usr, pwr, correo FROM Usuario", null);
+            int count = c.getCount();
+            if (c.getCount() > 0)
+            {
+                if (c.moveToFirst())
+                {
+                    do
+                    {
+                        usersession = c.getString(0);
+                        passsession = c.getString(1);
+                        correosession = c.getString(2);
+                    }
+                    while (c.moveToNext());
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private void SetSession(String usr, String pwr, String Correo)
+    {
+
+        SQLiteDatabase db = datasession.getWritableDatabase();
+
+        if (db != null)
+        {
+            db.execSQL("DELETE FROM Usuario");
+            db.execSQL("INSERT INTO Usuario (usr, pwr, correo) VALUES ('" + usr + "', '" + pwr + "' , '" + Correo + "')");
+            db.close();
+        }
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == event.KEYCODE_BACK)
+        {
+            Intent main = new Intent(Intent.ACTION_MAIN);
+            main.addCategory(Intent.CATEGORY_HOME);
+            main.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(main);
+		/*finish();*/
+            //System.runFinalizersOnExit(true);
+            //System.exit(0);
+            //overridePendingTransition(R.anim.right_in, R.anim.right_out);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
 

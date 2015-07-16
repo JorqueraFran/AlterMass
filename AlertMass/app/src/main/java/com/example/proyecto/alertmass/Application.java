@@ -27,10 +27,10 @@ public class Application extends android.app.Application {
 
         // Initialize the Parse SDK.
         Parse.initialize(this, "w8RyWfkFEO2O08Qhd7lDoWIZsi0i9KZJF7wMg2Z5", "Fn96QocIzlhZq5bDyWT7HW5np0eBy5V9qW6GdnAj");
-
+        PushService.setDefaultPushCallback(this, LoginActivity.class);
         // Specify an Activity to handle all pushes by default.
         //PushService.setDefaultPushCallback(this, LoginActivity.class);
-        ParseInstallation.getCurrentInstallation().saveInBackground();
+        /*ParseInstallation.getCurrentInstallation().saveInBackground();
         ParsePush.subscribeInBackground("", new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -40,6 +40,6 @@ public class Application extends android.app.Application {
                     Log.e("com.parse.push", "failed to subscribe for push", e);
                 }
             }
-        });
+        });*/
     }
 }

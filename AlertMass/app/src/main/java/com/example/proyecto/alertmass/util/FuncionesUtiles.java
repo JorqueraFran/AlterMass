@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 /**
@@ -38,5 +39,9 @@ public abstract class FuncionesUtiles {
         SendMail.putExtra(android.content.Intent.EXTRA_SUBJECT, Asunto);
         SendMail.putExtra(android.content.Intent.EXTRA_TEXT, Mensaje);
         cntx.startActivity(SendMail);
+    }
+    public static void OcultarTeclado(Activity activity) {
+        InputMethodManager inputMethodManager = (InputMethodManager)  activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
     }
 }
