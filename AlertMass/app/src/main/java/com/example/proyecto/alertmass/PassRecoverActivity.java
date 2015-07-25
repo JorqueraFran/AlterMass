@@ -19,6 +19,8 @@ import com.example.proyecto.alertmass.Conexion.Descargar;
 import com.example.proyecto.alertmass.Conexion.IDescarga;
 import com.example.proyecto.alertmass.util.FuncionesUtiles;
 
+import org.json.JSONObject;
+
 
 public class PassRecoverActivity extends Activity implements IDescarga {
 
@@ -32,8 +34,13 @@ public class PassRecoverActivity extends Activity implements IDescarga {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId== EditorInfo.IME_ACTION_GO){
-                    RecuperarPass();
-                    return true;
+                    if (!FuncionesUtiles.isEmailValid(EmailRecover.getText().toString())){
+                        EmailRecover.setError(getString(R.string.error_invalid_email));
+                        return false;
+                    }else{
+                        RecuperarPass();
+                        return true;
+                    }
                 }
                 return false;
             }
@@ -49,7 +56,7 @@ public class PassRecoverActivity extends Activity implements IDescarga {
                 FuncionesUtiles.OcultarTeclado(PassRecoverActivity.this);
                 Descargador descargador = new Descargador();
                 Descargar descarga = new Descargar();
-                descarga.urlDescarga = getResources().getString(R.string.SERVICIORECUPERARPWD);
+                descarga.urlDescarga = getResources().getString(R.string.SERVICIO_RECUPERAR_PWD)+Correo;
                 descarga.isPost = false;
                 descarga.callback = PassRecoverActivity.this;
                 descargador.execute(descarga);
@@ -91,14 +98,27 @@ public class PassRecoverActivity extends Activity implements IDescarga {
 
     @Override
     public void TerminoDescarga(Descargar descarga, byte[] data) {
-        FuncionesUtiles.ToastMensaje(this, "E-Mail enviado correctamente!");
-        finish();
-        overridePendingTransition(R.anim.right_in, R.anim.right_out);
+        try {
+            String strJSON = new String(data, "UTF-8");
+            JSONObject jObject = new JSONObject(strJSON);
+            if(jObject.getString("st").equals("OK")){
+                FuncionesUtiles.ToastMensaje(this, "E-Mail enviado correctamente!");
+                finish();
+                overridePendingTransition(R.anim.right_in, R.anim.right_out);
+            }else{
+                FuncionesUtiles.ToastMensaje(this, "Hubo problemas para recuperar su password");
+            }
+
+        } catch (Exception ex)
+            {
+                FuncionesUtiles.ToastMensaje(this, "Hubo problemas para recuperar su password");
+                return;
+            }
     }
 
     @Override
     public void ErrorDescarga(Descargar descarga, int codigoError, String descripcion) {
-        FuncionesUtiles.ToastMensaje(this, "Error para enviar password!");
+        FuncionesUtiles.ToastMensaje(this, "Hubo problemas para recuperar su password");
     }
 
     @Override

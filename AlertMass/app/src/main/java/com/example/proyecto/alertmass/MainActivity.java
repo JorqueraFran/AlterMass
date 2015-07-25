@@ -12,12 +12,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
 
+import com.facebook.login.LoginManager;
+
+import java.util.Arrays;
+
 
 public class MainActivity extends TabActivity {
     TabHost tabHost;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         tabHost = getTabHost();
         TabHost.TabSpec TabNotifi = tabHost.newTabSpec("Page 1");

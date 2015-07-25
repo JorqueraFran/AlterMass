@@ -11,6 +11,7 @@ import java.util.HashMap;
 public class Descargar {
     public String urlDescarga;
     public HashMap<String, String> varsPost;
+    public String headersPWD;
     public boolean isPost;
     public IDescarga callback;
     public byte[] resultado;
@@ -22,6 +23,7 @@ public class Descargar {
     {
         urlDescarga = "";
         varsPost = new HashMap<String, String>();
+        headersPWD= "";
         isPost = true;
 
         callback = null;
@@ -49,6 +51,11 @@ public class Descargar {
         }
 
         return strVars;
+    }
+
+    public String ObtenerHeadersPWD()
+    {
+        return headersPWD;
     }
 
     public HttpURLConnection EntregarConexion() throws IOException
@@ -82,7 +89,9 @@ public class Descargar {
         {
             throw e;
         }
-
+        if(!ObtenerHeadersPWD().isEmpty()){
+            httpUrlCon.setRequestProperty("PWD", ObtenerHeadersPWD());
+        }
         if (isPost)
         {
             httpUrlCon.setRequestMethod("POST");

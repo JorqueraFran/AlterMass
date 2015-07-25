@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="SERVICIOTODOSUSUARIOS">http://54.94.248.196:3000/user</string>
-    <string name="SERVICIOCREARUSUARIO">http://54.94.248.196:3000/user</string>
-    <string name="SERVICIOCAMBIOPWD">54.94.248.196:3000/pwd/</string>
-    <string name="SERVICIORECUPERARPWD">54.94.248.196:3000/pwd/email</string>
+    <string name="SERVICIO_TODOS_USUARIOS">http://54.94.248.196:3000/user</string>
+    <string name="SERVICIO_CREAR_USUARIO">http://54.94.248.196:3000/user</string>
+    <string name="SERVICIO_CAMBIO_PWD">http://54.94.248.196:3000/pwd</string>
+    <string name="SERVICIO_RECUPERAR_PWD">http://54.94.248.196:3000/pwd/</string>
 </resources>

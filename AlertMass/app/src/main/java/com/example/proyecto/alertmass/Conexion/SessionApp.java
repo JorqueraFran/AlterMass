@@ -7,10 +7,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by C-266 on 14/07/2015.
  */
-public class Session extends SQLiteOpenHelper {
-    private String TABLE = "CREATE TABLE Usuario (usr TEXT, pwr TEXT, correo TEXT)";
+public class SessionApp extends SQLiteOpenHelper {
+    private String TABLE = "CREATE TABLE Usuario (usr TEXT, pwr TEXT, correo TEXT, estado INTEGER,isfacebook INTEGER)";
 
-    public Session(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public SessionApp(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 

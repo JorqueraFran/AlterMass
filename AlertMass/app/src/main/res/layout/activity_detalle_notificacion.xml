@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="wrap_content"
+    android:layout_height="wrap_content" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.example.proyecto.alertmass.DetalleNotificacionActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:id="@+id/lytDetNoti"
+            android:layout_alignWithParentIfMissing="false"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/txtTituloDetNoti">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgDetNoti"
+                android:src="@drawable/img_alertmass"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center_horizontal" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Re-Enviar"
+            android:id="@+id/btnReenviarNoti"
+            android:background="@drawable/button"
+            android:layout_alignParentBottom="true"
+            android:textColor="#FFFFFF" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView"
+            android:layout_below="@+id/lytDetNoti"
+            android:padding="5dp"
+            android:layout_above="@+id/btnReenviarNoti">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam tellus sem, iaculis ac lorem at, efficitur eleifend metus. Cras at auctor quam. Donec sed odio metus. Mauris sit amet ultricies orci. Aliquam mattis elit ac eleifend imperdiet. Interdum et malesuada fames ac ante ipsum primis in faucibus. In sollicitudin cursus neque, quis ultricies ipsum tempus interdum. Nullam ultrices iaculis ipsum. Proin metus orci, malesuada nec volutpat ac, consequat quis tellus. Nam eget lorem pulvinar nisl aliquet facilisis eget et lorem. Fusce massa arcu, egestas nec ornare id, tincidunt vel felis."
+                android:id="@+id/txtDetNoti"/>
+        </ScrollView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/txtTituloDetNoti"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="false"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

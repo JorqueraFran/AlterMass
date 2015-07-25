@@ -25,7 +25,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen">
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen" >
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -117,9 +117,24 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".AddGruposActivity"
-            android:label="@string/title_activity_add_grupos"
-            android:theme="@android:style/Theme.Holo.Light">
+            android:name=".DetalleNotificacionActivity"
+            android:label="@string/title_activity_detalle_notificacion"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".GrupoNotificacionActivity"
+            android:label="@string/title_activity_grupo_notificacion"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".CrearGrupoActivity"
+            android:label="@string/title_activity_crear_grupo"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".SuscribirCanalActivity"
+            android:label="@string/title_activity_suscribir_canal"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

@@ -1,11 +1,14 @@
 package com.example.proyecto.alertmass;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +22,11 @@ import com.example.proyecto.alertmass.Conexion.Descargar;
 import com.example.proyecto.alertmass.Conexion.IDescarga;
 import com.example.proyecto.alertmass.Data.DataLogin;
 import com.example.proyecto.alertmass.util.FuncionesUtiles;
+import com.facebook.login.LoginManager;
+
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 
 
 public class PerfilesActivity extends Activity implements IDescarga {
@@ -32,15 +40,17 @@ public class PerfilesActivity extends Activity implements IDescarga {
     private Button CerrarSesionPerfil;
     private EditText PassConfirmPerfil;
     private TextView LblPassConfirmPerfil;
+    private TextView LblPassPerfil;
     private DataLogin datalogin;
     public String PassOld;
     public String PassNew;
+    private int isFacebook;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfiles);
 
-        datalogin= DataLogin.EntregarDataLogin();
+        //datalogin= DataLogin.EntregarDataLogin();
 
         NombrePerfil = (EditText) findViewById(R.id.txtNombrePerfil);
         CorreoPerfil = (EditText) findViewById(R.id.txtCorreoPerfil);
@@ -51,10 +61,34 @@ public class PerfilesActivity extends Activity implements IDescarga {
         PassConfirmPerfil = (EditText) findViewById(R.id.txtPassConfirm);
         LblPassConfirmPerfil = (TextView) findViewById(R.id.lblPassConfirm);
         GuardarPassPerfil =(Button) findViewById(R.id.btnGuardarPass);
+        LblPassPerfil=(TextView) findViewById(R.id.lblPassPerfil);
+
+        NombrePerfil.setText("");
+        CorreoPerfil.setText("");
+        PassPerfil.setText("");
+        PassConfirmPerfil.setText("");
+
+
+        if (FuncionesUtiles.IsSession(PerfilesActivity.this,null)){
+           // DataLogin.ProcesarSession(FuncionesUtiles.correosession,FuncionesUtiles.usersession,FuncionesUtiles.passsession,FuncionesUtiles.estadosession,FuncionesUtiles.isfacebooksession);
+            datalogin= DataLogin.EntregarDataLogin();
+        }
 
         NombrePerfil.setText(datalogin.GetNombreUser());
         CorreoPerfil.setText(datalogin.GetCorreoUser());
         PassPerfil.setText(datalogin.GetPassUser());
+        isFacebook = datalogin.GetIsFacebook();
+        PassOld = datalogin.GetPassUser();
+
+
+        if(FuncionesUtiles.Boolean(isFacebook)){
+            PassPerfil.setVisibility(View.GONE);
+            CambioPassPerfil.setVisibility(View.GONE);
+            LblPassPerfil.setVisibility(View.GONE);
+            CerrarSesionPerfil.setText("Cerrar Sesion Facebook");
+        }else{
+            CerrarSesionPerfil.setText("Cerrar Sesion");
+        }
 
         CambioPassPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,17 +106,28 @@ public class PerfilesActivity extends Activity implements IDescarga {
 
     }
     private void OnclickCerrarSesionPerfil(){
-        deleteDatabase("AlertMass");
+        AlertDialog.Builder alert = new AlertDialog.Builder(PerfilesActivity.this);
+        alert.setTitle("Aviso");
+        alert.setMessage("Esta seguro que desea cerrar sesion?");
+        alert.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                FuncionesUtiles.DeleteSession();
+                if(FuncionesUtiles.Boolean(isFacebook)){
+                    LoginManager.getInstance().logOut();
+                }
+                Intent intent = new Intent(PerfilesActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        try
-        {
-            Intent intent = new Intent(PerfilesActivity.this, LoginActivity.class);
-            startActivity(intent);
-        }
-        catch (Exception e)
-        {
+        // Setting Negative "NO" Button
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alert.show();
 
-        }
     }
 
     private void OnclickCambioPassPerfil() {
@@ -93,16 +138,18 @@ public class PerfilesActivity extends Activity implements IDescarga {
         LblPassConfirmPerfil.setVisibility(View.VISIBLE);
         CambioPassPerfil.setVisibility(View.GONE);
         GuardarPassPerfil.setVisibility(View.VISIBLE);
-        PassOld = PassPerfil.getText().toString();
+        //PassOld = PassPerfil.getText().toString();
+        InfoPerfil.setText("");
+        PassConfirmPerfil.setText("");
         GuardarPassPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 boolean IsErrores = false;
-                if (PassPerfil.getText().equals("")) {
+                if (PassPerfil.getText().toString().isEmpty()) {
                     PassPerfil.setError("Requerido");
                     IsErrores = true;
                 }
-                if(PassConfirmPerfil.getText().equals("")){
+                if(PassConfirmPerfil.getText().toString().isEmpty()){
                     PassConfirmPerfil.setError("Requerido");
                     IsErrores = true;
                 }
@@ -124,41 +171,51 @@ public class PerfilesActivity extends Activity implements IDescarga {
 
     private void CambioPassword(){
         PassNew=PassPerfil.getText().toString();
-        new AsyncTask<Void, Void, Boolean>() {
-            ProgressDialog pDialog = new ProgressDialog(PerfilesActivity.this);
-            String PerfilCorreo =  CorreoPerfil.getText().toString();
-            String ServicioLogin = getResources().getString(R.string.SERVICIOCAMBIOPWD) + PerfilCorreo;
-            @Override
-            protected Boolean doInBackground(Void... params) {
+        try {
+            new AsyncTask<Void, Void, Boolean>() {
+                ProgressDialog pDialog = new ProgressDialog(PerfilesActivity.this);
 
-                Descargador descargador = new Descargador();
-                Descargar descarga = new Descargar();
-                descarga.urlDescarga = ServicioLogin;
-                descarga.isPost = true;
-                descarga.varsPost.put("oldpass", PassOld);
-                descarga.varsPost.put("newpass", PassNew);
-                descarga.callback = PerfilesActivity.this;
-                descargador.execute(descarga);
-                return true;
-            }
+                String PerfilCorreo =  CorreoPerfil.getText().toString();
+                String headerPWD = PerfilCorreo+":"+PassOld;
+                byte[] data = headerPWD.getBytes("UTF-8");
+                String headerPWDbase64 = Base64.encodeToString(data, Base64.DEFAULT);
+                String ServicioLogin = getResources().getString(R.string.SERVICIO_CAMBIO_PWD);
 
-            @Override
-            protected void onPreExecute() {
-                FuncionesUtiles.ProgressDialog(pDialog, "Guardando Password...");
-            }
+                @Override
+                protected Boolean doInBackground(Void... params) {
 
-            @Override
-            protected void onPostExecute(final Boolean success) {
-                FuncionesUtiles.CancelarDialog(pDialog);
+                    Descargador descargador = new Descargador();
+                    Descargar descarga = new Descargar();
+                    descarga.headersPWD = headerPWDbase64;
+                    descarga.urlDescarga = ServicioLogin;
+                    descarga.isPost = true;
+                    descarga.varsPost.put("oldpass",PassOld);
+                    descarga.varsPost.put("newpass",PassNew);
+                    descarga.callback = PerfilesActivity.this;
+                    descargador.execute(descarga);
+                    return true;
+                }
 
-            }
+                @Override
+                protected void onPreExecute() {
+                    FuncionesUtiles.ProgressDialog(pDialog, "Guardando Password...");
+                }
 
-            @Override
-            protected void onCancelled() {
-                FuncionesUtiles.CancelarDialog(pDialog);
+                @Override
+                protected void onPostExecute(final Boolean success) {
+                    FuncionesUtiles.CancelarDialog(pDialog);
 
-            }
-        }.execute();
+                }
+
+                @Override
+                protected void onCancelled() {
+                    FuncionesUtiles.CancelarDialog(pDialog);
+
+                }
+            }.execute();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -178,13 +235,22 @@ public class PerfilesActivity extends Activity implements IDescarga {
 
     @Override
     public void TerminoDescarga(Descargar descarga, byte[] data) {
-            PassPerfil.setHint("Password Perfil");
-            PassPerfil.setText(PassNew);
-            PassConfirmPerfil.setVisibility(View.GONE);
-            LblPassConfirmPerfil.setVisibility(View.GONE);
-            CambioPassPerfil.setVisibility(View.VISIBLE);
-            GuardarPassPerfil.setVisibility(View.GONE);
-            InfoPerfil.setText("Password Cambiada Con Exito!");
+        String strJSON = null;
+        try {
+            strJSON = new String(data, "UTF-8");
+            JSONObject jObject = new JSONObject(strJSON);
+            if(jObject.getString("st").equals("OK")){
+                PassPerfil.setHint("Password Perfil");
+                PassPerfil.setText(PassNew);
+                PassConfirmPerfil.setVisibility(View.GONE);
+                LblPassConfirmPerfil.setVisibility(View.GONE);
+                CambioPassPerfil.setVisibility(View.VISIBLE);
+                GuardarPassPerfil.setVisibility(View.GONE);
+                InfoPerfil.setText("Password Cambiada Con Exito!");
+            }
+        } catch (Exception ex) {
+            InfoPerfil.setText("Hubo Problemas Para Cambiar El Password!");
+        }
     }
 
     @Override

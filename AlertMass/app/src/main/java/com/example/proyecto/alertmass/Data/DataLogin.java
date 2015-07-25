@@ -12,11 +12,15 @@ public class DataLogin {
     private String Correo="";
     private String Pass="";
     private String Nombre="";
+    private int IsFacebook = 0;
+    private int Estado = 0;
     private static JSONObject jObject;
     private static DataLogin datalogin;
     private static String correo;
     private static String nombre;
     private static String pass;
+    private static int isfacebook;
+    private static int estado;
     //GET
     public String GetCorreoUser(){
         return this.Correo;
@@ -26,6 +30,12 @@ public class DataLogin {
     }
     public String GetNombreUser(){
         return this.Nombre;
+    }
+    public int GetIsFacebook(){
+        return this.IsFacebook;
+    }
+    public int GetEstado(){
+        return this.Estado;
     }
     //SET
     public void SetCorreoUser(String correo){
@@ -37,11 +47,19 @@ public class DataLogin {
     public void SetNombreUser(String nombre){
         this.Nombre = nombre;
     }
+    public void SetIsFacebook(int isfacebook){
+        this.IsFacebook = isfacebook;
+    }
+    public void SetEstado(int estado){
+        this.estado = estado;
+    }
 
     public DataLogin(){
         Correo=correo;
         Pass=pass;
         Nombre=nombre;
+        IsFacebook = isfacebook;
+        Estado = estado;
     }
     public DataLogin(JSONObject json)
     {
@@ -50,6 +68,8 @@ public class DataLogin {
             this.SetCorreoUser(json.getString("email"));
             this.SetNombreUser(json.getString("name"));
             this.SetPassUser(json.getString("pass"));
+            this.SetEstado(1);
+            this.SetIsFacebook(0);
         }catch (JSONException e)
         {
         }
@@ -68,12 +88,15 @@ public class DataLogin {
         }
         return true;
     }
-    public static void ProcesarSession(String _correo, String _nombre, String _pass)
+    public static void ProcesarSession(String _correo, String _nombre, String _pass,int _estado, int _isfacebook)
     {
             correo = _correo;
             nombre = _nombre;
             pass = _pass;
+            isfacebook=_isfacebook;
+            estado = _estado;
             datalogin = new DataLogin();
+            FuncionesUtiles.SetSession(nombre,pass,correo,estado,isfacebook);
     }
     public static DataLogin EntregarDataLogin()
     {

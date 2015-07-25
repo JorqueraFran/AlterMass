@@ -1,23 +1,25 @@
 package com.example.proyecto.alertmass;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.app.ProgressDialog;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageInstaller;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.tv.TvInputService;
 import android.net.Uri;
 import android.os.AsyncTask;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -34,15 +36,21 @@ import android.widget.Toast;
 import com.example.proyecto.alertmass.Conexion.Descargador;
 import com.example.proyecto.alertmass.Conexion.Descargar;
 import com.example.proyecto.alertmass.Conexion.IDescarga;
-import com.example.proyecto.alertmass.Conexion.Session;
+import com.example.proyecto.alertmass.Conexion.SessionApp;
 import com.example.proyecto.alertmass.Data.DataLogin;
 import com.example.proyecto.alertmass.util.FuncionesUtiles;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphRequestAsyncTask;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
@@ -51,7 +59,10 @@ import com.parse.SaveCallback;
 
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -79,15 +90,35 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     private Button btnRegistrar;
     private DataLogin datalogin;
     private CallbackManager callbackManager;
-    private Session datasession;
+    private LoginButton btnIngresoFace;
+    /*private SessionApp datasession;
     private String usersession;
     private String passsession;
-    private String correosession;
+    private String correosession;*/
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.example.proyecto.alertmass",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
+
+        btnIngresoFace = (LoginButton) findViewById(R.id.btn_IngresoFace);
+
 
         ParseAnalytics.trackAppOpened(getIntent());
         ParseInstallation.getCurrentInstallation().saveInBackground();
@@ -101,9 +132,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
                 }
             }
         });
+
         datalogin= DataLogin.EntregarDataLogin();
-        if (IsSession()){
-            DataLogin.ProcesarSession(correosession,usersession,passsession);
+        if (FuncionesUtiles.IsSession(LoginActivity.this,null)){
+            DataLogin.ProcesarSession(FuncionesUtiles.correosession,FuncionesUtiles.usersession,FuncionesUtiles.passsession,FuncionesUtiles.estadosession,FuncionesUtiles.isfacebooksession);
             datalogin= DataLogin.EntregarDataLogin();
             //datalogin.SetNombreUser(usersession);
             //datalogin.SetCorreoUser(correosession);
@@ -111,31 +143,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }
+        FacebookLogin();
 
-        callbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        // App code
-                        FuncionesUtiles.ToastMensaje(LoginActivity.this, "Bienvenido a AlertMass!");
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.left_in, R.anim.left_out);
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        // App code
-                        FuncionesUtiles.ToastMensaje(LoginActivity.this, "Inicio Cancelado");
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                        // App code
-                        FuncionesUtiles.ToastMensaje(LoginActivity.this, "Error al Ingresar");
-                    }
-                });
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.txt_EmailRecover);
         populateAutoComplete();
@@ -190,6 +199,69 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
 
     }
 
+    private void FacebookLogin(){
+        btnIngresoFace.setPadding(20, 20, 20, 20);
+        callbackManager = CallbackManager.Factory.create();
+            //LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends", "email"));
+            //LoginManager.getInstance().registerCallback(callbackManager,
+        btnIngresoFace.setText("Ingresar con Facebook");
+            btnIngresoFace.setReadPermissions(Arrays.asList("public_profile", "user_friends", "email"));
+            btnIngresoFace.registerCallback(callbackManager,
+                    new FacebookCallback<LoginResult>() {
+                        @Override
+                        public void onSuccess(LoginResult loginResult) {
+
+                            AccessToken accessToken = loginResult.getAccessToken();
+                            Profile profile = Profile.getCurrentProfile();
+                            GraphRequest request = GraphRequest.newMeRequest(accessToken,
+                                    new GraphRequest.GraphJSONObjectCallback() {
+                                        @Override
+                                        public void onCompleted(JSONObject user, GraphResponse graphResponse) {
+                                            Log.e("JSON-FACEBOOK", user.toString());
+                                            DataLogin.ProcesarSession(user.optString("email"), user.optString("name"), "", 1, 1);
+                                        }
+                                    });
+
+                            Bundle parameters = new Bundle();
+                            parameters.putString("fields", "id,name,email");
+
+                            request.setParameters(parameters);
+                            request.executeAsync();
+                        /*Profile profile = Profile.getCurrentProfile();
+                        DataLogin.ProcesarSession("",profile.getName(),"");*/
+                        /*GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                                new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
+                                Log.v("LoginActivity", graphResponse.toString());
+                            }
+                        });*/
+                            FuncionesUtiles.ToastMensaje(LoginActivity.this, "Bienvenido a AlertMass!");
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.left_in, R.anim.left_out);
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            // App code
+                            FuncionesUtiles.ToastMensaje(LoginActivity.this, "Inicio Cancelado");
+                        }
+
+                        @Override
+                        public void onError(FacebookException exception) {
+                            // App code
+                            FuncionesUtiles.ToastMensaje(LoginActivity.this, "Error al Ingresar");
+                        }
+                    });
+
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -226,7 +298,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if (!TextUtils.isEmpty(password) && !FuncionesUtiles.isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -253,7 +325,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
                 ProgressDialog pDialog = new ProgressDialog(LoginActivity.this);
                 String CorreoLogin =mEmailView.getText().toString();
                 String PasswordLogin = mPasswordView.getText().toString();
-                String ServicioLogin = getResources().getString(R.string.SERVICIOTODOSUSUARIOS) +"/"+ CorreoLogin;
+                String ServicioLogin = getResources().getString(R.string.SERVICIO_TODOS_USUARIOS) +"/"+ CorreoLogin;
 
                 @Override
                 protected Boolean doInBackground(Void... params) {
@@ -292,10 +364,10 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     }
 
 
-    private boolean isPasswordValid(String password) {
+   /* private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
         return password.length() > 4;
-    }
+    }*/
 
 
     @Override
@@ -307,7 +379,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
 
                 // Select only email addresses.
                 ContactsContract.Contacts.Data.MIMETYPE +
-                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
+                " = ?", new String[]{ContactsContract.CommonDataKinds.Email
                 .CONTENT_ITEM_TYPE},
 
                 // Show primary email addresses first. Note that there won't be
@@ -332,6 +404,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
 
     }
 
+    private void IraMain(){
+        mPasswordView.setText("");
+        mEmailView.setText("");
+        FuncionesUtiles.SetSession(datalogin.GetNombreUser(), datalogin.GetPassUser(), datalogin.GetCorreoUser(),datalogin.GetEstado(),datalogin.GetIsFacebook());
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.left_in, R.anim.left_out);
+        FuncionesUtiles.ToastMensaje(getApplicationContext(), "Bienvenido a AlertMass!");
+
+    }
     @Override
     public void TerminoDescarga(Descargar descarga, byte[] data) {
         try
@@ -344,20 +426,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
             datalogin=DataLogin.EntregarDataLogin();
             String Pass = mPasswordView.getText().toString();
             if(Pass.equals(datalogin.GetPassUser())){
-                mPasswordView.setText("");
-                mEmailView.setText("");
-                SetSession(datalogin.GetNombreUser(), datalogin.GetPassUser(), datalogin.GetCorreoUser());
-                Toast.makeText(getApplicationContext(), "Bienvenido a AlertMass!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.left_in, R.anim.left_out);
+                IraMain();
             }else {
                 FuncionesUtiles.ToastMensaje(this, "Password Incorrecto");
                 mPasswordView.setText("");
                 mPasswordView.setError("Password Incorrecto");
             }
-
-
         }
         catch (Exception ex)
         {
@@ -397,9 +471,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         mEmailView.setAdapter(adapter);
     }
 
-    private boolean IsSession()
+   /* private boolean IsSession()
     {
-        datasession = new Session(this, "AlertMass", null, 1);
+        datasession = new SessionApp(this, "AlertMass", null, 1);
         SQLiteDatabase db = datasession.getWritableDatabase();
 
         if (db != null)
@@ -444,7 +518,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
             db.execSQL("INSERT INTO Usuario (usr, pwr, correo) VALUES ('" + usr + "', '" + pwr + "' , '" + Correo + "')");
             db.close();
         }
-    }
+    }*/
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == event.KEYCODE_BACK)

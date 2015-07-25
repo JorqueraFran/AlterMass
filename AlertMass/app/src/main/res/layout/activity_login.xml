@@ -100,9 +100,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="30dp"
-                android:layout_below="@+id/btn_Entrar"/>
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@+id/btn_Entrar"
+                android:background="@drawable/button" />
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
