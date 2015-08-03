@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.proyecto.alertmass.CanalesActivity">
+    tools:context="com.alertmass.appalertmass.alertmass.CanalesActivity">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -34,5 +34,15 @@
         android:layout_alignParentTop="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/lnyTitC" />
+        android:layout_below="@+id/lblCountCanal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/lblCountCanal"
+        android:layout_below="@+id/lnyTitC"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:visibility="gone" />
 </RelativeLayout>

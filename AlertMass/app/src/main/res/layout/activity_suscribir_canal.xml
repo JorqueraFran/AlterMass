@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.proyecto.alertmass.SuscribirCanalActivity">
+    tools:context="com.alertmass.appalertmass.alertmass.SuscribirCanalActivity">
 
     <ListView
         android:layout_width="wrap_content"
@@ -10,7 +10,7 @@
         android:layout_alignParentTop="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView6" />
+        android:layout_below="@+id/lblCategoriaCanal" />
 
     <TextView
         android:layout_width="match_parent"
@@ -19,6 +19,16 @@
         android:text="Canales de Difusion"
         android:id="@+id/textView6"
         android:layout_alignParentTop="true"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/lblCategoriaCanal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView6"
+        android:layout_marginBottom="10dp" />
 </RelativeLayout>

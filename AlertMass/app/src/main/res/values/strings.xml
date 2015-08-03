@@ -25,4 +25,5 @@
     <string name="title_activity_grupo_notificacion">GrupoNotificacionActivity</string>
     <string name="title_activity_crear_grupo">CrearGrupoActivity</string>
     <string name="title_activity_suscribir_canal">SuscribirCanalActivity</string>
+    <string name="title_activity_categorias_cana">CategoriasCanaActivity</string>
 </resources>

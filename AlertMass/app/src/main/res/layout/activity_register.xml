@@ -1,21 +1,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:gravity="center_horizontal"
-    android:orientation="vertical" android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" tools:context=".LoginActivity"
+    android:orientation="vertical"
+    tools:context=".LoginActivity"
     android:background="#FFFFFF">
 
     <!-- Login progress -->
-    <ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLarge"
+    <!--<ProgressBar android:id="@+id/login_progress" style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:layout_marginBottom="8dp" android:visibility="gone" />
 
 
-    <!--<ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
+    <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
         android:layout_height="match_parent">-->
-
+    <ScrollView android:id="@+id/login_form" android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <RelativeLayout android:id="@+id/email_login_form" android:layout_width="match_parent"
         android:layout_height="fill_parent">
         <ImageView
@@ -28,6 +27,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp" />
+
 
         <TextView
             android:layout_width="match_parent"
@@ -45,17 +45,40 @@
             android:imeActionId="@+id/txt_EmailRegister"
             android:imeActionLabel="@string/action_sign_in_short"
             android:maxLines="1" android:singleLine="true"
-            android:layout_below="@+id/lbl_UserName" />
+            android:layout_below="@+id/lbl_UserName"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Telefono"
+            android:id="@+id/lblTelefono"
+            android:layout_below="@+id/txt_UserName"
+            android:gravity="center_horizontal" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/txtTelefonoPerfil"
+            android:hint="Numero de Telefono"
+            android:layout_below="@+id/lblTelefono"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Correo electronico"
             android:id="@+id/lbl_InfoPassRecover"
-            android:layout_below="@+id/txt_UserName"
             android:gravity="center"
             android:layout_marginTop="15dp"
-            android:textColor="#ff000000" />
+            android:textColor="#ff000000"
+            android:layout_below="@+id/spinnerPais" />
 
         <AutoCompleteTextView android:id="@+id/txt_EmailRegister" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:hint="@string/prompt_email"
@@ -63,7 +86,9 @@
             android:singleLine="true"
             android:layout_below="@+id/lbl_InfoPassRecover"
             android:imeOptions="actionNext"
-            android:imeActionId="@+id/txt_Password"/>
+            android:imeActionId="@+id/txt_Password"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
 
 
         <TextView
@@ -83,7 +108,9 @@
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionGo" android:inputType="textPassword"
             android:maxLines="1" android:singleLine="true"
-            android:layout_below="@+id/lbl_Pass" />
+            android:layout_below="@+id/lbl_Pass"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -92,10 +119,34 @@
             android:layout_alignParentBottom="true"
             android:background="@drawable/button"
             android:textColor="#ffffff"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:layout_below="@+id/txt_Password"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Pais"
+            android:id="@+id/lbl_pais"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/txtTelefonoPerfil" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerPais"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/lbl_pais"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp" />
+
 
     </RelativeLayout>
-    <!--</ScrollView>-->
+    </ScrollView>
+
 
 </LinearLayout>
 

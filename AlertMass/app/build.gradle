@@ -3,9 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
-
     defaultConfig {
-        applicationId "com.example.proyecto.alertmass"
+        applicationId 'com.alertmass.appalertmass.alertmass'
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
@@ -17,6 +16,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
@@ -26,8 +27,7 @@ dependencies {
     compile 'com.android.support:support-v4:22.2.0'
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile 'com.parse.bolts:bolts-android:1.+'
-    compile files('libs/Parse-1.9.3/Parse-1.9.3.jar')
-
+    compile files('libs/Parse/Parse-1.4.3.jar')
 }
 repositories {
     mavenCentral()

@@ -4,4 +4,7 @@
     <string name="SERVICIO_CREAR_USUARIO">http://54.94.248.196:3000/user</string>
     <string name="SERVICIO_CAMBIO_PWD">http://54.94.248.196:3000/pwd</string>
     <string name="SERVICIO_RECUPERAR_PWD">http://54.94.248.196:3000/pwd/</string>
+    <string name="SERVICIO_PAISES">http://54.94.248.196:3000/pais</string>
+    <string name="SERVICIO_CATEGORIA">http://54.94.248.196:3000/cat</string>
+    <string name="SERVICIO_CANALES_SUSCRIBCION">http://54.94.248.196:3000/canal/</string>
 </resources>
