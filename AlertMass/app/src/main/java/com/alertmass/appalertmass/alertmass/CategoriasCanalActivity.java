@@ -46,7 +46,12 @@ public class CategoriasCanalActivity extends Activity implements IDescarga {
                 datalogin= DataLogin.EntregarDataLogin();
             }
             ListaCategorias = (ListView) findViewById(R.id.lstCategorias);
-            CargarListaCategorias();
+            if(FuncionesUtiles.verificaConexion(getApplicationContext())){
+                CargarListaCategorias();
+            }else{
+                FuncionesUtiles.AvisoSinConexion(CategoriasCanalActivity.this);
+            }
+
         }catch (Exception e){
             FuncionesUtiles.LogError(e.getMessage().toString(),getApplicationContext());
         }

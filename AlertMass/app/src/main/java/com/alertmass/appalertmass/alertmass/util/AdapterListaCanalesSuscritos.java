@@ -20,6 +20,9 @@ import com.parse.ParseInstallation;
 import com.parse.PushService;
 import com.parse.SaveCallback;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,9 +56,9 @@ public class AdapterListaCanalesSuscritos extends BaseAdapter {
 
     public View.OnClickListener ClickSuscribir = new View.OnClickListener() {
         @Override
-        public void onClick(View view) {
+        public void onClick(final View view) {
             final Listas idbtn = (Listas) view.getTag();
-
+            final View btn=view;
             ParseInstallation.getCurrentInstallation().put(idbtn.GetTitle(), "");
            // FuncionesUtiles.ToastMensaje(vw.getContext(), "Te has suscrito al canal " + idbtn.GetTitle());
             ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
@@ -63,8 +66,20 @@ public class AdapterListaCanalesSuscritos extends BaseAdapter {
                 public void done(ParseException e) {
                     if (e == null) {
                         FuncionesUtiles.ToastMensaje(vw.getContext(), "Te has suscrito al canal " + idbtn.GetTitle());
-                        PushService.subscribe(vw.getContext(), idbtn.GetTitle(), SuscribirCanalActivity.class);
+                        String TextoArchivo = FuncionesUtiles.LeerCanales(vw.getContext());
+                        if(TextoArchivo==null){
+                            TextoArchivo="";
+                        }
+                        String SalidaCanalesAlert="";
+                        if(TextoArchivo.isEmpty()){
+                            SalidaCanalesAlert = idbtn.GetTitle();
+                        }else{
+                            SalidaCanalesAlert = TextoArchivo + "," + idbtn.GetTitle();
+                        }
+
+                        FuncionesUtiles.GuardarCanales(SalidaCanalesAlert,vw.getContext());
                         FuncionesUtiles.CargarListaCanales();
+                        btn.setVisibility(View.INVISIBLE);
                     } else {
                         e.printStackTrace();
                         FuncionesUtiles.ToastMensaje(vw.getContext(), "No se puso suscribir al canal " + idbtn.GetTitle());
@@ -96,15 +111,22 @@ public class AdapterListaCanalesSuscritos extends BaseAdapter {
         btnSuscribir.setTag(item);
         btnSuscribir.setOnClickListener(ClickSuscribir);
 
-        List<String> subscribedChannels = ParseInstallation.getCurrentInstallation().getList("channels");
-        for(int x = 0; x < subscribedChannels.size(); x++){
-            if(item.GetTitle().equals(subscribedChannels.get(x).toString()))
-            {
-                btnSuscribir.setVisibility(View.INVISIBLE);
+        String strCanales ="["+ FuncionesUtiles.LeerCanales(CanalesActivity.actCanal)+"]";
+        ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
+        JSONArray subscribedChannels = null;
+        try {
+            subscribedChannels = new JSONArray(strCanales);
+            if(subscribedChannels!=null) {
+                for (int x = 0; x < subscribedChannels.length(); x++) {
+                    if (item.GetTitle().equals(subscribedChannels.get(x).toString())) {
+                        btnSuscribir.setVisibility(View.INVISIBLE);
+                    }
+
+                }
             }
-
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
 
         return vw;
     }

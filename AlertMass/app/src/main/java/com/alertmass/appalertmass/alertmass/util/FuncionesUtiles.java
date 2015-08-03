@@ -8,6 +8,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Environment;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
@@ -23,10 +25,14 @@ import com.alertmass.appalertmass.alertmass.Data.Listas;
 import com.alertmass.appalertmass.alertmass.R;
 import com.parse.ParseInstallation;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -208,20 +214,106 @@ public abstract class FuncionesUtiles {
         {
 
         }
-
     }
+
+    public static void GuardarCanales(String Canales,Context ctn){
+        try
+        {
+            OutputStreamWriter FileAlert=
+                    new OutputStreamWriter(
+                            ctn.openFileOutput("CanalesAlertMass.txt", Context.MODE_PRIVATE));
+
+            FileAlert.write(Canales);
+            FileAlert.close();
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+    }
+
+    public static String LeerCanales(Context ctn){
+        String TextoArchivo="";
+        try
+        {
+            BufferedReader fin =
+                    new BufferedReader(
+                            new InputStreamReader(
+                                    ctn.openFileInput("CanalesAlertMass.txt")));
+
+            TextoArchivo = fin.readLine();
+            fin.close();
+        }
+        catch (Exception ex)
+        {
+            Log.e("Ficheros", "Error al leer fichero desde memoria interna");
+        }
+        return TextoArchivo;
+    }
+
 
     public static void CargarListaCanales(){
 
-        ArrayList<Listas> items = new ArrayList<Listas>();
+        try {
+            ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
+            ArrayList<Listas> items = new ArrayList<Listas>();
+            if (FuncionesUtiles.LeerCanales(CanalesActivity.actCanal)!=null) {
+
+                String strCanales ="["+ FuncionesUtiles.LeerCanales(CanalesActivity.actCanal)+"]";
+
+                JSONArray subscribedChannels = new JSONArray(strCanales);
+
+                for(int x = 0; x < subscribedChannels.length(); x++){
+                    items.add(new Listas(x,"",subscribedChannels.get(x).toString(),"" ,""));
+                }
+
+                AdapterListaCanales aList = new AdapterListaCanales(CanalesActivity.actCanal, items);
+                ListaCanales.setAdapter(aList);
+            }else{
+                AdapterListaCanales aList = new AdapterListaCanales(CanalesActivity.actCanal, items);
+                ListaCanales.setAdapter(aList);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+       /* ArrayList<Listas> items = new ArrayList<Listas>();
         List<String> subscribedChannels = ParseInstallation.getCurrentInstallation().getList("channels");
         //lblCountCanal.setText(subscribedChannels.size() + " Canales");
         ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
-        for(int x = 0; x < subscribedChannels.size(); x++){
-            items.add(new Listas(x,"",subscribedChannels.get(x).toString(),"" ,""));
-        }
+        if(subscribedChannels!=null){
+            for(int x = 0; x < subscribedChannels.size(); x++){
+                items.add(new Listas(x,"",subscribedChannels.get(x).toString(),"" ,""));
+            }
+            AdapterListaCanales aList = new AdapterListaCanales(CanalesActivity.actCanal, items);
+            ListaCanales.setAdapter(aList);
+        }*/
 
-        AdapterListaCanales aList = new AdapterListaCanales(CanalesActivity.actCanal, items);
-        ListaCanales.setAdapter(aList);
+
+    }
+
+    public static boolean verificaConexion(Context ctx) {
+        boolean bConectado = false;
+        ConnectivityManager connec = (ConnectivityManager) ctx
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo[] redes = connec.getAllNetworkInfo();
+        for (int i = 0; i < 2; i++) {
+            if (redes[i].getState() == NetworkInfo.State.CONNECTED) {
+                bConectado = true;
+            }
+        }
+        return bConectado;
+    }
+
+    public static void AvisoSinConexion(Context ctx){
+        AlertDialog alertDialog = new AlertDialog.Builder(ctx).create();
+        alertDialog.setTitle("Aviso AlertMass");
+        alertDialog.setMessage("AlertMass requiere que estes conectado a internet. Por favor intenta mas tarde cuando te hayas conectado a internet");
+        alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        alertDialog.show();
     }
 }

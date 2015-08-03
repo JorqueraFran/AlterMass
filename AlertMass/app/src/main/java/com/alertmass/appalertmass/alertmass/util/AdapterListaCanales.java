@@ -8,8 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alertmass.appalertmass.alertmass.CanalesActivity;
 import com.alertmass.appalertmass.alertmass.Data.Listas;
 import com.alertmass.appalertmass.alertmass.R;
 import com.alertmass.appalertmass.alertmass.SuscribirCanalActivity;
@@ -17,6 +19,9 @@ import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.PushService;
 import com.parse.SaveCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -60,8 +65,21 @@ public class AdapterListaCanales extends BaseAdapter {
                 public void done(ParseException e) {
                     if (e == null) {
                         FuncionesUtiles.ToastMensaje(vw.getContext(), "Ya no estas suscrito al canal " + idbtn.GetTitle());
-                        PushService.unsubscribe(vw.getContext(), idbtn.GetTitle());
-                        FuncionesUtiles.CargarListaCanales();
+                        if (FuncionesUtiles.LeerCanales(CanalesActivity.actCanal)!=null) {
+                        String strCanales = "[" + FuncionesUtiles.LeerCanales(CanalesActivity.actCanal) + "]";
+                        ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
+                        try {
+                            JSONArray subscribedChannels = new JSONArray(strCanales);
+                            if (subscribedChannels.length() == 1) {
+                                FuncionesUtiles.GuardarCanales("", vw.getContext());
+                            } else {
+                                String Desuscribir = FuncionesUtiles.LeerCanales(CanalesActivity.actCanal).replace(idbtn.GetTitle()+",","");
+                                FuncionesUtiles.GuardarCanales(Desuscribir, vw.getContext());
+                            }
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
+                        }
+                        FuncionesUtiles.CargarListaCanales();}
                     } else {
                         e.printStackTrace();
                         FuncionesUtiles.ToastMensaje(vw.getContext(), "No se puso cancelar la suscripcion al canal " + idbtn.GetTitle());

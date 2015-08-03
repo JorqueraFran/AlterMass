@@ -20,6 +20,9 @@ import com.alertmass.appalertmass.alertmass.util.AdapterListaCanales;
 import com.alertmass.appalertmass.alertmass.util.FuncionesUtiles;
 import com.parse.ParseInstallation;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +52,7 @@ public class CanalesActivity extends Activity {
             ListaCanales = (ListView) findViewById(R.id.lstCanales);
             lblCountCanal = (TextView) findViewById(R.id.lblCountCanal);
             actCanal =  CanalesActivity.this;
+
             FuncionesUtiles.CargarListaCanales();
         }catch (Exception e){
             FuncionesUtiles.LogError(e.getMessage().toString(),getApplicationContext());
@@ -62,15 +66,23 @@ public class CanalesActivity extends Activity {
     }
 
     public void CargarListaCanales(){
-        ArrayList<Listas> items = new ArrayList<Listas>();
-        List<String> subscribedChannels = ParseInstallation.getCurrentInstallation().getList("channels");
-        //lblCountCanal.setText(subscribedChannels.size() + " Canales");
-        for(int x = 0; x < subscribedChannels.size(); x++){
-            items.add(new Listas(x,"",subscribedChannels.get(x).toString(),"" ,""));
-        }
+        try {
+            ArrayList<Listas> items = new ArrayList<Listas>();
+            //List<String> subscribedChannels = ParseInstallation.getCurrentInstallation().getList("channels");
+            //lblCountCanal.setText(subscribedChannels.size() + " Canales");
+            String strCanales = FuncionesUtiles.LeerCanales(CanalesActivity.this);
 
-        aList  = new AdapterListaCanales(CanalesActivity.this, items);
-        ListaCanales.setAdapter(aList);
+                JSONArray AlertArray = new JSONArray(strCanales);
+
+            /*for(int x = 0; x < subscribedChannels.size(); x++){
+                items.add(new Listas(x,"",subscribedChannels.get(x).toString(),"" ,""));
+            }
+
+            aList  = new AdapterListaCanales(CanalesActivity.this, items);
+            ListaCanales.setAdapter(aList);*/
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.alertmass.appalertmass.alertmass;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.app.ProgressDialog;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageInfo;
@@ -141,7 +143,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
+                    if(FuncionesUtiles.verificaConexion(getApplicationContext())){
+                        attemptLogin();
+                    }else{
+                        FuncionesUtiles.AvisoSinConexion(LoginActivity.this);
+                    }
                     return true;
                 }
                 return false;
@@ -152,7 +158,11 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+                if(FuncionesUtiles.verificaConexion(getApplicationContext())){
+                    attemptLogin();
+                }else{
+                    FuncionesUtiles.AvisoSinConexion(LoginActivity.this);
+                }
             }
         });
 
@@ -163,9 +173,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
         btnRegistrar.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.left_in,R.anim.left_out);
+                if(FuncionesUtiles.verificaConexion(getApplicationContext())){
+                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.left_in,R.anim.left_out);
+                }else{
+                   FuncionesUtiles.AvisoSinConexion(LoginActivity.this);
+                }
+
             }
         });
 
@@ -175,9 +190,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()){
                     case MotionEvent.ACTION_DOWN:
-                        Intent intent = new Intent(LoginActivity.this, PassRecoverActivity.class);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.left_in,R.anim.left_out);
+                        if(FuncionesUtiles.verificaConexion(getApplicationContext())){
+                            Intent intent = new Intent(LoginActivity.this, PassRecoverActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.left_in,R.anim.left_out);
+                        }else{
+                            FuncionesUtiles.AvisoSinConexion(LoginActivity.this);
+                        }
+
                 }
                 return false;
             }

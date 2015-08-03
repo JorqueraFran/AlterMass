@@ -141,7 +141,7 @@ public class SuscribirCanalActivity extends Activity implements IDescarga {
 
     @Override
     public void ErrorDescarga(Descargar descarga, int codigoError, String descripcion) {
-
+        Log.e("Error",descripcion);
     }
 
     @Override
