@@ -47,18 +47,22 @@ public class SuscribirCanalActivity extends Activity implements IDescarga {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try{
-            setContentView(R.layout.activity_suscribir_canal);
-            overridePendingTransition(R.anim.left_in, R.anim.left_out);
-            Bundle ext = getIntent().getExtras();
-            IdCat= ext.getString("id").toString();
-            NomCat = ext.getString("titulo").toString();
-            ListaCanalesSuscritos = (ListView) findViewById(R.id.lstCanalesSus);
-            lblCategoriaCanal = (TextView) findViewById(R.id.lblCategoriaCanal);
-            lblCategoriaCanal.setText(NomCat);
-            CargarListaCanalesSuscritos();
-        }catch (Exception e){
-            FuncionesUtiles.LogError(e.getMessage().toString(),getApplicationContext());
+        if(FuncionesUtiles.verificaConexion(getApplicationContext())){
+            try{
+                setContentView(R.layout.activity_suscribir_canal);
+                overridePendingTransition(R.anim.left_in, R.anim.left_out);
+                Bundle ext = getIntent().getExtras();
+                IdCat= ext.getString("id").toString();
+                NomCat = ext.getString("titulo").toString();
+                ListaCanalesSuscritos = (ListView) findViewById(R.id.lstCanalesSus);
+                lblCategoriaCanal = (TextView) findViewById(R.id.lblCategoriaCanal);
+                lblCategoriaCanal.setText(NomCat);
+                CargarListaCanalesSuscritos();
+            }catch (Exception e){
+                FuncionesUtiles.LogError(e.getMessage().toString(),getApplicationContext());
+            }
+        }else{
+            FuncionesUtiles.AvisoSinConexion(SuscribirCanalActivity.this);
         }
     }
 

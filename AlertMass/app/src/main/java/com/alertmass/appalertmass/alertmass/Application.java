@@ -37,8 +37,11 @@ public class Application extends android.app.Application implements IDescarga {
         super.onCreate();
         try{
             // Initialize the Parse SDK.
-            //Parse.initialize(this, "VWheiUemKG5lAm8195boIV3zXvgHIzcrrXqFM3E9", "RZ2GjXRseC9i8nGRJrJbyflZJa6wXP94KrCHYCDp");
-            Parse.initialize(this, "7c6N33iXsEEwIQireu2QVJh9pZS2ZmTqMG5gYXzW", "nP01sUz0FMpB9N7OxlxtfkMIZ9JsrJy5m2oUG7ma");
+            //Cuenta Test Francisca
+           // Parse.initialize(this, "7c6N33iXsEEwIQireu2QVJh9pZS2ZmTqMG5gYXzW", "nP01sUz0FMpB9N7OxlxtfkMIZ9JsrJy5m2oUG7ma");
+
+            //Cuenta App AlertMass
+            Parse.initialize(this, "1FPKiWd4niGvmuFEistvBzy8QdEKRkAapW9E1ZNy", "6HwEgL6uMh9zSGPndGdU3atLufwYwSNHwrpRQBiT");
             PushService.setDefaultPushCallback(this, MainActivity.class);
             //DescargarPaises();
             if(DataLogin.GetPaises().size()<=0){
@@ -48,7 +51,7 @@ public class Application extends android.app.Application implements IDescarga {
             }
         }catch (Exception e){
 
-            FuncionesUtiles.LogError(e.getMessage().toString(),getApplicationContext());
+            FuncionesUtiles.LogError(e.getMessage().toString(), getApplicationContext());
         }
 
     }

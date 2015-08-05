@@ -95,7 +95,7 @@ public class PerfilesActivity extends Activity implements IDescarga {
             PassPerfil.setText(datalogin.GetPassUser());
             isFacebook = datalogin.GetIsFacebook();
             PassOld = datalogin.GetPassUser();
-
+            TelefonoPerfil.setText(datalogin.GetTelefono());
 
             if(FuncionesUtiles.Boolean(isFacebook)){
                 PassPerfil.setVisibility(View.GONE);

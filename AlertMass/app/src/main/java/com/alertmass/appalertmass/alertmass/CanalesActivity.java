@@ -40,22 +40,26 @@ public class CanalesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_canales);
-        try{
-            datalogin= DataLogin.EntregarDataLogin();
-            ibtnAddCanal = (ImageView) findViewById(R.id.ibtnAddCanal);
-            ibtnAddCanal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    IrActAddGrupo();
-                }
-            });
-            ListaCanales = (ListView) findViewById(R.id.lstCanales);
-            lblCountCanal = (TextView) findViewById(R.id.lblCountCanal);
-            actCanal =  CanalesActivity.this;
+        if(FuncionesUtiles.verificaConexion(getApplicationContext())){
+            try{
+                datalogin= DataLogin.EntregarDataLogin();
+                ibtnAddCanal = (ImageView) findViewById(R.id.ibtnAddCanal);
+                ibtnAddCanal.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        IrActAddGrupo();
+                    }
+                });
+                ListaCanales = (ListView) findViewById(R.id.lstCanales);
+                lblCountCanal = (TextView) findViewById(R.id.lblCountCanal);
+                actCanal =  CanalesActivity.this;
 
-            FuncionesUtiles.CargarListaCanales();
-        }catch (Exception e){
-            FuncionesUtiles.LogError(e.getMessage().toString(),getApplicationContext());
+                FuncionesUtiles.CargarListaCanales();
+            }catch (Exception e){
+                FuncionesUtiles.LogError(e.getMessage().toString(),getApplicationContext());
+            }
+        }else{
+            FuncionesUtiles.AvisoSinConexion(CanalesActivity.this);
         }
     }
 

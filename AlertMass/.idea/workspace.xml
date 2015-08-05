@@ -7,7 +7,6 @@
   </component>
   <component name="AndroidLogFilters">
     <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="15476501-103f-4083-b529-899794f7c808" name="Default" comment="" />
@@ -37,16 +36,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/MainActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="107" column="57" selection-start-line="107" selection-start-column="45" selection-end-line="107" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="AdapterListaCanalesSuscritos.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/util/AdapterListaCanalesSuscritos.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -64,24 +53,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FuncionesUtiles.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/util/FuncionesUtiles.java">
+      <file leaf-file-name="Listas.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/Data/Listas.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.76964283">
-              <caret line="274" column="47" selection-start-line="274" selection-start-column="47" selection-end-line="274" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DataLogin.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/Data/DataLogin.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="109" column="14" selection-start-line="109" selection-start-column="14" selection-end-line="109" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/LoginActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="160" column="16" selection-start-line="160" selection-start-column="16" selection-end-line="164" selection-end-column="17" />
               <folding>
-                <element signature="e#2179#2180#0" expanded="true" />
-                <element signature="e#2212#2213#0" expanded="true" />
-                <element signature="e#3321#3322#0" expanded="true" />
-                <element signature="e#3365#3366#0" expanded="true" />
-                <element signature="e#5668#5684#0" expanded="true" />
-                <element signature="e#5935#5943#0" expanded="true" />
-                <element signature="e#6364#6380#0" expanded="true" />
-                <element signature="e#6712#6713#0" expanded="true" />
-                <element signature="e#6744#6745#0" expanded="true" />
-                <element signature="e#6800#6801#0" expanded="true" />
-                <element signature="e#6837#6838#0" expanded="true" />
-                <element signature="e#8412#8420#0" expanded="true" />
+                <element signature="e#5261#5836#0" expanded="true" />
+                <element signature="e#5835#5836#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -102,14 +101,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SuscribirCanalActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SuscribirCanalActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/SuscribirCanalActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="114" column="0" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.40535715">
+              <caret line="64" column="67" selection-start-line="64" selection-start-column="67" selection-end-line="64" selection-end-column="67" />
               <folding>
-                <element signature="e#3086#3149#0" expanded="true" />
-                <element signature="e#4617#4625#0" expanded="true" />
+                <element signature="e#3309#3372#0" expanded="true" />
+                <element signature="e#4840#4848#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -119,11 +118,11 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/CanalesActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+              <caret line="42" column="49" selection-start-line="42" selection-start-column="49" selection-end-line="42" selection-end-column="49" />
               <folding>
-                <element signature="e#1456#1628#0" expanded="true" />
-                <element signature="e#1627#1628#0" expanded="true" />
-                <element signature="e#2271#2279#0" expanded="true" />
+                <element signature="e#1543#1735#0" expanded="true" />
+                <element signature="e#1734#1735#0" expanded="true" />
+                <element signature="e#2499#2507#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -3046,23 +3045,23 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/Data/DataLogin.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_canales.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/Application.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/GrupoNotificacionActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/GruposActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/NotificacionesActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/PerfilesActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/RegisterActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/lista_notificacion.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/LoginActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/CategoriasCanalActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/SuscribirCanalActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/CanalesActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/util/AdapterListaCanalesSuscritos.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/util/AdapterListaCanales.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/util/FuncionesUtiles.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/CanalesActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/Data/DataLogin.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/PerfilesActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/Application.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/SuscribirCanalActivity.java" />
       </list>
     </option>
   </component>
@@ -3181,6 +3180,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="util" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="AlertMass" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="alertmass" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Data" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -3406,7 +3427,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="1" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -3458,7 +3479,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-field">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/SuscribirCanalActivity.java</url>
-          <line>67</line>
+          <line>71</line>
           <properties field="pDialog" />
           <option name="timeStamp" value="21" />
         </line-breakpoint>
@@ -3506,7 +3527,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/CanalesActivity.java</url>
-          <line>69</line>
+          <line>73</line>
           <properties />
           <option name="timeStamp" value="18" />
         </line-breakpoint>
@@ -3543,14 +3564,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33214286">
           <caret line="179" column="28" selection-start-line="179" selection-start-column="28" selection-end-line="179" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/Application.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="53" column="5" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -3617,22 +3630,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/PerfilesActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/Data/DataLogin.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19285715">
-          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-22/android/os/AsyncTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3646,17 +3643,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="67" column="86" selection-start-line="67" selection-start-column="86" selection-end-line="67" selection-end-column="86" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="154" column="11" selection-start-line="154" selection-start-column="11" selection-end-line="154" selection-end-column="11" />
-          <folding>
-            <element signature="e#5962#6306#0" expanded="true" />
-            <element signature="e#6305#6306#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3711,23 +3697,76 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/CanalesActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <caret line="42" column="49" selection-start-line="42" selection-start-column="49" selection-end-line="42" selection-end-column="49" />
           <folding>
-            <element signature="e#1456#1628#0" expanded="true" />
-            <element signature="e#1627#1628#0" expanded="true" />
-            <element signature="e#2271#2279#0" expanded="true" />
+            <element signature="e#1543#1735#0" expanded="true" />
+            <element signature="e#1734#1735#0" expanded="true" />
+            <element signature="e#2499#2507#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/SuscribirCanalActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/Data/Listas.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="114" column="0" selection-start-line="114" selection-start-column="0" selection-end-line="114" selection-end-column="0" />
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/Data/DataLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="109" column="14" selection-start-line="109" selection-start-column="14" selection-end-line="109" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/PerfilesActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15178572">
+          <caret line="92" column="36" selection-start-line="92" selection-start-column="36" selection-end-line="92" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/util/FuncionesUtiles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.76964283">
+          <caret line="274" column="47" selection-start-line="274" selection-start-column="47" selection-end-line="274" selection-end-column="47" />
           <folding>
-            <element signature="e#3086#3149#0" expanded="true" />
-            <element signature="e#4617#4625#0" expanded="true" />
+            <element signature="e#2179#2180#0" expanded="true" />
+            <element signature="e#2212#2213#0" expanded="true" />
+            <element signature="e#3321#3322#0" expanded="true" />
+            <element signature="e#3365#3366#0" expanded="true" />
+            <element signature="e#5668#5684#0" expanded="true" />
+            <element signature="e#5935#5943#0" expanded="true" />
+            <element signature="e#6364#6380#0" expanded="true" />
+            <element signature="e#6712#6713#0" expanded="true" />
+            <element signature="e#6744#6745#0" expanded="true" />
+            <element signature="e#6800#6801#0" expanded="true" />
+            <element signature="e#6837#6838#0" expanded="true" />
+            <element signature="e#8412#8420#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="160" column="16" selection-start-line="160" selection-start-column="16" selection-end-line="164" selection-end-column="17" />
+          <folding>
+            <element signature="e#5261#5836#0" expanded="true" />
+            <element signature="e#5835#5836#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.0946429">
+          <caret line="45" column="20" selection-start-line="45" selection-start-column="20" selection-end-line="45" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3759,23 +3798,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/util/FuncionesUtiles.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/alertmass/appalertmass/alertmass/SuscribirCanalActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.76964283">
-          <caret line="274" column="47" selection-start-line="274" selection-start-column="47" selection-end-line="274" selection-end-column="47" />
+        <state vertical-scroll-proportion="0.40535715">
+          <caret line="64" column="67" selection-start-line="64" selection-start-column="67" selection-end-line="64" selection-end-column="67" />
           <folding>
-            <element signature="e#2179#2180#0" expanded="true" />
-            <element signature="e#2212#2213#0" expanded="true" />
-            <element signature="e#3321#3322#0" expanded="true" />
-            <element signature="e#3365#3366#0" expanded="true" />
-            <element signature="e#5668#5684#0" expanded="true" />
-            <element signature="e#5935#5943#0" expanded="true" />
-            <element signature="e#6364#6380#0" expanded="true" />
-            <element signature="e#6712#6713#0" expanded="true" />
-            <element signature="e#6744#6745#0" expanded="true" />
-            <element signature="e#6800#6801#0" expanded="true" />
-            <element signature="e#6837#6838#0" expanded="true" />
-            <element signature="e#8412#8420#0" expanded="true" />
+            <element signature="e#3309#3372#0" expanded="true" />
+            <element signature="e#4840#4848#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -107,6 +107,7 @@ public class DataLogin {
             this.SetNombreUser(json.getString("name"));
             this.SetPassUser(json.getString("pass"));
             this.SetIdPaisUser(json.getString("codpais"));
+            //this.SetTelefono(json.getString("mobile"));
             //this.SetPaisUser("Chile");
             this.SetTelefono(json.getString("mobile"));
             this.SetEstado(1);
