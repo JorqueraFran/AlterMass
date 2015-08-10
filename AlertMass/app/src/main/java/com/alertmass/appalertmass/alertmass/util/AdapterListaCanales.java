@@ -73,13 +73,14 @@ public class AdapterListaCanales extends BaseAdapter {
                             if (subscribedChannels.length() == 1) {
                                 FuncionesUtiles.GuardarCanales("", vw.getContext());
                             } else {
-                                String Desuscribir = FuncionesUtiles.LeerCanales(CanalesActivity.actCanal).replace(idbtn.GetTitle()+",","");
+                                String Desuscribir = FuncionesUtiles.LeerCanales(CanalesActivity.actCanal).replace(idbtn.GetTitle().replace(" ","")+",","");
                                 FuncionesUtiles.GuardarCanales(Desuscribir, vw.getContext());
+                                FuncionesUtiles.EliminarArchivo(vw.getContext(),"Logo"+idbtn.GetTitle().replace(" ",""));
                             }
                         } catch (JSONException e1) {
                             e1.printStackTrace();
                         }
-                        FuncionesUtiles.CargarListaCanales();}
+                        FuncionesUtiles.CargarListaCanales(CanalesActivity.lblMsjCanal);}
                     } else {
                         e.printStackTrace();
                         FuncionesUtiles.ToastMensaje(vw.getContext(), "No se puso cancelar la suscripcion al canal " + idbtn.GetTitle());
@@ -100,7 +101,9 @@ public class AdapterListaCanales extends BaseAdapter {
             vw = inflater.inflate(R.layout.lista_canales, null);
         }
         item = items.get(pos);
-        //ImageView image = (ImageView) vw.findViewById(R.id.icon_row);
+        ImageView image = (ImageView) vw.findViewById(R.id.imgCanal);
+        image.setTag(item);
+        FuncionesUtiles.MostrarLogoCanal(vw.getContext(),item.GetTitle().replace(" ",""),image);
 
         TextView title = (TextView) vw.findViewById(R.id.txtCanal);
         title.setText(item.GetTitle());
@@ -113,4 +116,6 @@ public class AdapterListaCanales extends BaseAdapter {
         DelCanal.setOnClickListener(ClickDelCanal);
         return vw;
     }
+
+
 }

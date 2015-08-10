@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alertmass.appalertmass.alertmass.Data.Listas;
@@ -50,8 +51,9 @@ public class AdapterListaNotificacion extends BaseAdapter {
             vw = inflater.inflate(R.layout.lista_notificacion, null);
         }
         Listas item = items.get(pos);
-        //ImageView image = (ImageView) vw.findViewById(R.id.icon_row);
-
+        ImageView image = (ImageView) vw.findViewById(R.id.imgNoti);
+        image.setTag(item);
+        FuncionesUtiles.MostrarLogoCanal(vw.getContext(),item.GetTitle().replace(" ",""),image);
         TextView title = (TextView) vw.findViewById(R.id.txtNoti);
         title.setText(item.GetTitle());
 

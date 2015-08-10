@@ -4,18 +4,24 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alertmass.appalertmass.alertmass.CanalesActivity;
@@ -31,7 +37,10 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
@@ -101,7 +110,7 @@ public abstract class FuncionesUtiles {
         if (db != null)
         {
             //db.execSQL("delete from Usuario");
-            Cursor c = db.rawQuery("SELECT usr, pwr, correo, estado,isfacebook FROM Usuario", null);
+            Cursor c = db.rawQuery("SELECT usr, pwr, correo, estado, isfacebook, pais, telefono FROM Usuario", null);
             int count = c.getCount();
             if (c.getCount() > 0)
             {
@@ -114,6 +123,8 @@ public abstract class FuncionesUtiles {
                         correosession = c.getString(2);
                         estadosession = c.getInt(3);
                         isfacebooksession = c.getInt(4);
+                        paissession = c.getString(5);
+                        telefonosession = c.getString(6);
                     }
                     while (c.moveToNext());
                 }
@@ -219,9 +230,13 @@ public abstract class FuncionesUtiles {
     public static void GuardarCanales(String Canales,Context ctn){
         try
         {
+            ContextWrapper cw = new ContextWrapper(ctn);
+            File dirImages = cw.getDir("Files", Context.MODE_PRIVATE);
+            File myPath = new File(dirImages, "CanalesAlertMass.txt");
+
+            FileOutputStream fos = new FileOutputStream(myPath);
             OutputStreamWriter FileAlert=
-                    new OutputStreamWriter(
-                            ctn.openFileOutput("CanalesAlertMass.txt", Context.MODE_PRIVATE));
+                    new OutputStreamWriter(fos);
 
             FileAlert.write(Canales);
             FileAlert.close();
@@ -237,13 +252,17 @@ public abstract class FuncionesUtiles {
         String TextoArchivo="";
         try
         {
-            BufferedReader fin =
-                    new BufferedReader(
-                            new InputStreamReader(
-                                    ctn.openFileInput("CanalesAlertMass.txt")));
-
-            TextoArchivo = fin.readLine();
-            fin.close();
+            ContextWrapper cw = new ContextWrapper(ctn);
+            File dirImages = cw.getDir("Files", Context.MODE_PRIVATE);
+            File CanalFile = new  File(dirImages, "CanalesAlertMass.txt");
+            if(CanalFile.exists())
+            {
+                FileInputStream fIn = new FileInputStream(CanalFile);
+                InputStreamReader archivo = new InputStreamReader(fIn);
+                BufferedReader br = new BufferedReader(archivo);
+                TextoArchivo = br.readLine();
+                br.close();
+            }
         }
         catch (Exception ex)
         {
@@ -252,8 +271,7 @@ public abstract class FuncionesUtiles {
         return TextoArchivo;
     }
 
-
-    public static void CargarListaCanales(){
+    public static void CargarListaCanales(TextView lblMsjCanal){
 
         try {
             ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
@@ -267,10 +285,11 @@ public abstract class FuncionesUtiles {
                 for(int x = 0; x < subscribedChannels.length(); x++){
                     items.add(new Listas(x,"",subscribedChannels.get(x).toString(),"" ,""));
                 }
-
+                lblMsjCanal.setVisibility(View.GONE);
                 AdapterListaCanales aList = new AdapterListaCanales(CanalesActivity.actCanal, items);
                 ListaCanales.setAdapter(aList);
             }else{
+                lblMsjCanal.setVisibility(View.VISIBLE);
                 AdapterListaCanales aList = new AdapterListaCanales(CanalesActivity.actCanal, items);
                 ListaCanales.setAdapter(aList);
             }
@@ -315,5 +334,53 @@ public abstract class FuncionesUtiles {
             }
         });
         alertDialog.show();
+    }
+
+    public static String guardarImagen (Context context, String nombre, Bitmap imagen){
+        ContextWrapper cw = new ContextWrapper(context);
+        File dirImages = cw.getDir("Imagenes", Context.MODE_PRIVATE);
+        File myPath = new File(dirImages, nombre.replace(" ","") + ".png");
+
+        FileOutputStream fos = null;
+        try{
+            fos = new FileOutputStream(myPath);
+            imagen.compress(Bitmap.CompressFormat.JPEG, 10, fos);
+            fos.flush();
+        }catch (FileNotFoundException ex){
+            ex.printStackTrace();
+        }catch (IOException ex){
+            ex.printStackTrace();
+        }
+        return myPath.getAbsolutePath();
+    }
+
+    public static void MostrarLogoCanal(Context context, String nombre,ImageView imagenVW){
+        ContextWrapper cw = new ContextWrapper(context);
+        File dirImages = cw.getDir("Imagenes", Context.MODE_PRIVATE);
+        File imgFile = new  File(dirImages, "Logo"+nombre + ".png");
+        if(imgFile.exists())
+        {
+            imagenVW.setImageURI(Uri.fromFile(imgFile));
+        }
+    }
+    public static void EliminarArchivo(Context ctn, String NombreArch){
+        try
+        {
+            ContextWrapper cw = new ContextWrapper(ctn);
+            File dir = cw.getDir("Imagenes", Context.MODE_PRIVATE);
+            File file = new  File(dir, NombreArch);
+            if(file.exists())
+            {
+                if(file.delete()){
+                    Log.e("Eliminar Archivo","Correcto");
+                }else{
+                    Log.e("Eliminar Archivo","Fallido");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.e("Ficheros", "Error al leer fichero desde memoria interna");
+        }
     }
 }

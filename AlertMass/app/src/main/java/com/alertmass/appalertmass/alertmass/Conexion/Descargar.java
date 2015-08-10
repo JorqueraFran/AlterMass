@@ -1,5 +1,8 @@
 package com.alertmass.appalertmass.alertmass.Conexion;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -19,6 +22,7 @@ public class Descargar {
     public Exception errorDescarga;
     public int codigoRespuesta;
     public String msgServidor;
+    public String UrlImagen;
 
     public Descargar()
     {
@@ -33,6 +37,7 @@ public class Descargar {
         errorDescarga = null;
         codigoRespuesta = -1;
         msgServidor = "";
+        UrlImagen="";
     }
 
     public String ObtenerStrURLVars()
@@ -114,5 +119,19 @@ public class Descargar {
         httpUrlCon.setDoInput(true);
 
         return httpUrlCon;
+    }
+    public static Bitmap descargarImagen (String imageHttpAddress){
+        URL imageUrl = null;
+        Bitmap imagen = null;
+        try{
+            imageUrl = new URL(imageHttpAddress);
+            HttpURLConnection conn = (HttpURLConnection) imageUrl.openConnection();
+            conn.connect();
+            imagen = BitmapFactory.decodeStream(conn.getInputStream());
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+
+        return imagen;
     }
 }

@@ -41,11 +41,11 @@ public class DataLogin {
     public String GetNombreUser(){
         return this.Nombre;
     }
-    public static String GetIPaisUser(String Nom){
-        return Paises.get(Nom);
-    }
-    public String GetPaisUser(){
+    public String GetIPaisUser(){
         return this.IdPais;
+    }
+    public static String GetPaisUser(String Nom){
+        return Paises.get(Nom);
     }
     public String GetTelefono(){
         return this.Telefono;
@@ -138,8 +138,9 @@ public class DataLogin {
             isfacebook=_isfacebook;
             estado = _estado;
             telefono=_telefono;
+            idpais = _pais;
             datalogin = new DataLogin();
-            FuncionesUtiles.SetSession(nombre,pass,correo,estado,isfacebook,_pais,_telefono);
+            FuncionesUtiles.SetSession(nombre,pass,correo,estado,isfacebook,idpais,telefono);
     }
     public static DataLogin EntregarDataLogin()
     {

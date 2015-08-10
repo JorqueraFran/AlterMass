@@ -33,7 +33,7 @@ public class CanalesActivity extends Activity {
     private static ListView ListaCanales;
     public static AdapterListaCanales aList;
     ImageView ibtnAddCanal;
-    public static TextView lblCountCanal;
+    public static TextView lblMsjCanal;
     public static Activity actCanal;
 
     @Override
@@ -42,7 +42,12 @@ public class CanalesActivity extends Activity {
         setContentView(R.layout.activity_canales);
         if(FuncionesUtiles.verificaConexion(getApplicationContext())){
             try{
-                datalogin= DataLogin.EntregarDataLogin();
+                if (FuncionesUtiles.IsSession(CanalesActivity.this,null)){
+                    if(datalogin==null){
+                        datalogin= DataLogin.EntregarDataLogin();
+
+                    }
+                }
                 ibtnAddCanal = (ImageView) findViewById(R.id.ibtnAddCanal);
                 ibtnAddCanal.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -51,10 +56,10 @@ public class CanalesActivity extends Activity {
                     }
                 });
                 ListaCanales = (ListView) findViewById(R.id.lstCanales);
-                lblCountCanal = (TextView) findViewById(R.id.lblCountCanal);
+                lblMsjCanal = (TextView) findViewById(R.id.lblMensajeCanales);
                 actCanal =  CanalesActivity.this;
 
-                FuncionesUtiles.CargarListaCanales();
+                FuncionesUtiles.CargarListaCanales(lblMsjCanal);
             }catch (Exception e){
                 FuncionesUtiles.LogError(e.getMessage().toString(),getApplicationContext());
             }
@@ -62,7 +67,6 @@ public class CanalesActivity extends Activity {
             FuncionesUtiles.AvisoSinConexion(CanalesActivity.this);
         }
     }
-
     private void IrActAddGrupo(){
         Intent intent = new Intent(CanalesActivity.this, CategoriasCanalActivity.class);
         startActivity(intent);
@@ -72,18 +76,8 @@ public class CanalesActivity extends Activity {
     public void CargarListaCanales(){
         try {
             ArrayList<Listas> items = new ArrayList<Listas>();
-            //List<String> subscribedChannels = ParseInstallation.getCurrentInstallation().getList("channels");
-            //lblCountCanal.setText(subscribedChannels.size() + " Canales");
             String strCanales = FuncionesUtiles.LeerCanales(CanalesActivity.this);
-
-                JSONArray AlertArray = new JSONArray(strCanales);
-
-            /*for(int x = 0; x < subscribedChannels.size(); x++){
-                items.add(new Listas(x,"",subscribedChannels.get(x).toString(),"" ,""));
-            }
-
-            aList  = new AdapterListaCanales(CanalesActivity.this, items);
-            ListaCanales.setAdapter(aList);*/
+            JSONArray AlertArray = new JSONArray(strCanales);
         } catch (JSONException e) {
             e.printStackTrace();
         }

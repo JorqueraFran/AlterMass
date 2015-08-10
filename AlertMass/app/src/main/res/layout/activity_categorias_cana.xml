@@ -10,7 +10,7 @@
         android:layout_alignParentTop="false"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView6" />
+        android:layout_below="@+id/lblMensajeCat" />
 
     <TextView
         android:layout_width="match_parent"
@@ -20,6 +20,24 @@
         android:id="@+id/textView6"
         android:layout_alignParentTop="true"
         android:layout_margin="15dp"
+        android:gravity="center_horizontal" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textView6"
+        android:id="@+id/FootTitCat"
+        android:background="@android:color/holo_blue_light"></RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Hay problemas con su conexion a internet. Por favor vuelva mas tarde."
+        android:id="@+id/lblMensajeCat"
+        android:layout_below="@+id/FootTitCat"
+        android:layout_margin="10dp"
         android:gravity="center_horizontal" />
 
 </RelativeLayout>

@@ -6,14 +6,14 @@ package com.alertmass.appalertmass.alertmass.Data;
 public class Listas {
     protected long Id;
     protected String IdObj;
-    protected String Imagen;
+    protected boolean IsImagen;
     protected String Title;
     protected String SubTitle;
     protected String Fecha;
 
     public Listas(){
         this.Id=0;
-        this.Imagen="";
+        this.IsImagen=false;
         this.IdObj="";
         this.Title="";
         this.SubTitle="";
@@ -37,8 +37,8 @@ public class Listas {
     public long GetId(){return Id;}
     public void SetId(long Id){this.Id=Id;}
 
-    public String GetImagen(){return Imagen;}
-    public void SetImagen(String Imagen){this.Imagen=Imagen;}
+    public boolean GetImagen(){return IsImagen;}
+    public void SetImagen(boolean Imagen){this.IsImagen=Imagen;}
 
     public String GetTitle(){return Title;}
     public void SetTitle(String Title){this.Title=Title;}

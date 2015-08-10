@@ -51,10 +51,10 @@ public class PerfilesActivity extends Activity implements IDescarga {
     private TextView LblPassConfirmPerfil;
     private TextView LblPassPerfil;
     private EditText TelefonoPerfil;
-    private DataLogin datalogin;//= new DataLogin();
+    public DataLogin datalogin;//= new DataLogin();
     public String PassOld;
     public String PassNew;
-    private int isFacebook;
+    public int isFacebook;
     private Spinner spinnerPais;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +63,6 @@ public class PerfilesActivity extends Activity implements IDescarga {
 
         //datalogin= DataLogin.EntregarDataLogin();
         try{
-
 
             NombrePerfil = (EditText) findViewById(R.id.txtNombrePerfil);
             CorreoPerfil = (EditText) findViewById(R.id.txtCorreoPerfil);
@@ -85,11 +84,12 @@ public class PerfilesActivity extends Activity implements IDescarga {
 
             if (FuncionesUtiles.IsSession(PerfilesActivity.this,null)){
                if(datalogin==null){
-                datalogin= DataLogin.EntregarDataLogin();
+                   datalogin= DataLogin.EntregarDataLogin();
+
                }
             }
             FuncionesUtiles.CargarSpinnerPaises(PerfilesActivity.this, spinnerPais);
-            FuncionesUtiles.SelPaisActual(spinnerPais,datalogin.GetPaisUser());
+            FuncionesUtiles.SelPaisActual(spinnerPais,datalogin.GetIPaisUser());
             NombrePerfil.setText(datalogin.GetNombreUser());
             CorreoPerfil.setText(datalogin.GetCorreoUser());
             PassPerfil.setText(datalogin.GetPassUser());
@@ -192,13 +192,20 @@ public class PerfilesActivity extends Activity implements IDescarga {
 
     private void CambioPassword(){
         PassNew=PassPerfil.getText().toString();
+        isFacebook = datalogin.GetIsFacebook();
         try {
+            String PerfilCorreo =  CorreoPerfil.getText().toString();
+            final String headerPWD;
+            if(isFacebook == 1){
+                headerPWD= PerfilCorreo+"::true";
+            }else{
+                headerPWD= PerfilCorreo+":"+PassOld+":false";
+            }
+            //final String finalHeaderPWD = headerPWD;
             new AsyncTask<Void, Void, Boolean>() {
                 ProgressDialog pDialog = new ProgressDialog(PerfilesActivity.this);
 
-                String PerfilCorreo =  CorreoPerfil.getText().toString();
-                String headerPWD = PerfilCorreo+":"+PassOld;
-                byte[] data = headerPWD.getBytes("UTF-8");
+                byte[] data =headerPWD.getBytes("UTF-8");
                 String headerPWDbase64 = Base64.encodeToString(data, Base64.DEFAULT).replace("\n", "");
                 String ServicioLogin = getResources().getString(R.string.SERVICIO_CAMBIO_PWD);
 

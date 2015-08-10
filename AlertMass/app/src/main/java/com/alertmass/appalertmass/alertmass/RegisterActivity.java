@@ -75,7 +75,7 @@ public class RegisterActivity extends Activity implements IDescarga {
         String Correo = txtCorreo.getText().toString();
         String Pass = txtPass.getText().toString();
         String Phone =txtTelefono.getText().toString();
-        IdPais = DataLogin.GetIPaisUser(spinnerPais.getSelectedItem().toString());
+        IdPais = DataLogin.GetPaisUser(spinnerPais.getSelectedItem().toString());
         Boolean TieneErrores=false;
         //validacion nombre
         if(Nombre.isEmpty()){

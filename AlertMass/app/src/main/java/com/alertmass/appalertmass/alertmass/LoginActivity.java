@@ -102,9 +102,9 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       /* try {
+        try {
             PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.example.proyecto.alertmass",
+                    "com.alertmass.appalertmass.alertmass",
                     PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
@@ -115,20 +115,20 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
 
         } catch (NoSuchAlgorithmException e) {
 
-        }*/
+        }
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
         btnIngresoFace = (LoginButton) findViewById(R.id.btn_IngresoFace);
 
 
-        datalogin= DataLogin.EntregarDataLogin();
+        //datalogin= DataLogin.EntregarDataLogin();
         if (FuncionesUtiles.IsSession(LoginActivity.this,null)){
-            DataLogin.ProcesarSession(FuncionesUtiles.correosession, FuncionesUtiles.usersession,FuncionesUtiles.passsession,FuncionesUtiles.estadosession,FuncionesUtiles.isfacebooksession, FuncionesUtiles.paissession, FuncionesUtiles.telefonosession);
-            datalogin= DataLogin.EntregarDataLogin();
-            //datalogin.SetNombreUser(usersession);
-            //datalogin.SetCorreoUser(correosession);
-           //datalogin.SetPassUser(passsession);
+
+            if(datalogin==null){
+                DataLogin.ProcesarSession(FuncionesUtiles.correosession, FuncionesUtiles.usersession,FuncionesUtiles.passsession,FuncionesUtiles.estadosession,FuncionesUtiles.isfacebooksession, FuncionesUtiles.telefonosession, FuncionesUtiles.paissession);
+                datalogin= DataLogin.EntregarDataLogin();
+            }
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
         }
@@ -334,7 +334,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
                     String CorreoLogin =mEmailView.getText().toString();
                     String PasswordLogin = mPasswordView.getText().toString();
                     String ServicioLogin = getResources().getString(R.string.SERVICIO_TODOS_USUARIOS) +"/" + CorreoLogin;
-                    String headerPWD = CorreoLogin+":"+PasswordLogin;
+                    String headerPWD = CorreoLogin+":"+PasswordLogin+":false";
                     byte[] data = headerPWD.getBytes("UTF-8");
                     String headerPWDbase64 = Base64.encodeToString(data, Base64.DEFAULT).replace("\n", "");
                     @Override
@@ -421,7 +421,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor>, 
     private void IraMain(){
         mPasswordView.setText("");
         mEmailView.setText("");
-        FuncionesUtiles.SetSession(datalogin.GetNombreUser(), datalogin.GetPassUser(), datalogin.GetCorreoUser(),datalogin.GetEstado(),datalogin.GetIsFacebook(), datalogin.GetPaisUser(),datalogin.GetTelefono());
+        FuncionesUtiles.SetSession(datalogin.GetNombreUser(), datalogin.GetPassUser(), datalogin.GetCorreoUser(),datalogin.GetEstado(),datalogin.GetIsFacebook(), datalogin.GetIPaisUser(),datalogin.GetTelefono());
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.left_in, R.anim.left_out);

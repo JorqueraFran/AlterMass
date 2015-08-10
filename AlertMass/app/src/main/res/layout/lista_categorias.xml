@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:id="@+id/imgCat"
+            android:src="@drawable/img_alertmass"
+            android:scaleType="fitCenter" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/imgCat"
+            android:layout_alignParentLeft="false"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/txtCat"
+                android:layout_marginLeft="10dp"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="false"
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentBottom="false"
+                android:layout_alignParentRight="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec consequat justo eget sollicitudin euismod. Donec interdum gravida massa nunc."
+                android:id="@+id/txtSubCat"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@+id/txtCat"
+                android:textStyle="bold"
+                android:singleLine="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/txtFechaEnvCat"
+                android:layout_below="@+id/txtSubCat"
+                android:layout_marginLeft="10dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+</LinearLayout>

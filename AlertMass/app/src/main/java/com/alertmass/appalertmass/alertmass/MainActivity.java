@@ -4,6 +4,7 @@ package com.alertmass.appalertmass.alertmass;
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
@@ -22,6 +23,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Arrays;
@@ -41,22 +43,22 @@ public class MainActivity extends TabActivity {
             tabHost = getTabHost();
             TabHost.TabSpec TabNotifi = tabHost.newTabSpec("Page 1");
 
-            TabNotifi.setIndicator("Alertas");
+            TabNotifi.setIndicator("", getResources().getDrawable(R.drawable.notifications));
             TabNotifi.setContent(new Intent(this, NotificacionesActivity.class));
             tabHost.addTab(TabNotifi);
 
             TabHost.TabSpec TabCanal = tabHost.newTabSpec("Page 2");
-            TabCanal.setIndicator("Canales");
+            TabCanal.setIndicator("", getResources().getDrawable(R.drawable.channels));
             TabCanal.setContent(new Intent(this, CanalesActivity.class));
             tabHost.addTab(TabCanal);
 
             TabHost.TabSpec TabGrupos = tabHost.newTabSpec("Page 3");
-            TabGrupos.setIndicator("Grupos");
+            TabGrupos.setIndicator("", getResources().getDrawable(R.drawable.groups));
             TabGrupos.setContent(new Intent(this, GruposActivity.class));
             tabHost.addTab(TabGrupos);
 
             TabHost.TabSpec TabPerfil = tabHost.newTabSpec("Page 4");
-            TabPerfil.setIndicator("Perfiles");
+            TabPerfil.setIndicator("", getResources().getDrawable(R.drawable.profile));
             TabPerfil.setContent(new Intent(this, PerfilesActivity.class));
             tabHost.addTab(TabPerfil);
         }catch (Exception e){
@@ -98,10 +100,13 @@ public class MainActivity extends TabActivity {
                 }else{
                     SalidaJsonAlert = TextoArchivo + "," + AlertDetJson.toString();
                 }
+                ContextWrapper cw = new ContextWrapper(this);
+                File dirImages = cw.getDir("Files", Context.MODE_PRIVATE);
+                File myPath = new File(dirImages, "alerts.txt");
 
+                FileOutputStream fos = new FileOutputStream(myPath);
                 OutputStreamWriter FileAlert=
-                        new OutputStreamWriter(
-                                openFileOutput("alerts.txt", Context.MODE_PRIVATE));
+                        new OutputStreamWriter(fos);
 
                 FileAlert.write(SalidaJsonAlert);
                 FileAlert.close();

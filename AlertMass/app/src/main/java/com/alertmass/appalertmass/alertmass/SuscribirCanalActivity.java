@@ -41,8 +41,10 @@ public class SuscribirCanalActivity extends Activity implements IDescarga {
     private ListView ListaCanalesSuscritos;
     private String IdCat="";
     private String NomCat;
-    private DataLogin datalogin = new DataLogin();
+    private DataLogin datalogin;
     private TextView lblCategoriaCanal;
+    private ProgressDialog pDialog;
+    public int isFacebook;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +53,23 @@ public class SuscribirCanalActivity extends Activity implements IDescarga {
             try{
                 setContentView(R.layout.activity_suscribir_canal);
                 overridePendingTransition(R.anim.left_in, R.anim.left_out);
+                if (FuncionesUtiles.IsSession(SuscribirCanalActivity.this,null)){
+                    if(datalogin==null){
+                        datalogin= DataLogin.EntregarDataLogin();
+
+                    }
+                }
+                pDialog = new ProgressDialog(SuscribirCanalActivity.this);
                 Bundle ext = getIntent().getExtras();
                 IdCat= ext.getString("id").toString();
                 NomCat = ext.getString("titulo").toString();
                 ListaCanalesSuscritos = (ListView) findViewById(R.id.lstCanalesSus);
                 lblCategoriaCanal = (TextView) findViewById(R.id.lblCategoriaCanal);
                 lblCategoriaCanal.setText(NomCat);
+                pDialog.setMessage("Cargando Canales de " + NomCat + "...");
+                pDialog.setIndeterminate(false);
+                pDialog.setCancelable(false);
+                pDialog.show();
                 CargarListaCanalesSuscritos();
             }catch (Exception e){
                 FuncionesUtiles.LogError(e.getMessage().toString(),getApplicationContext());
@@ -68,9 +81,18 @@ public class SuscribirCanalActivity extends Activity implements IDescarga {
 
     private void CargarListaCanalesSuscritos(){
         try {
+            String Pass = datalogin.GetPassUser();
+            String Correo = datalogin.GetCorreoUser();
+            isFacebook = datalogin.GetIsFacebook();
+            final String headerPWD;
+            if(isFacebook == 1){
+                headerPWD= Correo+"::true";
+            }else{
+                headerPWD= Correo+":"+Pass+":false";
+            }
             new AsyncTask<Void, Void, Boolean>() {
-                ProgressDialog pDialog = new ProgressDialog(SuscribirCanalActivity.this);
-                String headerPWD = datalogin.GetCorreoUser()+":"+datalogin.GetPassUser();
+
+
                 byte[] data = headerPWD.getBytes("UTF-8");
                 String headerPWDbase64 = Base64.encodeToString(data, Base64.DEFAULT).replace("\n", "");
                 @Override
@@ -87,10 +109,10 @@ public class SuscribirCanalActivity extends Activity implements IDescarga {
 
                 @Override
                 protected void onPreExecute() {
-                    pDialog.setMessage("Cargando Canales de " + NomCat + "...");
+                   /* pDialog.setMessage("Cargando Canales de " + NomCat + "...");
                     pDialog.setIndeterminate(false);
                     pDialog.setCancelable(false);
-                    pDialog.show();
+                    pDialog.show();*/
                 }
 
                 @Override
