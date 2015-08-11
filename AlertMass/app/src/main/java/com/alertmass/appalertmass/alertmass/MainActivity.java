@@ -17,6 +17,8 @@ import android.widget.TabHost;
 
 import com.alertmass.appalertmass.alertmass.util.FuncionesUtiles;
 import com.facebook.login.LoginManager;
+import com.parse.ParseBroadcastReceiver;
+import com.parse.ParsePush;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,6 +41,7 @@ public class MainActivity extends TabActivity {
 
         setContentView(R.layout.activity_main);
         try{
+
             CapturaAlerta();
             tabHost = getTabHost();
             TabHost.TabSpec TabNotifi = tabHost.newTabSpec("Page 1");

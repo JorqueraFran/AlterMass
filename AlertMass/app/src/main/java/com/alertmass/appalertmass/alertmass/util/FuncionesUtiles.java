@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
@@ -44,6 +45,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -382,5 +384,72 @@ public abstract class FuncionesUtiles {
         {
             Log.e("Ficheros", "Error al leer fichero desde memoria interna");
         }
+    }
+
+    public static void CapturaAlerta(Context context, Intent intent){
+        Bundle extras = intent.getExtras();
+        String SalidaJsonAlert="";
+        String TextoArchivo = LeerArchivo(context);
+        if(extras != null){
+
+            String jsonData = extras.getString("com.parse.Data" );
+            try
+            {
+                JSONObject jObject = new JSONObject(jsonData);
+                JSONObject AlertDetJson = new JSONObject();
+
+                AlertDetJson.put("Mensaje",jObject.getString("alert"));
+                AlertDetJson.put("IdCanal",jObject.getString("idcanal"));
+                AlertDetJson.put("NombreCanal",jObject.getString("nomcanal"));
+                AlertDetJson.put("FechaEnvio",jObject.getString("fecenv"));
+                AlertDetJson.put("HoraEnvio",jObject.getString("horenv"));
+
+                if(TextoArchivo.isEmpty()){
+                    SalidaJsonAlert = AlertDetJson.toString();
+                }else{
+                    SalidaJsonAlert = TextoArchivo + "," + AlertDetJson.toString();
+                }
+                ContextWrapper cw = new ContextWrapper(context);
+                File dirImages = cw.getDir("Files", Context.MODE_PRIVATE);
+                File myPath = new File(dirImages, "alerts.txt");
+
+                FileOutputStream fos = new FileOutputStream(myPath);
+                OutputStreamWriter FileAlert=
+                        new OutputStreamWriter(fos);
+
+                FileAlert.write(SalidaJsonAlert);
+                FileAlert.close();
+                FuncionesUtiles.SetDataAlert("{\"Data\":["+SalidaJsonAlert+"]}");
+            }
+            catch (Exception ex)
+            {
+                Log.e("Ficheros", "Error al escribir fichero a memoria interna");
+            }
+        }else{
+            FuncionesUtiles.SetDataAlert("{\"Data\":[" + TextoArchivo + "]}");
+        }
+    }
+
+    public static String LeerArchivo(Context context){
+        String TextoArchivo="";
+        try
+        {
+            ContextWrapper cw = new ContextWrapper(context);
+            File dir = cw.getDir("Files", Context.MODE_PRIVATE);
+            File File = new  File(dir, "alerts.txt");
+            if(File.exists())
+            {
+                FileInputStream fIn = new FileInputStream(File);
+                InputStreamReader archivo = new InputStreamReader(fIn);
+                BufferedReader br = new BufferedReader(archivo);
+                TextoArchivo = br.readLine();
+                br.close();
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.e("Ficheros", "Error al leer fichero desde memoria interna");
+        }
+        return TextoArchivo;
     }
 }

@@ -40,7 +40,13 @@ public class CanalesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_canales);
+        lblMsjCanal = (TextView) findViewById(R.id.lblMensajeCanales);
+        ibtnAddCanal = (ImageView) findViewById(R.id.ibtnAddCanal);
+        ListaCanales = (ListView) findViewById(R.id.lstCanales);
+
+        actCanal =  CanalesActivity.this;
         if(FuncionesUtiles.verificaConexion(getApplicationContext())){
+
             try{
                 if (FuncionesUtiles.IsSession(CanalesActivity.this,null)){
                     if(datalogin==null){
@@ -48,22 +54,21 @@ public class CanalesActivity extends Activity {
 
                     }
                 }
-                ibtnAddCanal = (ImageView) findViewById(R.id.ibtnAddCanal);
+
                 ibtnAddCanal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         IrActAddGrupo();
                     }
                 });
-                ListaCanales = (ListView) findViewById(R.id.lstCanales);
-                lblMsjCanal = (TextView) findViewById(R.id.lblMensajeCanales);
-                actCanal =  CanalesActivity.this;
+
 
                 FuncionesUtiles.CargarListaCanales(lblMsjCanal);
             }catch (Exception e){
                 FuncionesUtiles.LogError(e.getMessage().toString(),getApplicationContext());
             }
         }else{
+            FuncionesUtiles.CargarListaCanales(lblMsjCanal);
             FuncionesUtiles.AvisoSinConexion(CanalesActivity.this);
         }
     }
