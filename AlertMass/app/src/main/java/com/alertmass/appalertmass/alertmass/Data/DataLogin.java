@@ -144,7 +144,14 @@ public class DataLogin {
     }
     public static DataLogin EntregarDataLogin()
     {
-        return datalogin;
+        DataLogin _datalogin;
+        if(datalogin==null){
+            DataLogin.ProcesarSession(FuncionesUtiles.correosession, FuncionesUtiles.usersession,FuncionesUtiles.passsession,FuncionesUtiles.estadosession,FuncionesUtiles.isfacebooksession, FuncionesUtiles.telefonosession, FuncionesUtiles.paissession);
+            _datalogin= datalogin;
+        }else{
+            _datalogin= datalogin;
+        }
+        return _datalogin;
     }
 
 }

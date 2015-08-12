@@ -54,7 +54,7 @@ public class PerfilesActivity extends Activity implements IDescarga {
     public DataLogin datalogin;//= new DataLogin();
     public String PassOld;
     public String PassNew;
-    public int isFacebook;
+    public int isFacebook=0;
     private Spinner spinnerPais;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,6 @@ public class PerfilesActivity extends Activity implements IDescarga {
             if (FuncionesUtiles.IsSession(PerfilesActivity.this,null)){
                if(datalogin==null){
                    datalogin= DataLogin.EntregarDataLogin();
-
                }
             }
             FuncionesUtiles.CargarSpinnerPaises(PerfilesActivity.this, spinnerPais);

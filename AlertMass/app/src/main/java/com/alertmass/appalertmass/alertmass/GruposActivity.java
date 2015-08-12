@@ -75,7 +75,6 @@ public class GruposActivity extends Activity {
                 //overridePendingTransition(R.anim.left_in, R.anim.left_out);
             }
         });
-
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

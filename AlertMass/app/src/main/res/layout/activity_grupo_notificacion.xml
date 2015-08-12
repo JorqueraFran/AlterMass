@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ibtnAddGrupoNoti"
-            android:src="@android:drawable/ic_input_add"
+            android:src="@drawable/plusicon"
             android:layout_weight="1" />
     </LinearLayout>
     <ListView

@@ -81,7 +81,7 @@ public class CanalesActivity extends Activity {
     public void CargarListaCanales(){
         try {
             ArrayList<Listas> items = new ArrayList<Listas>();
-            String strCanales = FuncionesUtiles.LeerCanales(CanalesActivity.this);
+            String strCanales = FuncionesUtiles.LeerCanales(CanalesActivity.this,FuncionesUtiles.usersession);
             JSONArray AlertArray = new JSONArray(strCanales);
         } catch (JSONException e) {
             e.printStackTrace();

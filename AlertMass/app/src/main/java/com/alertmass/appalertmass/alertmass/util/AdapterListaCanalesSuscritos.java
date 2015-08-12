@@ -78,7 +78,7 @@ public class AdapterListaCanalesSuscritos extends BaseAdapter {
                     if (e == null) {
                         DescargarImagenes(null, ((int) idbtn.GetId()), idbtn.GetIdObj(),idbtn.GetTitle(), true);
                         FuncionesUtiles.ToastMensaje(vw.getContext(), "Te has suscrito al canal " + idbtn.GetTitle());
-                        String TextoArchivo = FuncionesUtiles.LeerCanales(vw.getContext());
+                        String TextoArchivo = FuncionesUtiles.LeerCanales(vw.getContext(),FuncionesUtiles.usersession);
                         if(TextoArchivo==null){
                             TextoArchivo="";
                         }
@@ -89,7 +89,7 @@ public class AdapterListaCanalesSuscritos extends BaseAdapter {
                             SalidaCanalesAlert = TextoArchivo + "," + "\""+idbtn.GetTitle()+"\"";
                         }
 
-                        FuncionesUtiles.GuardarCanales(SalidaCanalesAlert,vw.getContext());
+                        FuncionesUtiles.GuardarCanales(SalidaCanalesAlert,vw.getContext(),FuncionesUtiles.usersession);
                         FuncionesUtiles.CargarListaCanales(CanalesActivity.lblMsjCanal);
                         btn.setVisibility(View.INVISIBLE);
                     } else {
@@ -133,7 +133,7 @@ public class AdapterListaCanalesSuscritos extends BaseAdapter {
         btnSuscribir.setTag(item);
         btnSuscribir.setOnClickListener(ClickSuscribir);
 
-        String strCanales ="["+ FuncionesUtiles.LeerCanales(CanalesActivity.actCanal)+"]";
+        String strCanales ="["+ FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.usersession)+"]";
         ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
         JSONArray subscribedChannels = null;
         try {

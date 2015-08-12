@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ibtnAddGrupo"
-            android:src="@android:drawable/ic_input_add"
+            android:src="@drawable/plusicon"
             android:layout_weight="1" />
     </LinearLayout>
 
@@ -36,6 +36,5 @@
         android:layout_alignParentTop="false"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="false"
-        android:layout_below="@+id/lnyTit"
-        android:layout_alignParentStart="false" />
+        android:layout_below="@+id/lnyTit"/>
 </RelativeLayout>

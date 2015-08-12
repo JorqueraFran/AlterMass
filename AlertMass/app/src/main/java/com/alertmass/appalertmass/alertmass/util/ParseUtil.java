@@ -20,8 +20,7 @@ public class ParseUtil extends ParseBroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
         if(intent!=null){
-            FuncionesUtiles.CapturaAlerta(context,intent);
-            FuncionesUtiles.ToastMensaje(context,"Llego un mensaje madafaka");
+            FuncionesUtiles.CapturaAlerta(context,intent,FuncionesUtiles.usersession);
         }
     }
 

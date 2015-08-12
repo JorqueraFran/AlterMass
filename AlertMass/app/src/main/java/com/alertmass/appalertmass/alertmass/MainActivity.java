@@ -41,8 +41,8 @@ public class MainActivity extends TabActivity {
 
         setContentView(R.layout.activity_main);
         try{
-
-            CapturaAlerta();
+            FuncionesUtiles.CapturaAlerta(this,getIntent(),FuncionesUtiles.usersession);
+            //CapturaAlerta();
             tabHost = getTabHost();
             TabHost.TabSpec TabNotifi = tabHost.newTabSpec("Page 1");
 

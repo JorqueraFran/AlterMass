@@ -229,12 +229,12 @@ public abstract class FuncionesUtiles {
         }
     }
 
-    public static void GuardarCanales(String Canales,Context ctn){
+    public static void GuardarCanales(String Canales,Context ctn, String IdUser){
         try
         {
             ContextWrapper cw = new ContextWrapper(ctn);
             File dirImages = cw.getDir("Files", Context.MODE_PRIVATE);
-            File myPath = new File(dirImages, "CanalesAlertMass.txt");
+            File myPath = new File(dirImages, "CanalesAlertMass-"+IdUser+".txt");
 
             FileOutputStream fos = new FileOutputStream(myPath);
             OutputStreamWriter FileAlert=
@@ -250,13 +250,13 @@ public abstract class FuncionesUtiles {
         }
     }
 
-    public static String LeerCanales(Context ctn){
+    public static String LeerCanales(Context ctn,String IdUser){
         String TextoArchivo="";
         try
         {
             ContextWrapper cw = new ContextWrapper(ctn);
             File dirImages = cw.getDir("Files", Context.MODE_PRIVATE);
-            File CanalFile = new  File(dirImages, "CanalesAlertMass.txt");
+            File CanalFile = new  File(dirImages, "CanalesAlertMass-"+IdUser+".txt");
             if(CanalFile.exists())
             {
                 FileInputStream fIn = new FileInputStream(CanalFile);
@@ -278,9 +278,9 @@ public abstract class FuncionesUtiles {
         try {
             ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
             ArrayList<Listas> items = new ArrayList<Listas>();
-            if (FuncionesUtiles.LeerCanales(CanalesActivity.actCanal)!=null) {
+            if (FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.usersession)!=null) {
 
-                String strCanales ="["+ FuncionesUtiles.LeerCanales(CanalesActivity.actCanal)+"]";
+                String strCanales ="["+ FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.usersession)+"]";
 
                 JSONArray subscribedChannels = new JSONArray(strCanales);
 
@@ -298,20 +298,6 @@ public abstract class FuncionesUtiles {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-       /* ArrayList<Listas> items = new ArrayList<Listas>();
-        List<String> subscribedChannels = ParseInstallation.getCurrentInstallation().getList("channels");
-        //lblCountCanal.setText(subscribedChannels.size() + " Canales");
-        ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
-        if(subscribedChannels!=null){
-            for(int x = 0; x < subscribedChannels.size(); x++){
-                items.add(new Listas(x,"",subscribedChannels.get(x).toString(),"" ,""));
-            }
-            AdapterListaCanales aList = new AdapterListaCanales(CanalesActivity.actCanal, items);
-            ListaCanales.setAdapter(aList);
-        }*/
-
-
     }
 
     public static boolean verificaConexion(Context ctx) {
@@ -365,6 +351,7 @@ public abstract class FuncionesUtiles {
             imagenVW.setImageURI(Uri.fromFile(imgFile));
         }
     }
+
     public static void EliminarArchivo(Context ctn, String NombreArch){
         try
         {
@@ -386,10 +373,10 @@ public abstract class FuncionesUtiles {
         }
     }
 
-    public static void CapturaAlerta(Context context, Intent intent){
+    public static void CapturaAlerta(Context context, Intent intent,String IdUser){
         Bundle extras = intent.getExtras();
         String SalidaJsonAlert="";
-        String TextoArchivo = LeerArchivo(context);
+        String TextoArchivo = LeerArchivo(context,FuncionesUtiles.usersession);
         if(extras != null){
 
             String jsonData = extras.getString("com.parse.Data" );
@@ -411,7 +398,7 @@ public abstract class FuncionesUtiles {
                 }
                 ContextWrapper cw = new ContextWrapper(context);
                 File dirImages = cw.getDir("Files", Context.MODE_PRIVATE);
-                File myPath = new File(dirImages, "alerts.txt");
+                File myPath = new File(dirImages, "alerts" + IdUser + ".txt");
 
                 FileOutputStream fos = new FileOutputStream(myPath);
                 OutputStreamWriter FileAlert=
@@ -430,13 +417,13 @@ public abstract class FuncionesUtiles {
         }
     }
 
-    public static String LeerArchivo(Context context){
+    public static String LeerArchivo(Context context,String IdUser){
         String TextoArchivo="";
         try
         {
             ContextWrapper cw = new ContextWrapper(context);
             File dir = cw.getDir("Files", Context.MODE_PRIVATE);
-            File File = new  File(dir, "alerts.txt");
+            File File = new  File(dir, "alerts" + IdUser + ".txt");
             if(File.exists())
             {
                 FileInputStream fIn = new FileInputStream(File);

@@ -65,16 +65,16 @@ public class AdapterListaCanales extends BaseAdapter {
                 public void done(ParseException e) {
                     if (e == null) {
                         FuncionesUtiles.ToastMensaje(vw.getContext(), "Ya no estas suscrito al canal " + idbtn.GetTitle());
-                        if (FuncionesUtiles.LeerCanales(CanalesActivity.actCanal)!=null) {
-                        String strCanales = "[" + FuncionesUtiles.LeerCanales(CanalesActivity.actCanal) + "]";
+                        if (FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.usersession)!=null) {
+                        String strCanales = "[" + FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.usersession) + "]";
                         ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
                         try {
                             JSONArray subscribedChannels = new JSONArray(strCanales);
                             if (subscribedChannels.length() == 1) {
-                                FuncionesUtiles.GuardarCanales("", vw.getContext());
+                                FuncionesUtiles.GuardarCanales("", vw.getContext(),FuncionesUtiles.usersession);
                             } else {
-                                String Desuscribir = FuncionesUtiles.LeerCanales(CanalesActivity.actCanal).replace(idbtn.GetTitle().replace(" ","")+",","");
-                                FuncionesUtiles.GuardarCanales(Desuscribir, vw.getContext());
+                                String Desuscribir = FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.usersession).replace(idbtn.GetTitle().replace(" ","")+",","");
+                                FuncionesUtiles.GuardarCanales(Desuscribir, vw.getContext(),FuncionesUtiles.usersession);
                                 FuncionesUtiles.EliminarArchivo(vw.getContext(),"Logo"+idbtn.GetTitle().replace(" ",""));
                             }
                         } catch (JSONException e1) {
