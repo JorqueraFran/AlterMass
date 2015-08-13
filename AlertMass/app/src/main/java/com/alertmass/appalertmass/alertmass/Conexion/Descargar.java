@@ -3,7 +3,10 @@ package com.alertmass.appalertmass.alertmass.Conexion;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
@@ -17,6 +20,7 @@ public class Descargar {
     public String headersPWD;
     public String headersPais;
     public boolean isPost;
+    public boolean isPut;
     public IDescarga callback;
     public byte[] resultado;
     public Exception errorDescarga;
@@ -31,6 +35,7 @@ public class Descargar {
         headersPWD= "";
         headersPais ="";
         isPost = true;
+        isPut = false;
 
         callback = null;
         resultado = null;
@@ -60,6 +65,26 @@ public class Descargar {
         return strVars;
     }
 
+    public String ObtenerStrURLVarsPUT()
+    {
+        String strVars = "";
+
+        int cant = varsPost.size();
+        int cont = 0;
+        for (HashMap.Entry<String, String> entry : varsPost.entrySet())
+        {
+            cont++;
+
+            strVars += "\""+entry.getKey()+ "\"" + ":" + "\"" + entry.getValue() + "\"";
+            if (cont < cant)
+            {
+                strVars += ",";
+            }
+        }
+
+        return "{" + strVars + "}";
+    }
+
     public String ObtenerHeadersPWD()
     {
         return headersPWD;
@@ -75,7 +100,8 @@ public class Descargar {
 
         try
         {
-            if (!isPost)
+
+            if (!isPost && !isPut)
             {
                 String strVars = ObtenerStrURLVars();
                 url = new URL(urlDescarga + "?" + strVars);
@@ -110,11 +136,18 @@ public class Descargar {
         {
             httpUrlCon.setRequestMethod("POST");
             httpUrlCon.setDoOutput(true);
+
+        }
+        else if(isPut){
+            httpUrlCon.setRequestMethod("PUT");
+            httpUrlCon.setDoOutput(true);
         }
         else
         {
             httpUrlCon.setRequestMethod("GET");
         }
+
+
 
         httpUrlCon.setDoInput(true);
 

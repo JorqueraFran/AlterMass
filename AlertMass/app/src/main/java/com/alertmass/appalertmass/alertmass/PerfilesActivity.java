@@ -215,7 +215,8 @@ public class PerfilesActivity extends Activity implements IDescarga {
                     Descargar descarga = new Descargar();
                     descarga.headersPWD = headerPWDbase64;
                     descarga.urlDescarga = ServicioLogin;
-                    descarga.isPost = true;
+                    descarga.isPost = false;
+                    descarga.isPut = true;
                     descarga.varsPost.put("oldpass",PassOld);
                     descarga.varsPost.put("newpass",PassNew);
                     descarga.callback = PerfilesActivity.this;

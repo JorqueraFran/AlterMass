@@ -35,7 +35,12 @@ public class NotificacionesActivity extends Activity {
         setContentView(R.layout.activity_notificaciones);
 
         try{
-            datalogin= DataLogin.EntregarDataLogin();
+            if (FuncionesUtiles.IsSession(NotificacionesActivity.this,null)){
+                if(datalogin==null){
+                    datalogin= DataLogin.EntregarDataLogin();
+
+                }
+            }
 
             ListaAlertas = (ListView) findViewById(R.id.lstNoti);
             CargarListaAlerta();

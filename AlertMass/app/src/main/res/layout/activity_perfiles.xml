@@ -168,8 +168,8 @@
                 android:text="Cambiar Password"
                 android:id="@+id/btnCambiaPassPerfil"
                 android:layout_gravity="center_horizontal"
-                android:background="@drawable/buttonmain"
-                android:textColor="#005397"
+                android:background="@drawable/button"
+                android:textColor="#ffffff"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:visibility="visible" />
@@ -183,8 +183,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_alignParentBottom="true"
             android:layout_margin="10dp"
-            android:textColor="#005397"
-            android:background="@drawable/buttonmain" />
+            android:textColor="#ffffff"
+            android:background="@drawable/button" />
     </LinearLayout>
     </ScrollView>
 

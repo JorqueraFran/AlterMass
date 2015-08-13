@@ -204,6 +204,17 @@ public abstract class FuncionesUtiles {
 
     }
 
+    public static String GetIdPaisActual(String Pais){
+
+        String IdPais ="";
+        for (Map.Entry<String, String> mapEntry : DataLogin.GetPaises().entrySet()) {
+            if (mapEntry.getKey().equals(Pais)) {
+                IdPais = mapEntry.getValue();
+            }
+        }
+        return IdPais;
+    }
+
     public static String GetDataAlert(){
         return JsonAlert;
     }
@@ -327,7 +338,7 @@ public abstract class FuncionesUtiles {
     public static String guardarImagen (Context context, String nombre, Bitmap imagen){
         ContextWrapper cw = new ContextWrapper(context);
         File dirImages = cw.getDir("Imagenes", Context.MODE_PRIVATE);
-        File myPath = new File(dirImages, nombre.replace(" ","") + ".png");
+        File myPath = new File(dirImages, nombre.replace(" ","") + ".jpg");
 
         FileOutputStream fos = null;
         try{
@@ -345,7 +356,7 @@ public abstract class FuncionesUtiles {
     public static void MostrarLogoCanal(Context context, String nombre,ImageView imagenVW){
         ContextWrapper cw = new ContextWrapper(context);
         File dirImages = cw.getDir("Imagenes", Context.MODE_PRIVATE);
-        File imgFile = new  File(dirImages, "Logo"+nombre + ".png");
+        File imgFile = new  File(dirImages, "Logo"+nombre + "jpg");
         if(imgFile.exists())
         {
             imagenVW.setImageURI(Uri.fromFile(imgFile));

@@ -36,18 +36,30 @@
             android:text="@string/InfoPassRecover"
             android:id="@+id/lbl_InfoPassRecover"
             android:gravity="center"
-            android:layout_above="@+id/txt_EmailRecover"
 
-            android:textColor="#ff000000" />
+            android:textColor="#ff000000"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="29dp" />
 
         <AutoCompleteTextView android:id="@+id/txt_EmailRecover" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:hint="@string/prompt_email"
             android:inputType="textEmailAddress" android:maxLines="1"
             android:singleLine="true"
-            android:layout_alignParentBottom="true"
             android:imeOptions="actionGo"
-            android:layout_marginBottom="50dp"
-            android:layout_marginTop="50dp" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/lbl_InfoPassRecover" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Recuperar Contraseña"
+            android:id="@+id/btnRecover"
+            android:layout_alignParentLeft="false"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="#ffffff"
+            android:background="@drawable/button" />
 
     </RelativeLayout>
     <!--</ScrollView>-->

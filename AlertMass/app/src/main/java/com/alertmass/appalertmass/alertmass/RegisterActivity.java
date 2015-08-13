@@ -26,13 +26,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-
-/**
- * An example full-screen activity that shows and hides the system UI (i.e.
- * status bar and navigation/system bar) with user interaction.
- *
- * @see SystemUiHider
- */
 public class RegisterActivity extends Activity implements IDescarga {
 
     private EditText txtNombre;
@@ -95,7 +88,7 @@ public class RegisterActivity extends Activity implements IDescarga {
             TieneErrores =true;
         }
         //validacion password
-        if(!TextUtils.isEmpty(txtPass.getText().toString()) && !FuncionesUtiles.isPasswordValid(txtPass.getText().toString())){
+        if(Pass.isEmpty() || !FuncionesUtiles.isPasswordValid(Pass)){
             txtPass.setError(getString(R.string.error_invalid_password));
             TieneErrores =true;
         }
@@ -142,9 +135,17 @@ public class RegisterActivity extends Activity implements IDescarga {
     public void TerminoDescarga(Descargar descarga, byte[] data) {
         String strJSON = null;
 
+
+        String mail = txtCorreo.getText().toString();
+        String nom = txtNombre.getText().toString();
+        String pass = txtPass.getText().toString();
+        String fono = txtTelefono.getText().toString();
+        String pais = FuncionesUtiles.GetIdPaisActual(spinnerPais.getSelectedItem().toString());
+
+
+        DataLogin.ProcesarSession(mail,nom,pass,1,0,fono,pais);
         FuncionesUtiles.ToastMensaje(this, "Usuario Registrado Correctamente");
-        //finish();
-        FuncionesUtiles.SetSession(txtNombre.getText().toString(), txtPass.getText().toString(), txtCorreo.getText().toString(),1,0,"",txtTelefono.getText().toString());
+        //FuncionesUtiles.SetSession(txtNombre.getText().toString(), txtPass.getText().toString(), txtCorreo.getText().toString(),1,0,"",txtTelefono.getText().toString());
         Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.left_in, R.anim.left_out);

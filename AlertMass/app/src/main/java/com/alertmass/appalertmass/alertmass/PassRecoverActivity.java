@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,8 @@ import org.json.JSONObject;
 public class PassRecoverActivity extends Activity implements IDescarga {
 
     private AutoCompleteTextView EmailRecover;
+    private Button btnRecover;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +48,18 @@ public class PassRecoverActivity extends Activity implements IDescarga {
                     }
                 }
                 return false;
+            }
+        });
+
+        btnRecover = (Button) findViewById(R.id.btnRecover);
+        btnRecover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!FuncionesUtiles.isEmailValid(EmailRecover.getText().toString())){
+                    EmailRecover.setError(getString(R.string.error_invalid_email));
+                }else{
+                    RecuperarPass();
+                }
             }
         });
 

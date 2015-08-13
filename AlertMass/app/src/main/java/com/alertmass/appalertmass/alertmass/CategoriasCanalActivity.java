@@ -118,6 +118,7 @@ public class CategoriasCanalActivity extends Activity implements IDescarga {
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (TimeoutException e) {
+            FuncionesUtiles.ToastMensaje(this,"Se ha excedido el tiempo de espera de respuesta del servidor, Por Favor vuelva mas tarde");
             e.printStackTrace();
         }
     }

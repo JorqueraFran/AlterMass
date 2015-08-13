@@ -4,7 +4,10 @@ import android.os.AsyncTask;
 
 import org.apache.http.util.ByteArrayBuffer;
 
+import java.io.BufferedWriter;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 
 /**
@@ -32,6 +35,25 @@ public class Descargador extends AsyncTask<Descargar, Float, Descargar>
         {
             descarga.errorDescarga = ex;
             return descarga;
+        }
+
+        if(descarga.isPut){
+            try
+            {
+                /*OutputStream out = httpCon.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out, "UTF-8"));
+                writer.write(descarga.ObtenerStrURLVarsPUT());
+                writer.close();
+                out.close();*/
+
+                httpCon.getOutputStream().write(descarga.ObtenerStrURLVarsPUT().getBytes());
+                //httpCon.getResponseCode();
+            }
+            catch (Exception ex)
+            {
+                descarga.errorDescarga = ex;
+                return descarga;
+            }
         }
         //Ahora se conecta con el servidor
         try
