@@ -1,80 +1,111 @@
 package com.alertmass.appalertmass.alertmass;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-
-import com.alertmass.appalertmass.alertmass.Data.DataLogin;
 import com.alertmass.appalertmass.alertmass.Data.Listas;
+import com.alertmass.appalertmass.alertmass.util.AdapterListaCategorias;
 import com.alertmass.appalertmass.alertmass.util.AdapterListaNotificacion;
 import com.alertmass.appalertmass.alertmass.util.FuncionesUtiles;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class GruposActivity extends Activity {
 
-    private DataLogin datalogin;
     private ListView ListaGrupos;
     AdapterListaNotificacion aList;
-    ImageView ibtnAddGrupo;
-
+    ArrayList<Listas> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grupos);
         try{
-            datalogin= DataLogin.EntregarDataLogin();
-
-            ibtnAddGrupo = (ImageView) findViewById(R.id.ibtnAddGrupo);
-            ibtnAddGrupo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    IrActAddGrupo();
-                }
-            });
 
             ListaGrupos = (ListView) findViewById(R.id.lstGrupos);
-            CargarListaAlerta();
+            items = new ArrayList<Listas>();
+            if (FuncionesUtiles.paissession!=null)
+            {
+                if(FuncionesUtiles.verificaConexion(getApplicationContext())){
+                    CargarListaAlerta();
+                }else{
+                    FuncionesUtiles.AvisoSinConexion(GruposActivity.this);
+                }
+            }
+
         }catch (Exception e){
             FuncionesUtiles.LogError(e.getMessage().toString(),getApplicationContext());
         }
     }
-    private void IrActAddGrupo(){
-        Intent intent = new Intent(GruposActivity.this, CrearGrupoActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.left_in, R.anim.left_out);
-    }
+
     private void CargarListaAlerta(){
-        ArrayList<Listas> items = new ArrayList<Listas>();
-        for(int x = 1; x <= 10; x++){
-            items.add(new Listas(x,"","Grupos " + x,"SubGrupos " + x,""));
+        try {
+            new AsyncTask<Void, Void, Boolean>() {
+                ProgressDialog pDialog = new ProgressDialog(GruposActivity.this);
+                @Override
+                protected Boolean doInBackground(Void... params) {
+                    //if (FuncionesUtiles.IsSession(CategoriasCanalActivity.this,null)){
+
+                    final ParseQuery<ParseObject> querygrupo = ParseQuery.getQuery("grupos");
+                    List<ParseObject> list;
+                    try {
+                        list=querygrupo.find();
+                        int x=0;
+                        for (ParseObject grupos : list) {
+                            items.add(new Listas(x,grupos.getObjectId(),(String) grupos.get("nomgrupo"),(String) grupos.get("desgrupo"),""));
+                            x++;
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    //}
+
+                    return true;
+                }
+                @Override
+                protected void onPreExecute() {
+                    pDialog.setMessage("Cargando...");
+                    pDialog.setIndeterminate(false);
+                    pDialog.setCancelable(false);
+                    pDialog.show();
+                }
+
+                @Override
+                protected void onPostExecute(Boolean aBoolean) {
+
+                    aList  = new AdapterListaNotificacion(GruposActivity.this, items);
+                    ListaGrupos.setAdapter(aList);
+                    ListaGrupos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                            Listas itemActual = (Listas) aList.getItem(pos);
+                            // FuncionesUtiles.ToastMensaje(getApplicationContext(), "Posicion " + pos);
+                            Intent intent = new Intent(GruposActivity.this, GrupoNotificacionActivity.class);
+                            intent.putExtra("id", itemActual.GetIdObj());
+                            intent.putExtra("titulo", itemActual.GetTitle());
+                            startActivity(intent);
+                            //overridePendingTransition(R.anim.left_in, R.anim.left_out);
+                        }
+                    });
+                    pDialog.dismiss();
+                }
+            }.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        aList  = new AdapterListaNotificacion(GruposActivity.this, items);
-        ListaGrupos.setAdapter(aList);
-        ListaGrupos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                Listas itemActual = (Listas)aList.getItem(pos);
-                //FuncionesUtiles.ToastMensaje(getApplicationContext(), "Posicion " + pos);
-                Intent intent = new Intent(GruposActivity.this, GrupoNotificacionActivity.class);
-                intent.putExtra("titulo", itemActual.GetTitle());
-                startActivity(intent);
-                //overridePendingTransition(R.anim.left_in, R.anim.left_out);
-            }
-        });
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

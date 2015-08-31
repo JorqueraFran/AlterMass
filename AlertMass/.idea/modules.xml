@@ -4,8 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AlertMass.iml" filepath="$PROJECT_DIR$/AlertMass.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/librerias/facebook/facebook.iml" filepath="$PROJECT_DIR$/librerias/facebook/facebook.iml" />
-      <module fileurl="file://$PROJECT_DIR$/librerias/librerias.iml" filepath="$PROJECT_DIR$/librerias/librerias.iml" />
     </modules>
   </component>
 </project>

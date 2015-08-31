@@ -26,6 +26,12 @@ public class Listas {
         this.SubTitle="";
     }
 
+    public Listas(long Id,String Cod,String Title){
+        this.Id = Id;
+        this.Title=Title;
+        this.IdObj=Cod;
+    }
+
     public Listas(long Id,String IdObj,String Title, String SubTitle, String Fecha){
         this.Id = Id;
         this.Title=Title;

@@ -22,6 +22,7 @@ import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -64,23 +65,31 @@ public class AdapterListaCanales extends BaseAdapter {
                 @Override
                 public void done(ParseException e) {
                     if (e == null) {
-                        FuncionesUtiles.ToastMensaje(vw.getContext(), "Ya no estas suscrito al canal " + idbtn.GetTitle());
-                        if (FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.usersession)!=null) {
-                        String strCanales = "[" + FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.usersession) + "]";
-                        ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
-                        try {
-                            JSONArray subscribedChannels = new JSONArray(strCanales);
-                            if (subscribedChannels.length() == 1) {
-                                FuncionesUtiles.GuardarCanales("", vw.getContext(),FuncionesUtiles.usersession);
-                            } else {
-                                String Desuscribir = FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.usersession).replace(idbtn.GetTitle().replace(" ","")+",","");
-                                FuncionesUtiles.GuardarCanales(Desuscribir, vw.getContext(),FuncionesUtiles.usersession);
-                                FuncionesUtiles.EliminarArchivo(vw.getContext(),"Logo"+idbtn.GetTitle().replace(" ",""));
+
+                        if (FuncionesUtiles.LeerCanales(CanalesActivity.actCanal, FuncionesUtiles.paissession) != null) {
+                            String strCanales = "[" + FuncionesUtiles.LeerCanales(CanalesActivity.actCanal, FuncionesUtiles.paissession) + "]";
+                            ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
+                            try {
+                                JSONArray subscribedChannels = new JSONArray(strCanales);
+                                if (subscribedChannels.length() == 1) {
+                                    FuncionesUtiles.GuardarCanales("", vw.getContext(), FuncionesUtiles.paissession);
+                                } else {
+                                    for (int x = 0; x < subscribedChannels.length(); x++) {
+                                        JSONObject json = subscribedChannels.getJSONObject(x);
+                                        if (json.getString("IdCanal").equals(idbtn.GetIdObj().toString())) {
+                                            subscribedChannels = FuncionesUtiles.remove(x,subscribedChannels);
+                                        }
+                                    }
+                                    String Desuscribir = subscribedChannels.toString().replace("[","").replace("]","");
+                                    FuncionesUtiles.GuardarCanales(Desuscribir, vw.getContext(), FuncionesUtiles.paissession);
+                                    FuncionesUtiles.EliminarArchivo(vw.getContext(), "Logo" + idbtn.GetIdObj().toString());
+                                }
+                                FuncionesUtiles.ToastMensaje(vw.getContext(), "Ya no estas suscrito al canal " + idbtn.GetTitle());
+                            } catch (JSONException e1) {
+                                e1.printStackTrace();
                             }
-                        } catch (JSONException e1) {
-                            e1.printStackTrace();
+                            FuncionesUtiles.CargarListaCanales(CanalesActivity.lblMsjCanal);
                         }
-                        FuncionesUtiles.CargarListaCanales(CanalesActivity.lblMsjCanal);}
                     } else {
                         e.printStackTrace();
                         FuncionesUtiles.ToastMensaje(vw.getContext(), "No se puso cancelar la suscripcion al canal " + idbtn.GetTitle());
@@ -103,7 +112,7 @@ public class AdapterListaCanales extends BaseAdapter {
         item = items.get(pos);
         ImageView image = (ImageView) vw.findViewById(R.id.imgCanal);
         image.setTag(item);
-        FuncionesUtiles.MostrarLogoCanal(vw.getContext(),item.GetTitle().replace(" ",""),image);
+        FuncionesUtiles.MostrarLogoCanal(vw.getContext(),item.GetIdObj().toString(),image);
 
         TextView title = (TextView) vw.findViewById(R.id.txtCanal);
         title.setText(item.GetTitle());

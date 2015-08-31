@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by C-266 on 14/07/2015.
  */
 public class SessionApp extends SQLiteOpenHelper {
-    private String TABLE = "CREATE TABLE Usuario (usr TEXT, pwr TEXT, correo TEXT, estado INTEGER,isfacebook INTEGER, pais TEXT, telefono TEXT)";
+    private String TABLE = "CREATE TABLE Usuario (pais TEXT)";
 
     public SessionApp(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

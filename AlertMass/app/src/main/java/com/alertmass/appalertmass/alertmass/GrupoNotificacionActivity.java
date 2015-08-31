@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 public class GrupoNotificacionActivity extends Activity {
 
-    ImageView ibtnAddGrupoNoti;
     private ListView ListaGruposNoti;
     AdapterListaNotificacion aList;
     TextView lblTitulo;
@@ -39,13 +38,6 @@ public class GrupoNotificacionActivity extends Activity {
             lblTitulo = (TextView) findViewById(R.id.txtNomNotiG);
             lblTitulo.setText(ext.getString("titulo"));
 
-            ibtnAddGrupoNoti = (ImageView) findViewById(R.id.ibtnAddGrupoNoti);
-            ibtnAddGrupoNoti.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    IrActAddGrupoNoti();
-                }
-            });
 
             ListaGruposNoti = (ListView) findViewById(R.id.lstGrupoNoti);
             CargarListaGruposNoti();
@@ -54,9 +46,6 @@ public class GrupoNotificacionActivity extends Activity {
         }
     }
 
-    private void IrActAddGrupoNoti(){
-
-    }
 
     private void CargarListaGruposNoti(){
         ArrayList<Listas> items = new ArrayList<Listas>();

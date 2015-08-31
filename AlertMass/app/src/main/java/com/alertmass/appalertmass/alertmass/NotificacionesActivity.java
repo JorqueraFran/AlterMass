@@ -2,18 +2,11 @@ package com.alertmass.appalertmass.alertmass;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.alertmass.appalertmass.alertmass.Data.DataLogin;
 import com.alertmass.appalertmass.alertmass.Data.Listas;
 import com.alertmass.appalertmass.alertmass.util.AdapterListaNotificacion;
 import com.alertmass.appalertmass.alertmass.util.FuncionesUtiles;
@@ -26,7 +19,6 @@ import java.util.ArrayList;
 
 
 public class NotificacionesActivity extends Activity {
-    private DataLogin datalogin;
     private ListView ListaAlertas;
     AdapterListaNotificacion aList;
     @Override
@@ -36,10 +28,8 @@ public class NotificacionesActivity extends Activity {
 
         try{
             if (FuncionesUtiles.IsSession(NotificacionesActivity.this,null)){
-                if(datalogin==null){
-                    datalogin= DataLogin.EntregarDataLogin();
+                //FuncionesUtiles.ToastMensaje(NotificacionesActivity.this,FuncionesUtiles.paissession);
 
-                }
             }
 
             ListaAlertas = (ListView) findViewById(R.id.lstNoti);
@@ -62,7 +52,7 @@ public class NotificacionesActivity extends Activity {
                 for(int x = 0; x <= AlertArray.length(); x++){
                     try {
                         JSONObject json = AlertArray.getJSONObject(x);
-                        items.add(new Listas(x,"",json.getString("NombreCanal"),json.getString("Mensaje"),json.getString("FechaEnvio")+" "+json.getString("HoraEnvio")));
+                        items.add(new Listas(x,json.getString("IdCanal"),json.getString("NombreCanal"),json.getString("Mensaje"),json.getString("FechaEnvio")+" "+json.getString("HoraEnvio")));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -70,17 +60,6 @@ public class NotificacionesActivity extends Activity {
                 }
                 aList  = new AdapterListaNotificacion(NotificacionesActivity.this, items);
                 ListaAlertas.setAdapter(aList);
-                /*ListaAlertas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                        Listas itemActual = (Listas)aList.getItem(pos);
-                        //FuncionesUtiles.ToastMensaje(getApplicationContext(), "Posicion " + pos);
-                        Intent intent = new Intent(NotificacionesActivity.this, DetalleNotificacionActivity.class);
-                        intent.putExtra("titulo", itemActual.GetTitle());
-                        startActivity(intent);
-
-                    }
-                });*/
             } catch (JSONException e) {
                 e.printStackTrace();
             }

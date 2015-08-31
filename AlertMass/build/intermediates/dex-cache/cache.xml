@@ -2,207 +2,207 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\7.5.0\jars\classes.jar"
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.0.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="f44d03c138cb6488fdbaa65e3a7e5878861a56d8">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-ba1025e58b4be8340b3c727db804e7c9a59d4f32.jar" />
+        sha1="a1372c17fccacca753d3951d3ad820571cbce075">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-a1f76cd43915f368df656558a81dd706bcb1724a.jar" />
     </item>
     <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.5.0\jars\classes.jar"
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="8d736fefa22d896e84a268354b3ed48a42663150">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-8f27b58f2bcf9825fbb783613d20c98ff008f9c0.jar" />
+        sha1="29ebc7e04d877062317c8cc0e68b20f0c1fcda66">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-ab2b694ec784b2b9cd3f5dcdb3ab077e92b36eb3.jar" />
     </item>
     <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="69dd177337ead693c408c8dddc9546bb6f1244fa">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-cd6a12f36c6c09cb517029a762efac5a93f5ceea.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-19ddc3f951ad9fa50585f0de744fa2204ed95574.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.0.0\jars\libs\internal_impl-22.0.0.jar"
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.0.0\jars\libs\internal_impl-22.0.0.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="ba3df4eb0a630d7de294f0e48d3f9267d279b784">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-a8c8fa9c92f920bfe7c8b12ed55a15566236add4.jar" />
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-749b2b7e80dac7ef4d13cba3dae56c00f605dab3.jar" />
     </item>
     <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="02bac2dc792d78241077861566f2c82da955e7fa">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-35a0ab09cb5b6f18465f211f517014f88cdf3c9f.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="6440e5e5cfe368f9bff3c537fb8988048069cb33">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-3753eca614ea21f291af1f7983506bcdf8b9ee98.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\7.5.0\jars\classes.jar"
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="63ec6e9f4fe5482a7447d0f3091b8e543a02554c">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-31df6bcb04e1afea43a653756cb7aeeb4fbb0696.jar" />
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-c9614af9cb8743575ec50fe8aa7e7342ed572882.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-60c3da7aa34ae10bed48efd5b3b19a3faf3765b8.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0f254ec13d6671680482d2218f01ecf14dfa93e6">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-5c16b05ce8be89f77309ea727d15f54d09dfc0b4.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="02bac2dc792d78241077861566f2c82da955e7fa">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-126f8e2170dee879c11c82c82cb155fd1f2c63d5.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d405025c600055237c171a0bbabaa49d69696573">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-360edd7b050a12cd6a0e24b61de9623489f3b6c7.jar" />
     </item>
     <item
         jar="C:\Users\Francisca\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.1\44780c2cf98f6a3cf4e77f1234d644758b329201\bolts-android-1.2.1.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="44780c2cf98f6a3cf4e77f1234d644758b329201">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.1-e50ebf978ba3fe074a0bb277cd4fdc6a641652e0.jar" />
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.1-e50ebf978ba3fe074a0bb277cd4fdc6a641652e0.jar" />
     </item>
     <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.0.0\jars\classes.jar"
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="a1372c17fccacca753d3951d3ad820571cbce075">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-58ef3eafabac2e29286ead6ba04333566b154611.jar" />
+        sha1="69dd177337ead693c408c8dddc9546bb6f1244fa">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-5e1eec9e5e02ef116dcfc2d421a852a55659b947.jar" />
     </item>
     <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-3dbf5a0fdd4f35ad931e3e0d8c5d5a658f51984e.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a78183f30e769a98ab4820794f597763088d3065">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-f3c5c4f433707d101f2a3f07f129861e3b185127.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-9d48ebda23c0307afc74e780613df00ee183731e.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="68c140702c7242d914655bcb3164d9e8c45b84cb">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-153b6f404547454045c023c7bea3deebf9f54a22.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-291ed81853420b866df0a4e6ef1a09491d7c680d.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\libs\Parse\Parse-1.4.3.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="8daf146aea8cd5245bb90f802f2cd4b8dd855eca">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\Parse-1.4.3-22c1c01dd5da0be7800b50847ab267f0b796fa67.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="1e98ef3f124bb7a11f8575f9ff5dfea330b61b6f">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-fb8a4cc26ed4a765e760732672b9e2d4456b45f7.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="06a42becc33232ec0ee125161da68c1829c9f8fd">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-266889ff21e74f8c716009a9401dbf77f9077890.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="272bc5d7063f24bc3a33ea1d318cde8f31f5ec4c">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-2d74f7fbbd54e80911bfda7ec1ac728e9a380ae3.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a172852a35ff919e85b9b7f14bbc15c5bee25520">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-a590876a966c2362608c6cb589633da9d8064cff.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="8e3a972f28b8bae817e382257ba177a31bcadbbc">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-82fac0019350fd641440ca3e46f908ad28c31123.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="29ebc7e04d877062317c8cc0e68b20f0c1fcda66">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-b6b8dfaefed3400f67d35085e0864aff5bb34a61.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="e7b35244f50663b3f8d150714bca9ecd7a290da1">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-d3e23e7e18c7d0fc6d782cc80c5589f492a7a349.jar" />
-    </item>
-    <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.5.0\jars\classes.jar"
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="6836d188602ec5382d1967c58b00960eb8ff8773">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-ad3ad6acb901f8e7f3c886421f61a41d0d91a990.jar" />
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-e4108682dcd57fce15bde18657bcf88cf15dc7e0.jar" />
     </item>
     <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\7.5.0\jars\classes.jar"
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="d405025c600055237c171a0bbabaa49d69696573">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-889d3d1cb13356f729420d07c165be29303d0c56.jar" />
+        sha1="a172852a35ff919e85b9b7f14bbc15c5bee25520">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-2cb87db01aebc347ff86236533f361b7df513241.jar" />
     </item>
     <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.5.0\jars\classes.jar"
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="68c140702c7242d914655bcb3164d9e8c45b84cb">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-710da6c43f931806c9069d41199feed9de53072a.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="f44d03c138cb6488fdbaa65e3a7e5878861a56d8">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-4064fc447aec39c1af3d74c3b2f8cffd40b2e91e.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\libs\Parse\Parse-1.4.3.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8daf146aea8cd5245bb90f802f2cd4b8dd855eca">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\Parse-1.4.3-267986e5e3eb8ba8e1dafe4ad34abda2c9f4bd6c.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="1a6411087ab88ce5542f593e63a2752b6b0d6f1a">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-a8bfd39f31e3de403813fe6ce437fbfffabcb288.jar" />
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-ef488cca0405ac6747b785c05b93b5946574deb3.jar" />
     </item>
     <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\7.5.0\jars\classes.jar"
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="ba207be21987c11b37d9f8faa08ed6e722569f30">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-14ec286df59d27bed2f4d1f70bb69cda87075531.jar" />
+        sha1="8e3a972f28b8bae817e382257ba177a31bcadbbc">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-61e72ddb267e212aa611284a547c2e2c87835a2a.jar" />
     </item>
     <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.0.0\jars\classes.jar"
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="0f254ec13d6671680482d2218f01ecf14dfa93e6">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-3e799f732f583e8ce2d078a88a08dcb22e409701.jar" />
+        sha1="6440e5e5cfe368f9bff3c537fb8988048069cb33">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-f12a4d339d24eaa06316e9f3b676153601d9482b.jar" />
     </item>
     <item
-        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.5.0\jars\classes.jar"
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8d736fefa22d896e84a268354b3ed48a42663150">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-32de3707e0338fa50a5e0b986befdf7c6441743b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-f4e8ab69321ed4f05519ff8047ccf13b7184089f.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1e98ef3f124bb7a11f8575f9ff5dfea330b61b6f">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-12e75f3d8f55dd3ea8b025e7f1558b5d3096c84d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-19ddc3f951ad9fa50585f0de744fa2204ed95574.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e7b35244f50663b3f8d150714bca9ecd7a290da1">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-ca564a07daf6a9d1c731e5d5673afaf82285ea30.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-911c8c061428401e3df5ca0d5c97a16d28bb8212.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="272bc5d7063f24bc3a33ea1d318cde8f31f5ec4c">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-a804065bcad54a3cdc05da22da359170ad90ae73.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="f02127a85abd52a2cd526d4c2409f21969f80ee8">
-        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass\app\build\intermediates\pre-dexed\debug\classes-33bc6700e5daab841bf7e8e9290757eb87d0f840.jar" />
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-5e5728fc793fd5e449af2ff526c99ef33a0b823a.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="06a42becc33232ec0ee125161da68c1829c9f8fd">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-8d259920e439b9342552e89a0718966996a15989.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ba207be21987c11b37d9f8faa08ed6e722569f30">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-a008ca175af911deacfdefe132342d8c1294b1fd.jar" />
+    </item>
+    <item
+        jar="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a78183f30e769a98ab4820794f597763088d3065">
+        <dex dex="C:\Users\Francisca\Documents\AlertMass\ProyectoAlertMass\AlterMass\AlertMass(20150828)\AlertMass\app\build\intermediates\pre-dexed\debug\classes-e1844c8b2339018d17b330641337bd69b6885453.jar" />
     </item>
 
 </items>

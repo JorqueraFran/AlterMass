@@ -30,6 +30,7 @@ import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
@@ -68,38 +69,43 @@ public class AdapterListaCanalesSuscritos extends BaseAdapter {
     public View.OnClickListener ClickSuscribir = new View.OnClickListener() {
         @Override
         public void onClick(final View view) {
+
             final Listas idbtn = (Listas) view.getTag();
-            final View btn=view;
-            ParseInstallation.getCurrentInstallation().put(idbtn.GetTitle().replace(" ",""), "");
-           // FuncionesUtiles.ToastMensaje(vw.getContext(), "Te has suscrito al canal " + idbtn.GetTitle());
-            ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
-                @Override
-                public void done(ParseException e) {
-                    if (e == null) {
-                        DescargarImagenes(null, ((int) idbtn.GetId()), idbtn.GetIdObj(),idbtn.GetTitle(), true);
-                        FuncionesUtiles.ToastMensaje(vw.getContext(), "Te has suscrito al canal " + idbtn.GetTitle());
-                        String TextoArchivo = FuncionesUtiles.LeerCanales(vw.getContext(),FuncionesUtiles.usersession);
-                        if(TextoArchivo==null){
-                            TextoArchivo="";
-                        }
-                        String SalidaCanalesAlert="";
-                        if(TextoArchivo.isEmpty()){
-                            SalidaCanalesAlert = "\""+idbtn.GetTitle()+"\"";
-                        }else{
-                            SalidaCanalesAlert = TextoArchivo + "," + "\""+idbtn.GetTitle()+"\"";
-                        }
+            final View btn = view;
+            btn.setVisibility(View.INVISIBLE);
+            try {
+                ParseInstallation.getCurrentInstallation().put(idbtn.GetTitle().replace(" ", ""), "");
+                ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
 
-                        FuncionesUtiles.GuardarCanales(SalidaCanalesAlert,vw.getContext(),FuncionesUtiles.usersession);
-                        FuncionesUtiles.CargarListaCanales(CanalesActivity.lblMsjCanal);
-                        btn.setVisibility(View.INVISIBLE);
-                    } else {
-                        e.printStackTrace();
-                        FuncionesUtiles.ToastMensaje(vw.getContext(), "No se pudo suscribir al canal " + idbtn.GetTitle());
+                            DescargarImagenes(null, ((int) idbtn.GetId()), idbtn.GetIdObj(), idbtn.GetTitle(), true);
+                            FuncionesUtiles.ToastMensaje(vw.getContext(), "Te has suscrito al canal " + idbtn.GetTitle());
+                            String TextoArchivo = FuncionesUtiles.LeerCanales(vw.getContext(), FuncionesUtiles.paissession);
+                            if (TextoArchivo == null) {
+                                TextoArchivo = "";
+                            }
+                            String SalidaCanalesAlert = "";
+                            if (TextoArchivo.isEmpty()) {
+                                SalidaCanalesAlert = "{\"IdCanal\":\"" + idbtn.GetIdObj() + "\",\"NomCanal\":\"" + idbtn.GetTitle() + "\"}";
+                            } else {
+                                SalidaCanalesAlert = TextoArchivo + "," + "{\"IdCanal\":\"" + idbtn.GetIdObj() + "\",\"NomCanal\":\"" + idbtn.GetTitle() + "\"}";
+                            }
 
+                            FuncionesUtiles.GuardarCanales(SalidaCanalesAlert, vw.getContext(), FuncionesUtiles.paissession);
+
+                        } else {
+                            e.printStackTrace();
+                            btn.setVisibility(View.VISIBLE);
+                            FuncionesUtiles.ToastMensaje(vw.getContext(), "No se pudo suscribir al canal " + idbtn.GetTitle());
+
+                        }
                     }
-                }
-            });
-
+                });
+            }catch (Exception e){
+                    btn.setVisibility(View.VISIBLE);
+            }
         }
     };
 
@@ -108,21 +114,14 @@ public class AdapterListaCanalesSuscritos extends BaseAdapter {
     public View getView(int pos, View view, ViewGroup viewGroup) {
         vw = view;
         Listas item = items.get(pos);
-
         if(view==null){
             LayoutInflater inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             vw = inflater.inflate(R.layout.lista_suscanales, null);
-            //holder = new ViewHolder();
-            //holder.imgLogo = (ImageView) view.findViewById(R.id.imgSusCanal);
-            //vw.setTag(holder);
-        }/*else
-        {
-            holder = (ViewHolder) vw.getTag();
-        }*/
-        //holder.position = pos;
+        }
+
         ImageView image = (ImageView) vw.findViewById(R.id.imgSusCanal);
         image.setTag(item);
-        DescargarImagenes(image, pos, item.GetIdObj(),"",false);
+        DescargarImagenes(image, pos, item.GetIdObj(), "", false);
         TextView title = (TextView) vw.findViewById(R.id.txtSusCanal);
         title.setText(item.GetTitle());
        // DescargarImagenes(holder, pos,item.GetIdObj());
@@ -132,15 +131,18 @@ public class AdapterListaCanalesSuscritos extends BaseAdapter {
         Button btnSuscribir = (Button) vw.findViewById(R.id.btnSuscribir);
         btnSuscribir.setTag(item);
         btnSuscribir.setOnClickListener(ClickSuscribir);
+        btnSuscribir.setVisibility(View.VISIBLE);
 
-        String strCanales ="["+ FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.usersession)+"]";
+        String strCanales ="["+ FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.paissession)+"]";
         ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
         JSONArray subscribedChannels = null;
         try {
             subscribedChannels = new JSONArray(strCanales);
             if(subscribedChannels!=null) {
                 for (int x = 0; x < subscribedChannels.length(); x++) {
-                    if (item.GetTitle().equals(subscribedChannels.get(x).toString())) {
+                    JSONObject json = subscribedChannels.getJSONObject(x);
+
+                    if (item.GetIdObj().equals(json.getString("IdCanal"))) {
                         btnSuscribir.setVisibility(View.INVISIBLE);
                     }
 
@@ -166,18 +168,16 @@ public class AdapterListaCanalesSuscritos extends BaseAdapter {
 
                 @Override
                 protected void onPostExecute(Bitmap result) {
-
-
-                    if(!guardar)
-                    {
-                        Listas idimg = (Listas) image.getTag();
-                        if (pos == idimg.GetId()) {
-                            image.setImageBitmap(result);
+                    if(result!=null) {
+                        if (!guardar) {
+                            Listas idimg = (Listas) image.getTag();
+                            if (pos == idimg.GetId()) {
+                                image.setImageBitmap(result);
+                            }
+                        } else {
+                            FuncionesUtiles.guardarImagen(vw.getContext(), "Logo" + IdCanal, result);
                         }
-                    }else{
-                        FuncionesUtiles.guardarImagen(vw.getContext(),"Logo"+NomCanal,result);
                     }
-
                 }
             }.execute();
         } catch (Exception e) {

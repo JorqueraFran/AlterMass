@@ -2,34 +2,18 @@ package com.alertmass.appalertmass.alertmass;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-
-import com.alertmass.appalertmass.alertmass.Data.DataLogin;
-import com.alertmass.appalertmass.alertmass.Data.Listas;
 import com.alertmass.appalertmass.alertmass.util.AdapterListaCanales;
 import com.alertmass.appalertmass.alertmass.util.FuncionesUtiles;
-import com.parse.ParseInstallation;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class CanalesActivity extends Activity {
-
-    private DataLogin datalogin;
     private static ListView ListaCanales;
     public static AdapterListaCanales aList;
     ImageView ibtnAddCanal;
@@ -49,10 +33,7 @@ public class CanalesActivity extends Activity {
 
             try{
                 if (FuncionesUtiles.IsSession(CanalesActivity.this,null)){
-                    if(datalogin==null){
-                        datalogin= DataLogin.EntregarDataLogin();
 
-                    }
                 }
 
                 ibtnAddCanal.setOnClickListener(new View.OnClickListener() {
@@ -78,14 +59,10 @@ public class CanalesActivity extends Activity {
 
     }
 
-    public void CargarListaCanales(){
-        try {
-            ArrayList<Listas> items = new ArrayList<Listas>();
-            String strCanales = FuncionesUtiles.LeerCanales(CanalesActivity.this,FuncionesUtiles.usersession);
-            JSONArray AlertArray = new JSONArray(strCanales);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FuncionesUtiles.CargarListaCanales(lblMsjCanal);
     }
 
     @Override

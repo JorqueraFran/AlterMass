@@ -38,6 +38,7 @@
         android:id="@+id/lblMensajeCat"
         android:layout_below="@+id/FootTitCat"
         android:layout_margin="10dp"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:visibility="gone" />
 
 </RelativeLayout>

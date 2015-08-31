@@ -14,7 +14,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -27,10 +26,11 @@ import android.widget.Toast;
 
 import com.alertmass.appalertmass.alertmass.CanalesActivity;
 import com.alertmass.appalertmass.alertmass.Conexion.SessionApp;
-import com.alertmass.appalertmass.alertmass.Data.DataLogin;
 import com.alertmass.appalertmass.alertmass.Data.Listas;
 import com.alertmass.appalertmass.alertmass.R;
-import com.parse.ParseInstallation;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +45,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,18 +54,9 @@ import java.util.Map;
  */
 public abstract class FuncionesUtiles {
     public static SessionApp datasession;
-    public static String usersession;
-    public static String passsession;
-    public static String correosession;
     public static String paissession;
-    public static String telefonosession;
-    public static int estadosession;
-    public static int isfacebooksession;
     public static String JsonAlert;
-    public static boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
+
 
     public static void ProgressDialog(ProgressDialog pDialog,String Mensaje){
         pDialog.setMessage(Mensaje);
@@ -83,25 +73,10 @@ public abstract class FuncionesUtiles {
         Toast.makeText(ctnx, Mensaje, Toast.LENGTH_SHORT).show();
     }
 
-    public static void EnviarCorreoPassword(Context cntx){
-        String Asunto = "Recuperar Contrasena";
-        String Destinatario = "jorquera.fran@gmail.com";
-        String Mensaje = "Esto es una prueba de recuperar contrasena";
-        Intent SendMail = new Intent(Intent.ACTION_SEND);
-        SendMail.setType("plain/text");
-        SendMail.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{Destinatario});
-        SendMail.putExtra(android.content.Intent.EXTRA_SUBJECT, Asunto);
-        SendMail.putExtra(android.content.Intent.EXTRA_TEXT, Mensaje);
-        cntx.startActivity(SendMail);
-    }
 
     public static void OcultarTeclado(Activity activity) {
         InputMethodManager inputMethodManager = (InputMethodManager)  activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
-    }
-
-    public static boolean isPasswordValid(String password) {
-        return password.length() > 6;
     }
 
     public static boolean IsSession(Context context,SQLiteDatabase.CursorFactory factory)
@@ -112,7 +87,7 @@ public abstract class FuncionesUtiles {
         if (db != null)
         {
             //db.execSQL("delete from Usuario");
-            Cursor c = db.rawQuery("SELECT usr, pwr, correo, estado, isfacebook, pais, telefono FROM Usuario", null);
+            Cursor c = db.rawQuery("SELECT pais FROM Usuario", null);
             int count = c.getCount();
             if (c.getCount() > 0)
             {
@@ -120,13 +95,7 @@ public abstract class FuncionesUtiles {
                 {
                     do
                     {
-                        usersession = c.getString(0);
-                        passsession = c.getString(1);
-                        correosession = c.getString(2);
-                        estadosession = c.getInt(3);
-                        isfacebooksession = c.getInt(4);
-                        paissession = c.getString(5);
-                        telefonosession = c.getString(6);
+                        paissession = c.getString(0);
                     }
                     while (c.moveToNext());
                 }
@@ -143,8 +112,7 @@ public abstract class FuncionesUtiles {
             return false;
         }
     }
-
-    public static void SetSession(String usr, String pwr, String Correo, int Estado, int IsFacebook, String Pais, String Telefono)
+    public static void SetSession(String Pais)
     {
 
         SQLiteDatabase db = datasession.getWritableDatabase();
@@ -152,7 +120,7 @@ public abstract class FuncionesUtiles {
         if (db != null)
         {
             db.execSQL("DELETE FROM Usuario");
-            db.execSQL("INSERT INTO Usuario (usr, pwr, correo, estado, isfacebook, pais, telefono) VALUES ('" + usr + "', '" + pwr + "' , '" + Correo + "' , '" + Estado + "', '" + IsFacebook + "', '" + Pais + "', '" + Telefono + "')");
+            db.execSQL("INSERT INTO Usuario (pais) VALUES ('" + Pais + "')");
             db.close();
         }
     }
@@ -166,7 +134,6 @@ public abstract class FuncionesUtiles {
             db.execSQL("DELETE FROM Usuario");
         }
     }
-
     public static boolean Boolean(int bool){
         if(bool==1){
             return true;
@@ -176,44 +143,36 @@ public abstract class FuncionesUtiles {
     }
 
     public static void CargarSpinnerPaises(Context cnt, Spinner spinnerPais){
-        int CountPais = DataLogin.GetPaises().size();
-        String[] spinnerArray = new String[CountPais];
-        Map<String, String> map = new HashMap<String, String>();
-        int index = 0;
-        for (Map.Entry<String, String> mapEntry : DataLogin.GetPaises().entrySet()) {
-            spinnerArray[index] = mapEntry.getKey();
-            index++;
-        }
-        ArrayAdapter<String> adapter =new ArrayAdapter<String>(cnt,android.R.layout.simple_spinner_item, spinnerArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerPais.setAdapter(adapter);
+
+            int CountPais = FuncionesUtiles.Paises().size();
+            String[] spinnerArray = new String[CountPais];
+            int index = 0;
+            for (Map.Entry<String, String> mapEntry : FuncionesUtiles.Paises().entrySet()) {
+                spinnerArray[index] = mapEntry.getValue();
+                index++;
+            }
+            ArrayAdapter<String> adapter =new ArrayAdapter<String>(cnt,android.R.layout.simple_spinner_item, spinnerArray);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinnerPais.setAdapter(adapter);
     }
 
-    public static void SelPaisActual(Spinner spinnerPais,String IdPais){
-        int CountPais = DataLogin.GetPaises().size();
+    public static String SelPaisActual(String IdPais){
+        int CountPais = FuncionesUtiles.Paises().size();
+        String codpais="";
         String[] spinnerArray = new String[CountPais];
         Map<String, String> map = new HashMap<String, String>();
         int index = 0;
-        for (Map.Entry<String, String> mapEntry : DataLogin.GetPaises().entrySet()) {
+        for (Map.Entry<String, String> mapEntry : FuncionesUtiles.Paises().entrySet()) {
             if (mapEntry.getValue().equals(IdPais)) {
-                spinnerPais.setSelection(index);
-                return;
+                codpais = mapEntry.getKey();
+                break;
             }
             index++;
         }
 
+        return codpais;
     }
 
-    public static String GetIdPaisActual(String Pais){
-
-        String IdPais ="";
-        for (Map.Entry<String, String> mapEntry : DataLogin.GetPaises().entrySet()) {
-            if (mapEntry.getKey().equals(Pais)) {
-                IdPais = mapEntry.getValue();
-            }
-        }
-        return IdPais;
-    }
 
     public static String GetDataAlert(){
         return JsonAlert;
@@ -287,20 +246,26 @@ public abstract class FuncionesUtiles {
     public static void CargarListaCanales(TextView lblMsjCanal){
 
         try {
+
             ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
             ArrayList<Listas> items = new ArrayList<Listas>();
-            if (FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.usersession)!=null) {
+            if (FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.paissession)!=null) {
 
-                String strCanales ="["+ FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.usersession)+"]";
-
+                String strCanales ="["+ FuncionesUtiles.LeerCanales(CanalesActivity.actCanal,FuncionesUtiles.paissession)+"]";
                 JSONArray subscribedChannels = new JSONArray(strCanales);
-
                 for(int x = 0; x < subscribedChannels.length(); x++){
-                    items.add(new Listas(x,"",subscribedChannels.get(x).toString(),"" ,""));
+                    JSONObject json = subscribedChannels.getJSONObject(x);
+                    items.add(new Listas(x,json.getString("IdCanal"),json.getString("NomCanal"),"" ,""));
                 }
-                lblMsjCanal.setVisibility(View.GONE);
-                AdapterListaCanales aList = new AdapterListaCanales(CanalesActivity.actCanal, items);
-                ListaCanales.setAdapter(aList);
+                if(subscribedChannels.length()==0){
+                    lblMsjCanal.setVisibility(View.VISIBLE);
+                    AdapterListaCanales aList = new AdapterListaCanales(CanalesActivity.actCanal, items);
+                    ListaCanales.setAdapter(aList);
+                }else {
+                    lblMsjCanal.setVisibility(View.GONE);
+                    AdapterListaCanales aList = new AdapterListaCanales(CanalesActivity.actCanal, items);
+                    ListaCanales.setAdapter(aList);
+                }
             }else{
                 lblMsjCanal.setVisibility(View.VISIBLE);
                 AdapterListaCanales aList = new AdapterListaCanales(CanalesActivity.actCanal, items);
@@ -309,6 +274,30 @@ public abstract class FuncionesUtiles {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public static JSONArray remove(final int idx, final JSONArray from) {
+        final List<JSONObject> objs = asList(from);
+        objs.remove(idx);
+
+        final JSONArray ja = new JSONArray();
+        for (final JSONObject obj : objs) {
+            ja.put(obj);
+        }
+
+        return ja;
+    }
+
+    public static List<JSONObject> asList(final JSONArray ja) {
+        final int len = ja.length();
+        final ArrayList<JSONObject> result = new ArrayList<JSONObject>(len);
+        for (int i = 0; i < len; i++) {
+            final JSONObject obj = ja.optJSONObject(i);
+            if (obj != null) {
+                result.add(obj);
+            }
+        }
+        return result;
     }
 
     public static boolean verificaConexion(Context ctx) {
@@ -343,7 +332,7 @@ public abstract class FuncionesUtiles {
         FileOutputStream fos = null;
         try{
             fos = new FileOutputStream(myPath);
-            imagen.compress(Bitmap.CompressFormat.JPEG, 10, fos);
+            imagen.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
         }catch (FileNotFoundException ex){
             ex.printStackTrace();
@@ -356,7 +345,7 @@ public abstract class FuncionesUtiles {
     public static void MostrarLogoCanal(Context context, String nombre,ImageView imagenVW){
         ContextWrapper cw = new ContextWrapper(context);
         File dirImages = cw.getDir("Imagenes", Context.MODE_PRIVATE);
-        File imgFile = new  File(dirImages, "Logo"+nombre + "jpg");
+        File imgFile = new  File(dirImages, "Logo"+nombre + ".jpg");
         if(imgFile.exists())
         {
             imagenVW.setImageURI(Uri.fromFile(imgFile));
@@ -387,7 +376,7 @@ public abstract class FuncionesUtiles {
     public static void CapturaAlerta(Context context, Intent intent,String IdUser){
         Bundle extras = intent.getExtras();
         String SalidaJsonAlert="";
-        String TextoArchivo = LeerArchivo(context,FuncionesUtiles.usersession);
+        String TextoArchivo = LeerArchivo(context,FuncionesUtiles.paissession);
         if(extras != null){
 
             String jsonData = extras.getString("com.parse.Data" );
@@ -449,5 +438,40 @@ public abstract class FuncionesUtiles {
             Log.e("Ficheros", "Error al leer fichero desde memoria interna");
         }
         return TextoArchivo;
+    }
+
+    public static Map<String,String> Paises(){
+        Map<String,String> lstpaises = new HashMap<String,String>();
+        final ParseQuery<ParseObject> queryPaises = ParseQuery.getQuery("paises");
+        List<ParseObject> list;
+        try {
+            list=queryPaises.find();
+            for (ParseObject paises : list) {
+                lstpaises.put(paises.getObjectId(), (String) paises.get("nompais"));
+                Log.e("PAISES", "KEY " + (String) paises.get("codpais") + " - VALUE " + (String) paises.get("nompais"));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return lstpaises;
+        /*queryPaises.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> list, ParseException e) {
+                if (e == null) {
+                    for (ParseObject paises : list) {
+                        //list1Strings22[iii]=(String) country.get("name");
+                        lstpaises.put((String) paises.get("codpais"),(String) paises.get("nompais"));
+                        Log.e("PAISES","KEY " + (String) paises.get("codpais") + " - VALUE " + (String) paises.get("nompais"));
+
+
+                    }
+
+                } else {
+
+                }
+            }
+        });*/
+
+
     }
 }

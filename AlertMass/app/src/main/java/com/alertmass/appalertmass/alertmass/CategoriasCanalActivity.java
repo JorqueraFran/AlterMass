@@ -16,11 +16,14 @@ import android.widget.TextView;
 import com.alertmass.appalertmass.alertmass.Conexion.Descargador;
 import com.alertmass.appalertmass.alertmass.Conexion.Descargar;
 import com.alertmass.appalertmass.alertmass.Conexion.IDescarga;
-import com.alertmass.appalertmass.alertmass.Data.DataLogin;
 import com.alertmass.appalertmass.alertmass.Data.Listas;
+import com.alertmass.appalertmass.alertmass.util.AdapterListaCanalesSuscritos;
 import com.alertmass.appalertmass.alertmass.util.AdapterListaCategorias;
-import com.alertmass.appalertmass.alertmass.util.AdapterListaNotificacion;
 import com.alertmass.appalertmass.alertmass.util.FuncionesUtiles;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,43 +31,32 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 
-public class CategoriasCanalActivity extends Activity implements IDescarga {
+public class CategoriasCanalActivity extends Activity{
     private ListView ListaCategorias;
     AdapterListaCategorias aList;
-    private DataLogin datalogin;
     ProgressDialog pDialog;
     TextView lblMensajeCat;
+    ArrayList<Listas> items;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categorias_cana);
         try{
             overridePendingTransition(R.anim.left_in, R.anim.left_out);
-            pDialog = new ProgressDialog(CategoriasCanalActivity.this);
-            pDialog.setMessage("Cargando Categorias...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.show();
-
+            items = new ArrayList<Listas>();
             lblMensajeCat = (TextView) findViewById(R.id.lblMensajeCat);
-            if (FuncionesUtiles.IsSession(CategoriasCanalActivity.this, null)){
-                if(datalogin==null){
-                    datalogin= DataLogin.EntregarDataLogin();
 
-                }
-            }
             ListaCategorias = (ListView) findViewById(R.id.lstCategorias);
-            if(FuncionesUtiles.verificaConexion(getApplicationContext())){
-                CargarListaCategorias();
-            }else{
-                FuncionesUtiles.AvisoSinConexion(CategoriasCanalActivity.this);
+            if (FuncionesUtiles.paissession!=null)
+            {
+                if(FuncionesUtiles.verificaConexion(getApplicationContext())){
+                    CargarListaCategorias();
+                }else{
+                    FuncionesUtiles.AvisoSinConexion(CategoriasCanalActivity.this);
+                }
             }
 
         }catch (Exception e){
@@ -74,107 +66,62 @@ public class CategoriasCanalActivity extends Activity implements IDescarga {
 
     private void CargarListaCategorias(){
         try {
-            String Pass = datalogin.GetPassUser();
-            String Correo = datalogin.GetCorreoUser();
-            int isFacebook = datalogin.GetIsFacebook();
-            final String headerPWD;
-            if(isFacebook == 1){
-                headerPWD= Correo+"::true";
-            }else{
-                headerPWD= Correo+":"+Pass+":false";
-            }
             new AsyncTask<Void, Void, Boolean>() {
-
-                byte[] data = headerPWD.getBytes("UTF-8");
-                String headerPWDbase64 = Base64.encodeToString(data, Base64.DEFAULT).replace("\n", "");
+                ProgressDialog pDialog = new ProgressDialog(CategoriasCanalActivity.this);
                 @Override
                 protected Boolean doInBackground(Void... params) {
-                    Descargador descargador = new Descargador();
-                    Descargar descarga = new Descargar();
-                    descarga.urlDescarga = getResources().getString(R.string.SERVICIO_CATEGORIA);
-                    descarga.headersPWD = headerPWDbase64;
-                    descarga.headersPais = datalogin.GetIPaisUser();
-                    descarga.isPost = false;
-                    descarga.callback = CategoriasCanalActivity.this;
-                    descargador.execute(descarga);
+                    //if (FuncionesUtiles.IsSession(CategoriasCanalActivity.this,null)){
+
+                        final ParseQuery<ParseObject> queryCategorias = ParseQuery.getQuery("categorias");
+                        queryCategorias.whereEqualTo("idpais",FuncionesUtiles.paissession);
+                        List<ParseObject> list;
+                        try {
+                            list=queryCategorias.find();
+                            int x=0;
+                            for (ParseObject categorias : list) {
+                                items.add(new Listas(x,categorias.getObjectId(),(String) categorias.get("nomcat"),(String) categorias.get("descat"),""));
+                                x++;
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    //}
+
                     return true;
                 }
-
                 @Override
                 protected void onPreExecute() {
-
+                    pDialog.setMessage("Cargando...");
+                    pDialog.setIndeterminate(false);
+                    pDialog.setCancelable(false);
+                    pDialog.show();
                 }
 
                 @Override
                 protected void onPostExecute(Boolean aBoolean) {
+
+                    aList  = new AdapterListaCategorias(CategoriasCanalActivity.this, items);
+                    ListaCategorias.setAdapter(aList);
+                    ListaCategorias.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                            Listas itemActual = (Listas) aList.getItem(pos);
+                            // FuncionesUtiles.ToastMensaje(getApplicationContext(), "Posicion " + pos);
+                            Intent intent = new Intent(CategoriasCanalActivity.this, SuscribirCanalActivity.class);
+                            intent.putExtra("id", itemActual.GetIdObj());
+                            intent.putExtra("titulo", itemActual.GetTitle());
+                            startActivity(intent);
+                            //overridePendingTransition(R.anim.left_in, R.anim.left_out);
+                        }
+                    });
                     pDialog.dismiss();
-
                 }
-            }.execute().get(15, TimeUnit.SECONDS);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (TimeoutException e) {
-            FuncionesUtiles.ToastMensaje(this,"Se ha excedido el tiempo de espera de respuesta del servidor, Por Favor vuelva mas tarde");
+            }.execute();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void TerminoDescarga(Descargar descarga, byte[] data) {
-        lblMensajeCat.setVisibility(View.GONE);
-        String strJSON = null;
-        try {
-            strJSON = new String(data, "UTF-8");
-            JSONArray jArray = new JSONArray(strJSON);
-
-            ArrayList<Listas> items = new ArrayList<Listas>();
-            for(int x = 0; x <= jArray.length(); x++){
-                try {
-                    JSONObject json = jArray.getJSONObject(x);
-                    items.add(new Listas(x,json.getString("_id"),json.getString("name"),json.getString("desc"),""));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-            aList  = new AdapterListaCategorias(CategoriasCanalActivity.this, items);
-            ListaCategorias.setAdapter(aList);
-            ListaCategorias.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                        Listas itemActual = (Listas)aList.getItem(pos);
-                        //FuncionesUtiles.ToastMensaje(getApplicationContext(),itemActual.GetIdObj());
-                        Intent intent = new Intent(CategoriasCanalActivity.this, SuscribirCanalActivity.class);
-                        intent.putExtra("titulo", itemActual.GetTitle());
-                        intent.putExtra("id",itemActual.GetIdObj());
-                        startActivity(intent);
-
-                    }
-                });
-
-            Log.e("JSON_CATEGORIAS", strJSON);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void ErrorDescarga(Descargar descarga, int codigoError, String descripcion) {
-        lblMensajeCat.setVisibility(View.VISIBLE);
-        Log.e("JSON_CATEGORIAS-ERROR","Error " + descripcion);
-    }
-
-    @Override
-    public void ProgresoDescarga(Float porcentaje) {
-
-    }
-    @Override
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == event.KEYCODE_BACK)

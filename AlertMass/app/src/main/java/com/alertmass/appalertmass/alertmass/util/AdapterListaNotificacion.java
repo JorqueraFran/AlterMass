@@ -53,7 +53,7 @@ public class AdapterListaNotificacion extends BaseAdapter {
         Listas item = items.get(pos);
         ImageView image = (ImageView) vw.findViewById(R.id.imgNoti);
         image.setTag(item);
-        FuncionesUtiles.MostrarLogoCanal(vw.getContext(),item.GetTitle().replace(" ",""),image);
+        FuncionesUtiles.MostrarLogoCanal(vw.getContext(),item.GetIdObj(),image);
         TextView title = (TextView) vw.findViewById(R.id.txtNoti);
         title.setText(item.GetTitle());
 
