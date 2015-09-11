@@ -51,7 +51,7 @@ public class InicioActivity extends Activity {
                             String pais = FuncionesUtiles.SelPaisActual(spinnerPaises.getSelectedItem().toString());
                             if (!FuncionesUtiles.IsSession(InicioActivity.this,null)){
                                 ParseUtil.subscribeWithPais(pais);
-                                FuncionesUtiles.SetSession(pais);
+                                FuncionesUtiles.SetSession(pais,spinnerPaises.getSelectedItem().toString());
 
                             }
 

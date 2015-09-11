@@ -1,12 +1,9 @@
 package com.alertmass.appalertmass.alertmass.util;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,27 +12,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alertmass.appalertmass.alertmass.CanalesActivity;
-import com.alertmass.appalertmass.alertmass.Conexion.Descargador;
 import com.alertmass.appalertmass.alertmass.Conexion.Descargar;
 import com.alertmass.appalertmass.alertmass.Data.Listas;
 import com.alertmass.appalertmass.alertmass.R;
-import com.alertmass.appalertmass.alertmass.SuscribirCanalActivity;
 import com.parse.ParseException;
-import com.parse.ParseInstallation;
-import com.parse.PushService;
+import com.parse.ParsePush;
 import com.parse.SaveCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by C-266 on 24/07/2015.
@@ -74,37 +64,32 @@ public class AdapterListaCanalesSuscritos extends BaseAdapter {
             final View btn = view;
             btn.setVisibility(View.INVISIBLE);
             try {
-                ParseInstallation.getCurrentInstallation().put(idbtn.GetTitle().replace(" ", ""), "");
-                ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
+                //ParseInstallation.getCurrentInstallation().put(idbtn.GetTitle().replace(" ", ""), "");
+
+               // PushService.subscribe(vw.getContext(),"as"+idbtn.GetIdObj());
+                ParsePush.subscribeInBackground("as" + idbtn.GetIdObj(), new SaveCallback() {
                     @Override
                     public void done(ParseException e) {
-                        if (e == null) {
-
-                            DescargarImagenes(null, ((int) idbtn.GetId()), idbtn.GetIdObj(), idbtn.GetTitle(), true);
-                            FuncionesUtiles.ToastMensaje(vw.getContext(), "Te has suscrito al canal " + idbtn.GetTitle());
-                            String TextoArchivo = FuncionesUtiles.LeerCanales(vw.getContext(), FuncionesUtiles.paissession);
-                            if (TextoArchivo == null) {
-                                TextoArchivo = "";
-                            }
-                            String SalidaCanalesAlert = "";
-                            if (TextoArchivo.isEmpty()) {
-                                SalidaCanalesAlert = "{\"IdCanal\":\"" + idbtn.GetIdObj() + "\",\"NomCanal\":\"" + idbtn.GetTitle() + "\"}";
-                            } else {
-                                SalidaCanalesAlert = TextoArchivo + "," + "{\"IdCanal\":\"" + idbtn.GetIdObj() + "\",\"NomCanal\":\"" + idbtn.GetTitle() + "\"}";
-                            }
-
-                            FuncionesUtiles.GuardarCanales(SalidaCanalesAlert, vw.getContext(), FuncionesUtiles.paissession);
-
-                        } else {
-                            e.printStackTrace();
-                            btn.setVisibility(View.VISIBLE);
-                            FuncionesUtiles.ToastMensaje(vw.getContext(), "No se pudo suscribir al canal " + idbtn.GetTitle());
-
+                        DescargarImagenes(null, ((int) idbtn.GetId()), idbtn.GetIdObj(), idbtn.GetTitle(), true);
+                        FuncionesUtiles.ToastMensaje(vw.getContext(), "Te has suscrito al canal " + idbtn.GetTitle());
+                        String TextoArchivo = FuncionesUtiles.LeerCanales(vw.getContext(), FuncionesUtiles.paissession);
+                        if (TextoArchivo == null) {
+                            TextoArchivo = "";
                         }
+                        String SalidaCanalesAlert = "";
+                        if (TextoArchivo.isEmpty()) {
+                            SalidaCanalesAlert = "{\"IdCanal\":\"" + idbtn.GetIdObj() + "\",\"NomCanal\":\"" + idbtn.GetTitle() + "\",\"NomPais\":\"" + FuncionesUtiles.nompaissession + "\"}";
+                        } else {
+                            SalidaCanalesAlert = TextoArchivo + "," + "{\"IdCanal\":\"" + idbtn.GetIdObj() + "\",\"NomCanal\":\"" + idbtn.GetTitle() + "\",\"NomPais\":\"" + FuncionesUtiles.nompaissession + "\"}";
+                        }
+
+                        FuncionesUtiles.GuardarCanales(SalidaCanalesAlert, vw.getContext(), FuncionesUtiles.paissession);
                     }
+
                 });
             }catch (Exception e){
                     btn.setVisibility(View.VISIBLE);
+                FuncionesUtiles.ToastMensaje(vw.getContext(), "No se pudo suscribir al canal " + idbtn.GetTitle());
             }
         }
     };

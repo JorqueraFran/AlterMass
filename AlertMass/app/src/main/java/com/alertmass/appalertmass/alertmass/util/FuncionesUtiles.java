@@ -45,6 +45,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +57,7 @@ import java.util.Map;
 public abstract class FuncionesUtiles {
     public static SessionApp datasession;
     public static String paissession;
+    public static String nompaissession;
     public static String JsonAlert;
 
 
@@ -87,7 +90,7 @@ public abstract class FuncionesUtiles {
         if (db != null)
         {
             //db.execSQL("delete from Usuario");
-            Cursor c = db.rawQuery("SELECT pais FROM Usuario", null);
+            Cursor c = db.rawQuery("SELECT pais, nompais FROM Usuario", null);
             int count = c.getCount();
             if (c.getCount() > 0)
             {
@@ -96,6 +99,7 @@ public abstract class FuncionesUtiles {
                     do
                     {
                         paissession = c.getString(0);
+                        nompaissession=c.getString(1);
                     }
                     while (c.moveToNext());
                 }
@@ -112,7 +116,7 @@ public abstract class FuncionesUtiles {
             return false;
         }
     }
-    public static void SetSession(String Pais)
+    public static void SetSession(String Pais, String NomPais)
     {
 
         SQLiteDatabase db = datasession.getWritableDatabase();
@@ -120,7 +124,7 @@ public abstract class FuncionesUtiles {
         if (db != null)
         {
             db.execSQL("DELETE FROM Usuario");
-            db.execSQL("INSERT INTO Usuario (pais) VALUES ('" + Pais + "')");
+            db.execSQL("INSERT INTO Usuario (pais,nompais) VALUES ('" + Pais + "','" + NomPais + "')");
             db.close();
         }
     }
@@ -172,6 +176,22 @@ public abstract class FuncionesUtiles {
 
         return codpais;
     }
+    public static String SelNomPaisActual(String IdPais){
+        int CountPais = FuncionesUtiles.Paises().size();
+        String nompais="";
+        String[] spinnerArray = new String[CountPais];
+        Map<String, String> map = new HashMap<String, String>();
+        int index = 0;
+        for (Map.Entry<String, String> mapEntry : FuncionesUtiles.Paises().entrySet()) {
+            if (mapEntry.getKey().equals(IdPais)) {
+                nompais = mapEntry.getValue();
+                break;
+            }
+            index++;
+        }
+
+        return nompais;
+    }
 
 
     public static String GetDataAlert(){
@@ -204,7 +224,7 @@ public abstract class FuncionesUtiles {
         {
             ContextWrapper cw = new ContextWrapper(ctn);
             File dirImages = cw.getDir("Files", Context.MODE_PRIVATE);
-            File myPath = new File(dirImages, "CanalesAlertMass-"+IdUser+".txt");
+            File myPath = new File(dirImages, "CanalesAlertMass.txt");
 
             FileOutputStream fos = new FileOutputStream(myPath);
             OutputStreamWriter FileAlert=
@@ -226,7 +246,7 @@ public abstract class FuncionesUtiles {
         {
             ContextWrapper cw = new ContextWrapper(ctn);
             File dirImages = cw.getDir("Files", Context.MODE_PRIVATE);
-            File CanalFile = new  File(dirImages, "CanalesAlertMass-"+IdUser+".txt");
+            File CanalFile = new  File(dirImages, "CanalesAlertMass.txt");
             if(CanalFile.exists())
             {
                 FileInputStream fIn = new FileInputStream(CanalFile);
@@ -255,7 +275,7 @@ public abstract class FuncionesUtiles {
                 JSONArray subscribedChannels = new JSONArray(strCanales);
                 for(int x = 0; x < subscribedChannels.length(); x++){
                     JSONObject json = subscribedChannels.getJSONObject(x);
-                    items.add(new Listas(x,json.getString("IdCanal"),json.getString("NomCanal"),"" ,""));
+                    items.add(new Listas(x,json.getString("IdCanal"),json.getString("NomCanal"),json.getString("NomPais") ,""));
                 }
                 if(subscribedChannels.length()==0){
                     lblMsjCanal.setVisibility(View.VISIBLE);
@@ -378,14 +398,13 @@ public abstract class FuncionesUtiles {
         String SalidaJsonAlert="";
         String TextoArchivo = LeerArchivo(context,FuncionesUtiles.paissession);
         if(extras != null){
-
             String jsonData = extras.getString("com.parse.Data" );
             try
             {
                 JSONObject jObject = new JSONObject(jsonData);
                 JSONObject AlertDetJson = new JSONObject();
 
-                AlertDetJson.put("Mensaje",jObject.getString("alert"));
+                AlertDetJson.put("Mensaje", jObject.getString("alert"));
                 AlertDetJson.put("IdCanal",jObject.getString("idcanal"));
                 AlertDetJson.put("NombreCanal",jObject.getString("nomcanal"));
                 AlertDetJson.put("FechaEnvio",jObject.getString("fecenv"));
@@ -398,7 +417,8 @@ public abstract class FuncionesUtiles {
                 }
                 ContextWrapper cw = new ContextWrapper(context);
                 File dirImages = cw.getDir("Files", Context.MODE_PRIVATE);
-                File myPath = new File(dirImages, "alerts" + IdUser + ".txt");
+                File myPath = new File(dirImages, "alerts.txt");
+                //File myPath = new File(dirImages, "alerts" + IdUser + ".txt");
 
                 FileOutputStream fos = new FileOutputStream(myPath);
                 OutputStreamWriter FileAlert=
@@ -406,14 +426,15 @@ public abstract class FuncionesUtiles {
 
                 FileAlert.write(SalidaJsonAlert);
                 FileAlert.close();
-                FuncionesUtiles.SetDataAlert("{\"Data\":["+SalidaJsonAlert+"]}");
+                //FuncionesUtiles.SetDataAlert("{\"Data\":[" + SalidaJsonAlert + "]}");
+
             }
             catch (Exception ex)
             {
                 Log.e("Ficheros", "Error al escribir fichero a memoria interna");
             }
         }else{
-            FuncionesUtiles.SetDataAlert("{\"Data\":[" + TextoArchivo + "]}");
+            //FuncionesUtiles.SetDataAlert("{\"Data\":[" + TextoArchivo + "]}");
         }
     }
 
@@ -423,13 +444,15 @@ public abstract class FuncionesUtiles {
         {
             ContextWrapper cw = new ContextWrapper(context);
             File dir = cw.getDir("Files", Context.MODE_PRIVATE);
-            File File = new  File(dir, "alerts" + IdUser + ".txt");
+            //File File = new  File(dir, "alerts" + IdUser + ".txt");
+            File File = new  File(dir, "alerts.txt");
             if(File.exists())
             {
                 FileInputStream fIn = new FileInputStream(File);
                 InputStreamReader archivo = new InputStreamReader(fIn);
                 BufferedReader br = new BufferedReader(archivo);
                 TextoArchivo = br.readLine();
+
                 br.close();
             }
         }
@@ -437,12 +460,14 @@ public abstract class FuncionesUtiles {
         {
             Log.e("Ficheros", "Error al leer fichero desde memoria interna");
         }
+
         return TextoArchivo;
     }
 
     public static Map<String,String> Paises(){
         Map<String,String> lstpaises = new HashMap<String,String>();
         final ParseQuery<ParseObject> queryPaises = ParseQuery.getQuery("paises");
+        //final ParseQuery<ParseObject> queryPaises = ParseQuery.getQuery("paises");
         List<ParseObject> list;
         try {
             list=queryPaises.find();
@@ -474,4 +499,44 @@ public abstract class FuncionesUtiles {
 
 
     }
+
+    public static void CargarListaAlerta(AdapterListaNotificacion aList,ListView ListaAlertas, Activity activity){
+        String strAlertas = "{\"Data\":[" + FuncionesUtiles.LeerArchivo(activity,FuncionesUtiles.paissession) + "]}";
+        if(!strAlertas.isEmpty()){
+            JSONArray AlertArray = null;
+            try {
+                JSONObject jObject = new JSONObject(strAlertas);
+                AlertArray = jObject.getJSONArray("Data");
+                Log.d("JSON-ALERT",jObject.toString());
+                AlertArray = OrdernarLista(AlertArray);
+                ArrayList<Listas> items = new ArrayList<Listas>();
+                for(int x = 0; x <= AlertArray.length(); x++){
+                    try {
+                        JSONObject json = AlertArray.getJSONObject(x);
+                        items.add(new Listas(x,json.getString("IdCanal"),json.getString("NombreCanal"),json.getString("Mensaje"),json.getString("FechaEnvio")+" "+json.getString("HoraEnvio")));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+                aList  = new AdapterListaNotificacion(activity, items);
+                ListaAlertas.setAdapter(aList);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static JSONArray OrdernarLista(JSONArray array) throws JSONException {
+        List<JSONObject> list = new ArrayList<JSONObject>();
+        for (int i = 0; i < array.length(); i++) {
+            list.add(array.getJSONObject(i));
+        }
+        Collections.sort(list, new OrderbyFecha());
+
+        JSONArray resultArray = new JSONArray(list);
+
+        return resultArray;
+    }
+
 }

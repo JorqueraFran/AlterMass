@@ -19,13 +19,16 @@ import java.util.ArrayList;
 
 
 public class NotificacionesActivity extends Activity {
-    private ListView ListaAlertas;
-    AdapterListaNotificacion aList;
+    public static ListView ListaAlertas;
+    public static AdapterListaNotificacion aList;
+    public static Activity actNotify;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notificaciones);
 
+        actNotify =  NotificacionesActivity.this;
         try{
             if (FuncionesUtiles.IsSession(NotificacionesActivity.this,null)){
                 //FuncionesUtiles.ToastMensaje(NotificacionesActivity.this,FuncionesUtiles.paissession);
@@ -33,38 +36,12 @@ public class NotificacionesActivity extends Activity {
             }
 
             ListaAlertas = (ListView) findViewById(R.id.lstNoti);
-            CargarListaAlerta();
+            FuncionesUtiles.CargarListaAlerta(aList,ListaAlertas,NotificacionesActivity.this);
         }catch (Exception e){
             FuncionesUtiles.LogError(e.getMessage().toString(),getApplicationContext());
         }
     }
 
-    private void CargarListaAlerta(){
-        String strAlertas = FuncionesUtiles.GetDataAlert();
-        if(!strAlertas.isEmpty()){
-            JSONArray AlertArray = null;
-            try {
-                JSONObject jObject = new JSONObject(strAlertas);
-                AlertArray = jObject.getJSONArray("Data");
-                Log.d("JSON-ALERT",jObject.toString());
-
-                ArrayList<Listas> items = new ArrayList<Listas>();
-                for(int x = 0; x <= AlertArray.length(); x++){
-                    try {
-                        JSONObject json = AlertArray.getJSONObject(x);
-                        items.add(new Listas(x,json.getString("IdCanal"),json.getString("NombreCanal"),json.getString("Mensaje"),json.getString("FechaEnvio")+" "+json.getString("HoraEnvio")));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-                aList  = new AdapterListaNotificacion(NotificacionesActivity.this, items);
-                ListaAlertas.setAdapter(aList);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == event.KEYCODE_BACK)
@@ -75,5 +52,11 @@ public class NotificacionesActivity extends Activity {
             startActivity(main);
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FuncionesUtiles.CargarListaAlerta(aList, ListaAlertas, NotificacionesActivity.this);
     }
 }

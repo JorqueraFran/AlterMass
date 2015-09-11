@@ -17,6 +17,7 @@ import com.alertmass.appalertmass.alertmass.R;
 import com.alertmass.appalertmass.alertmass.SuscribirCanalActivity;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
+import com.parse.ParsePush;
 import com.parse.PushService;
 import com.parse.SaveCallback;
 
@@ -59,46 +60,36 @@ public class AdapterListaCanales extends BaseAdapter {
         @Override
         public void onClick(View view) {
             final Listas idbtn = (Listas) view.getTag();
-            //FuncionesUtiles.ToastMensaje(vw.getContext(),"Suscripcion Eliminada");
-            ParseInstallation.getCurrentInstallation().remove(idbtn.GetTitle());
-            ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
+            //PushService.unsubscribe(vw.getContext(), "as"+idbtn.GetIdObj().toString());
+            ParsePush.unsubscribeInBackground("as" + idbtn.GetIdObj().toString(), new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
-                    if (e == null) {
-
-                        if (FuncionesUtiles.LeerCanales(CanalesActivity.actCanal, FuncionesUtiles.paissession) != null) {
-                            String strCanales = "[" + FuncionesUtiles.LeerCanales(CanalesActivity.actCanal, FuncionesUtiles.paissession) + "]";
-                            ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
-                            try {
-                                JSONArray subscribedChannels = new JSONArray(strCanales);
-                                if (subscribedChannels.length() == 1) {
-                                    FuncionesUtiles.GuardarCanales("", vw.getContext(), FuncionesUtiles.paissession);
-                                } else {
-                                    for (int x = 0; x < subscribedChannels.length(); x++) {
-                                        JSONObject json = subscribedChannels.getJSONObject(x);
-                                        if (json.getString("IdCanal").equals(idbtn.GetIdObj().toString())) {
-                                            subscribedChannels = FuncionesUtiles.remove(x,subscribedChannels);
-                                        }
+                    if (FuncionesUtiles.LeerCanales(CanalesActivity.actCanal, FuncionesUtiles.paissession) != null) {
+                        String strCanales = "[" + FuncionesUtiles.LeerCanales(CanalesActivity.actCanal, FuncionesUtiles.paissession) + "]";
+                        ListView ListaCanales = (ListView) CanalesActivity.actCanal.findViewById(R.id.lstCanales);
+                        try {
+                            JSONArray subscribedChannels = new JSONArray(strCanales);
+                            if (subscribedChannels.length() == 1) {
+                                FuncionesUtiles.GuardarCanales("", vw.getContext(), FuncionesUtiles.paissession);
+                            } else {
+                                for (int x = 0; x < subscribedChannels.length(); x++) {
+                                    JSONObject json = subscribedChannels.getJSONObject(x);
+                                    if (json.getString("IdCanal").equals(idbtn.GetIdObj().toString())) {
+                                        subscribedChannels = FuncionesUtiles.remove(x,subscribedChannels);
                                     }
-                                    String Desuscribir = subscribedChannels.toString().replace("[","").replace("]","");
-                                    FuncionesUtiles.GuardarCanales(Desuscribir, vw.getContext(), FuncionesUtiles.paissession);
-                                    FuncionesUtiles.EliminarArchivo(vw.getContext(), "Logo" + idbtn.GetIdObj().toString());
                                 }
-                                FuncionesUtiles.ToastMensaje(vw.getContext(), "Ya no estas suscrito al canal " + idbtn.GetTitle());
-                            } catch (JSONException e1) {
-                                e1.printStackTrace();
+                                String Desuscribir = subscribedChannels.toString().replace("[","").replace("]","");
+                                FuncionesUtiles.GuardarCanales(Desuscribir, vw.getContext(), FuncionesUtiles.paissession);
+                                FuncionesUtiles.EliminarArchivo(vw.getContext(), "Logo" + idbtn.GetIdObj().toString());
                             }
-                            FuncionesUtiles.CargarListaCanales(CanalesActivity.lblMsjCanal);
+                            FuncionesUtiles.ToastMensaje(vw.getContext(), "Ya no estas suscrito al canal " + idbtn.GetTitle());
+                        } catch (JSONException e1) {
+                            e1.printStackTrace();
                         }
-                    } else {
-                        e.printStackTrace();
-                        FuncionesUtiles.ToastMensaje(vw.getContext(), "No se puso cancelar la suscripcion al canal " + idbtn.GetTitle());
-
+                        FuncionesUtiles.CargarListaCanales(CanalesActivity.lblMsjCanal);
                     }
                 }
             });
-            //PushService.unsubscribe(vw.getContext(), idbtn.GetTitle());
-
         }
     };
 
@@ -118,7 +109,7 @@ public class AdapterListaCanales extends BaseAdapter {
         title.setText(item.GetTitle());
 
         TextView subtitle = (TextView) vw.findViewById(R.id.txtSubCanal);
-        subtitle.setText(item.GetSubTitle());
+        subtitle.setText("Pais: " + item.GetSubTitle());
 
         ImageView DelCanal = (ImageView) vw.findViewById(R.id.imgDelCanal);
         DelCanal.setTag(item);
